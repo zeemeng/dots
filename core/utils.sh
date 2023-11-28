@@ -82,7 +82,7 @@ read_selected_packages() {
 	SELECTED_PKGS="$(echo "$SELECTED_PKGS" | sort -u)"
 
 	# DEBUG
-	echo ">$SELECTED_PKGS<";
+	# echo ">$SELECTED_PKGS<";
 }
 
 print_exit_selected_packages() {
@@ -92,7 +92,7 @@ print_exit_selected_packages() {
 	printf "%-20s%-20s%-20s%-20s%-20s\n" "Package Name" "Install" "Uninstall" "Configure" "RM Config"
 	printf "=========================================================================================\n"
 
-	printf "$NO_SUFFIX" | while read PKG; do
+	printf "$NO_SUFFIX\n" | while read PKG; do
 		# "Package Name" column
 		printf "%-20s" "$PKG"
 
