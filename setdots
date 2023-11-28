@@ -1,0 +1,107 @@
+#!/usr/bin/env sh
+
+#--- LOCAL UTILITIES ---#
+# Validate that the program is invoked appropriately and that the source directory could be found
+validate_exec_path() {
+	EXEC_NAME=setdots
+
+	[ ! -f "$EXEC_PATH" ] || [ "$(basename "$EXEC_PATH")" != "$EXEC_NAME" ] &&
+	echo 'ERROR: The location of the `setdots` scripts cannot be determined. Are you sourcing the program via the `.` built-in? Please try executing `setdots` as a command or pass it as the parameter to a POSIX shell.' >&2 &&
+	sleep 2 &&
+	exit 1
+}
+
+select_pkg_repo() {
+	if [ -z "$PKG_REPO" ]; then # PKG_REPO not specified
+		echo "$EXEC_DIR/packages"
+	elif ! { [ -d "$PKG_REPO" ] && [ -x "$PKG_REPO" ]; }; then # PKG_REPO specified, but cannot be read
+		echo "SETDOTS >>> Cannot read from the specified package repository. Defaulting to $EXEC_DIR/packages" >&2
+		echo "$EXEC_DIR/packages"
+	else
+		echo "$PKG_REPO"
+	fi
+}
+
+set_prompt_level() {
+	if [ "$SETDOTS_PROMPT" = 0 ] || [ "$SETDOTS_PROMPT" = 1 ] || [ "$SETDOTS_PROMPT" = 2 ]
+	then printf "$SETDOTS_PROMPT"
+	else printf 1
+	fi
+}
+
+#--- VALIDATE AND SET VARIABLES ---#
+# !! NON-POSIX feature available in BSD, GNU/Linux and MacOS: options -f for command "readlink"
+EXEC_PATH="$(readlink -f "$0")"
+validate_exec_path
+
+# Validate and set PKG_CONFIG_DEST
+[ -d "$PKG_CONFIG_DEST" ] || PKG_CONFIG_DEST="$HOME"
+
+# Validate and set PKG_REPO
+EXEC_DIR="$(dirname "$(readlink -f "$0")")"
+PKG_REPO="$(select_pkg_repo)"
+
+# Source PKG_MANAGER related functions
+. "$EXEC_DIR/core/pkg_manager.sh"
+
+# Export the variable to make it accessible to package specific custom scripts
+export PKG_MANAGER="$(select_default_pkg_manager)"
+
+# Source utilities file
+. "$EXEC_DIR/core/utils.sh"
+
+export SETDOTS_PROMPT="$(set_prompt_level)"
+
+#--- PARSE OPTIONS ---#
+DEFAULT_OPERATION=1 # Install and set up selected packages if no other option, except -f and -m, is specified
+OPTIND=1 # Reset OPTIND to 1 to clear any value potentially set by previous invocations of "getopts", as a safety measure.
+while getopts "vhHiIsuUrlf:m:p:" OPT; do
+	case "$OPT" in
+	v) v=1; DEFAULT_OPERATION=;;
+	h) h=1; DEFAULT_OPERATION=;;
+	H) H=1; DEFAULT_OPERATION=;;
+	i) i=1; DEFAULT_OPERATION=;;
+	I) I=1; DEFAULT_OPERATION=;;
+	s) s=1; DEFAULT_OPERATION=;;
+	u) u=1; DEFAULT_OPERATION=;;
+	U) U=1; DEFAULT_OPERATION=;;
+	r) r=1; DEFAULT_OPERATION=;;
+	l) l=1; DEFAULT_OPERATION=;;
+	f) f="$OPTARG";;
+	m) PKG_MANAGER="$OPTARG";;
+	p) [ "$OPTARG" = '0' ] || [ "$OPTARG" = '1' ] || [ "$OPTARG" = '2' ] &&
+		SETDOTS_PROMPT="$OPTARG" ||
+		printf "SETDOTS >>> Invalid argument to option \"-f\" is detected and ignored\n" >&2;;
+	?) print_exit_usage;;
+	esac
+done
+shift $((OPTIND - 1))
+
+#--- OPERATE ACCORDING TO OPTIONS ---#
+validate_pkg_manager
+
+# Take action and return early if any of the -v -h or -H options is specified
+[ "$v" ] && print_exit_version
+
+[ "$h" ] && print_exit_usage
+
+[ "$H" ] && show_manpage_exit
+
+# Test for validity of option combinations
+{ [ "$i" ] || [ "$I" ] || [ "$s" ]; } && { [ "$u" ] || [ "$U" ] || [ "$r" ]; } && 
+	print_exit_invalid_options_combination
+
+# Read list of selected packages from parameters and repository
+read_selected_packages "$@"
+
+# Operate according to option(s) specified
+[ "$l" ] && print_exit_selected_packages
+
+[ "$DEFAULT_OPERATION" ] || [ "$i" ] || [ "$I" ] && install_selected_packages
+
+[ "$DEFAULT_OPERATION" ] || [ "$s" ] || [ "$I" ] && configure_selected_packages
+
+[ "$u" ] || [ "$U" ] && uninstall_selected_packages
+
+[ "$r" ] || [ "$U" ] && remove_configuration_for_selected_packages
+

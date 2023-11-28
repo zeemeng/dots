@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+DATA_DIR="$PKG_REPO/$PKG/data"
+
+if [ -d "$DATA_DIR" ] && [ -r "$DATA_DIR" ]; then
+	while read CONFIG; do
+		# !! NON-POSIX feature available in BSD, GNU/Linux and MacOS: options -s and -v for command "cp"
+		cp -Rsv "$DATA_DIR/$CONFIG" "$HOME"
+	done <<-EOF
+	$(ls -1A "$DATA_DIR")
+	EOF
+fi
+
