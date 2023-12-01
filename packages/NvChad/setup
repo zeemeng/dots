@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+EXEC_DIR="$(dirname "$(readlink -f "$0")")"
+[ "$XDG_CONFIG_HOME" ] && DEST="$XDG_CONFIG_HOME" || DEST="$HOME/.config"
+
+cp -Rsv "$EXEC_DIR/data" "$DEST/nvim"
+
