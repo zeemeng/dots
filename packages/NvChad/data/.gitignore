@@ -1,10 +1,10 @@
 plugin
-custom
+# custom
 spell
-ftplugin
+# ftplugin
 syntax
 coc-settings.json
 .luarc.json
 lazy-lock.json
-after
+# after
 **/.DS_Store
