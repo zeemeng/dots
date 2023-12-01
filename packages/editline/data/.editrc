@@ -1,0 +1,7 @@
+# This config file is used by the libedit/editline program on MacOS. It is the analog to the readline program on GNU/Linux systems. See 'man editrc' for details.
+
+# Enable vi mode for all programs
+bind -v
+
+# Enable tab completion for Python
+python:bind ^I rl_complete

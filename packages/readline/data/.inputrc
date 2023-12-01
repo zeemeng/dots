@@ -1,0 +1,3 @@
+# Disable bell sound alerts for programs using GNU readline (e.g. bash)
+set bell-style none
+

@@ -1,0 +1,117 @@
+" Comments in Vimscript start with a `"`.
+
+" Vim is based on Vi. Setting `nocompatible` switches from the default
+" Vi-compatibility mode and enables useful Vim functionality. This
+" configuration option turns out not to be necessary for the file named
+" '~/.vimrc', because Vim automatically enters nocompatible mode if that file
+" is present. But we're including it here just in case this config file is
+" loaded some other way (e.g. saved as `foo`, and then Vim started with
+" `vim -u foo`).
+set nocompatible
+
+" Turn on syntax highlighting.
+syntax on
+
+" Disable the default Vim startup message.
+set shortmess+=I
+
+" Show line numbers.
+set number relativenumber
+
+" Always show the status line at the bottom, even if you only have one window open.
+set laststatus=2
+
+" The backspace key has slightly unintuitive behavior by default. For example,
+" by default, you can't backspace before the insertion point set with 'i'.
+" This configuration makes backspace behave more reasonably, in that you can
+" backspace over anything.
+set backspace=indent,eol,start
+
+" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
+" shown in any window) that has unsaved changes. This is to prevent you from "
+" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
+" hidden buffers helpful enough to disable this protection. See `:help hidden`
+" for more information on this.
+"set hidden
+
+" This setting makes search case-insensitive when all characters in the string
+" being searched are lowercase. However, the search becomes case-sensitive if
+" it contains any capital letters. This makes searching more convenient.
+set ignorecase
+set smartcase
+
+" Enable searching as you type, rather than waiting till you press enter.
+set incsearch
+
+" Unbind some useless/annoying default key bindings.
+nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
+
+" Disable audible bell because it's annoying.
+set noerrorbells visualbell t_vb=
+
+" Enable mouse support. You should avoid relying on this too much, but it can
+" sometimes be convenient.
+set mouse+=a
+
+" Try to prevent bad habits like using the arrow keys for movement. This is
+" not the only possible bad habit. For example, holding down the h/j/k/l keys
+" for movement, rather than using more efficient movement commands, is also a
+" bad habit. The former is enforceable through a .vimrc, while we don't know
+" how to prevent the latter.
+" Do this in normal mode...
+nnoremap <Left>  :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up>    :echoe "Use k"<CR>
+nnoremap <Down>  :echoe "Use j"<CR>
+
+" Show currently typed command in the command line
+set showcmd
+
+" Set a proper status line
+set statusline=
+set statusline+=%1*\ [%n]\  " buffer number
+set statusline+=%2*\ %<%F\  " full file path
+set statusline+=%3*%{&filetype!=''?'\ '..&filetype..'\ ':''}  " file type
+set statusline+=%5*\ %{&fenc!=''?&fenc:&enc}\  " encoding
+set stl+=%8*\ %{&ff}\  " file format (dos/unix/etc.)
+set stl+=%7*\ %m%r%w\  " set modified flag, readonly flag, preview window
+set stl+=%7*%= " left right alignment separator
+set stl+=%2*\ row:\ %l/%L\ %-6((%p%%)%)\  " row number/total and %
+set stl+=%3*\ col:\ %-3c\  " current byte/real column number
+
+hi User1 ctermbg=185 ctermfg=16
+hi User2 ctermbg=24 ctermfg=15
+hi User3 ctermbg=6 ctermfg=16
+hi User4 ctermbg=222 ctermfg=16
+hi User5 ctermbg=78 ctermfg=16
+hi User6 ctermbg=160 ctermfg=15
+hi User7 ctermbg=67 ctermfg=16
+hi User8 ctermbg=109 ctermfg=16
+
+" Set appropriate tab settings 
+set tabstop=4 " displayed width of a \t character
+set shiftwidth=4 " width of one level of indentation
+
+" Turn on 'filetype' plugins and 'filetype' indentation settings
+filetype plugin indent on
+
+" Explicitly set the background mode to "dark" when using Tmux (i.e.
+" when the "term" option equals "screen*" or "tmux*"), so that Vim can set an appropriate
+" default colorscheme. Normally the "background" option would be set
+" automatically depending on the value of the "t_RB" option. However Tmux has
+" incomplete support for SGR (Select Graphic Rendition) terminal control sequences, more specifically, it
+" fails to provide support for "querying" OSC (Operating System Command) 11 to obtain the currently
+" applied terminal background color. "terminfo" databases for "screen*" and
+" "tmux*" are also not built-in in Vim, and if these are absent or contain incorrect
+" information, it may also hinder Vim's ability to properly detect the
+" background color of the terminal.
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+	set background=dark
+endif
+
+" Explicitly set bg to dark to deal with many instances of improper bg color
+" detection
+set bg=dark
+
+" Set the default syntax highlighting for "sh" file type to be POSIX compliant
+let g:is_posix = 1
