@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-EXEC_DIR="$(dirname "$(readlink -f "$0")")"
-[ "$XDG_CONFIG_HOME" ] && DEST="$XDG_CONFIG_HOME" || DEST="$HOME/.config"
-
-rm -rf "$DEST/nvim"
+[ "$XDG_CONFIG_HOME" ] && CONFIG="$XDG_CONFIG_HOME/nvim" || CONFIG="$HOME/.config/nvim"
+[ "$XDG_DATA_HOME" ] && DATA="$XDG_DATA_HOME/nvim" || DATA="$HOME/.local/share/nvim"
+[ "$XDG_CACHE_HOME" ] && CACHE="$XDG_CACHE_HOME/nvim" || CACHE="$HOME/.cache/nvim"
+rm -rf "$CONFIG" "$DATA" "$CACHE"
 

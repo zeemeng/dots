@@ -1,7 +1,14 @@
 #!/usr/bin/env sh
 
 EXEC_DIR="$(dirname "$(readlink -f "$0")")"
-[ "$XDG_CONFIG_HOME" ] && DEST="$XDG_CONFIG_HOME" || DEST="$HOME/.config"
+[ "$XDG_CONFIG_HOME" ] && DEST="$XDG_CONFIG_HOME/nvim" || DEST="$HOME/.config/nvim"
 
-cp -Rsv "$EXEC_DIR/data" "$DEST/nvim"
+mkdir -pv "$DEST"
+#cp -Rsv "$EXEC_DIR/data" "$DEST" # Disabled due to bug in MacOS 14.1 with the "-s" option of the "cp" utility
+
+# Source utility functions
+. "$PKG_REPO/script_utils/utils.sh"
+
+ls -1A "$EXEC_DIR/data" | while read -r SRC_ITEM
+	do recursive_ln "$EXEC_DIR/data/$SRC_ITEM" "$DEST"; done 
 
