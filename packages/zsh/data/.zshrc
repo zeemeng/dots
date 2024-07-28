@@ -1,5 +1,5 @@
 # The `emulate` built-in applies shell options to emulate the shell named in the argument, in this case POSIX sh
-emulate sh
+#emulate sh
 
 # Use vi mode
 bindkey -v
@@ -17,7 +17,7 @@ fi
 # Some settings added by "nvm"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
 # Custom function to "cd" and "ls" a given directory
