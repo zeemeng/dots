@@ -1,6 +1,5 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
 
 
 # If not running interactively, don't do anything
@@ -10,74 +9,124 @@ case $- in
 esac
 
 
+#################################
+### History save file control ###
+#################################
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=100
+HISTFILESIZE=200
+
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
 
+#############################
+### Setting shell options ###
+#############################
+
+# Set bash prompts to "vi" mode on start
+set -o vi
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+#############################
+### Prompt customizations ###
+#############################
 
+generate_prompt() {
+	local EC="$?"
 
-# # set variable identifying the chroot you work in (used in the prompt below)
-# if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-#     debian_chroot=$(cat /etc/debian_chroot)
-# fi
+	# Variables to help produce a properly formatted SGR sequence wrapped as a non-printing
+	# Bash prompt sequence. A valid PS1 sequence shall be of a format like such:
+	# 	${ESC_L}${SGR_L}...${SGR_R}${ESC_R}
+	# where '...' represents a colon separated list of SGR parameters.
+	#
+	# See references:
+	# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+	# https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters
+	#
+	# Excerpt:
+	# 38	Set foreground color	Next arguments are 5;n or 2;r;g;b
+	# 38	Set foreground color	Next arguments are 5;n or 2;r;g;b
+	#
+	# For values of `n`, see:
+	# https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+	local ESC_L='\[' # Start of unprintable bash PS1 sequence
+	local ESC_R='\]' # End of unprintable bash PS1 sequence
+	local SGR_L='\033[' # ANSI Control Sequence Introducer (CSI) token
+	local SGR_R='m'
+	local BOLD_FG='1;38;' # SGR params.
+	local RESET='0' # SGR param. Turn off all attributes
 
-# if [ -n "$force_color_prompt" ]; then
-#     if [ -x /usr/bin/tput ] && tput setaf 1 &> /dev/null; then
-# 	# We have color support; assume it's compliant with Ecma-48
-# 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-# 	# a case would tend to support setf rather than setaf.)
-# 	color_prompt=yes
-#     else
-# 	color_prompt=
-#     fi
-# fi
+	local CYAN="${ESC_L}${SGR_L}${BOLD_FG}5;36${SGR_R}${ESC_R}"
+	local BLUE="${ESC_L}${SGR_L}${BOLD_FG}5;33${SGR_R}${ESC_R}"
+	local RED="${ESC_L}${SGR_L}1;31${SGR_R}${ESC_R}"
+	local GREEN="${ESC_L}${SGR_L}1;32${SGR_R}${ESC_R}"
+	local YELLOW="${ESC_L}${SGR_L}38;5;227${SGR_R}${ESC_R}"
+	local RESET="${ESC_L}${SGR_L}0${SGR_R}${ESC_R}"
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
+	# set a fancy prompt (non-color, unless we know we "want" color)
+	case "$TERM" in
+	    xterm-color|*-256color) color_prompt=yes;;
+	esac
+	
+	# # set variable identifying the chroot you work in (used in the prompt below)
+	# if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+	#     debian_chroot=$(cat /etc/debian_chroot)
+	# fi
 
-if [ "$color_prompt" = yes ]; then
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;38;5;36m\]\u@\h\[\033[00m\]:\[\033[01;38;5;33m\]\w\[\033[00m\]\$ '
-    PS1='\[\033[01;38;5;36m\]\u@\h\[\033[00m\]:\[\033[01;38;5;33m\]\w\[\033[00m\]\$ '
-else
-    # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1='\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+	if [ "$color_prompt" = yes ]; then
+	    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;38;5;36m\]\u@\h\[\033[00m\]:\[\033[01;38;5;33m\]\w\[\033[00m\]\$ '
+		PS1="$CYAN\u@\h$RESET:$BLUE\w$RESET"
+	else
+	    # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+	    PS1='\u@\h:\w'
+	fi
+	
+	# If this is an xterm set the title to user@host:dir
+	case "$TERM" in
+	    xterm*|rxvt*)
+	    # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1";;
+	    PS1="\[\e]0;\u@\h: \w\a\]$PS1";;
+	esac
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-    xterm*|rxvt*)
-    # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1";;
-    PS1="\[\e]0;\u@\h: \w\a\]$PS1";;
-esac
+	if command -v git >/dev/null; then
+		GIT_BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
+		GIT_COMMIT=$(git rev-parse --short HEAD 2>/dev/null)
+		if [ "$GIT_BRANCH" ]; then
+			PS1="$PS1 (${YELLOW}${GIT_BRANCH}${RESET})"
+		elif [ "$GIT_COMMIT" ]; then
+			PS1=$(printf "$PS1 ($YELLOW%.4s$RESET)" "$GIT_COMMIT")
+		fi
+	fi
 
+	if [ "$EC" -eq 0 ]; then
+		PS1="${PS1}${GREEN} √${RESET}"
+	else
+		PS1="${PS1}${RED} !${EC}${RESET}"
+	fi
+
+	PS1="$PS1 \$ "
+}
+
+PROMPT_COMMAND="generate_prompt"
+
+#####################
+### Miscellaneous ###
+#####################
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -91,22 +140,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-# alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-
-# Source aliases
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
-fi
-
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -118,22 +151,19 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-# Some settings added by "nvm"
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 
-# Set bash prompts to "vi" mode on start
-set -o vi
+###############################
+### Sourcing external files ###
+###############################
 
+# Source aliases
+[ -f ~/.aliases ] && . ~/.aliases
 
-# Custom function to "cd" and "ls" a given directory
-c () {
-	cd "$@" && printf "> $(pwd)\n\n" && ls -lAhF
-}
-
+# Source custom shell functions
+[ -f ~/.shfuns ] && . ~/.shfuns
 
 # Source some local configuration file if it exists
 if [ -f ~/.bashrc.local ]; then 

@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Custom function to "cd" and "ls" a given directory
+c () {
+	cd "$@" && printf "> $(pwd)\n\n" && ls -lAhF
+}
+
