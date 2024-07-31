@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-if [ command -v git >/dev/null 2>&1 ]; then
+if command -v git >/dev/null; then
 	git clone https://github.com/nvm-sh/nvm.git "$HOME/.nvm"
 	cd "$HOME/.nvm"
 	git checkout master
@@ -8,5 +8,6 @@ if [ command -v git >/dev/null 2>&1 ]; then
 	. nvm.sh
 else
 	printf "ERROR: failed to install 'nvm' for unable to locate utility 'git'." >&2
+	exit 1
 fi
 

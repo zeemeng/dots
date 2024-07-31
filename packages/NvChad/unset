@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-[ "$XDG_CONFIG_HOME" ] && CONFIG="$XDG_CONFIG_HOME/nvim" || CONFIG="$HOME/.config/nvim"
-[ "$XDG_DATA_HOME" ] && DATA="$XDG_DATA_HOME/nvim" || DATA="$HOME/.local/share/nvim"
-[ "$XDG_CACHE_HOME" ] && CACHE="$XDG_CACHE_HOME/nvim" || CACHE="$HOME/.cache/nvim"
-rm -rf "$CONFIG" "$DATA" "$CACHE"
+[ "$XDG_CONFIG_HOME" ] && PKG_CONFIG_DEST="$XDG_CONFIG_HOME/nvim" || PKG_CONFIG_DEST="$HOME/.config/nvim"
+
+"$PKG_REPO/default/unset"
 
