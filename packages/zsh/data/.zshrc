@@ -76,6 +76,14 @@ precmd() {
 }
 
 
+#####################
+### Miscellaneous ###
+#####################
+
+# Set the default editor
+EDITOR='vim'
+
+
 ###############################
 ### Sourcing external files ###
 ###############################

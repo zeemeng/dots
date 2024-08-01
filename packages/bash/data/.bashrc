@@ -124,6 +124,7 @@ generate_prompt() {
 
 PROMPT_COMMAND="generate_prompt"
 
+
 #####################
 ### Miscellaneous ###
 #####################
@@ -153,6 +154,9 @@ fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Set the default editor
+EDITOR='vim'
 
 
 ###############################
