@@ -1,6 +1,8 @@
 alias cdd="cd ~/Desktop"
 alias cl=clear
 alias e=exit
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
 alias g=git
 alias ga="git add"
 alias gaa="git add --all"
@@ -15,7 +17,9 @@ alias gm="git merge"
 alias gp="git push"
 alias gr="git remote"
 alias gra="git remote add"
+alias grep='grep --color=auto'
 alias gs="git status"
+alias ls='ls --color=auto'
 alias ll='ls -lAhF'
 alias l='ls -CF'
 alias m=man
@@ -24,6 +28,7 @@ alias nv=nvim
 alias nr="npm run"
 alias ns="npm start"
 alias p=python3
+alias psh='ps -p $$'
 alias py=python3
 alias q=exit
 alias t=tmux
@@ -32,3 +37,4 @@ alias tk="tmux kill-server"
 alias tl="tmux ls"
 alias v=vim
 alias xo=xdg-open
+

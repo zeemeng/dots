@@ -81,7 +81,11 @@ precmd() {
 #####################
 
 # Set the default editor
-EDITOR='vim'
+export EDITOR='vim'
+
+# Set the output coloring of `ls` on macOS and FreeBSD
+# See man page for macOS `ls` for details
+export LSCOLORS='gxCxExdxFxegedabagacad'
 
 
 ###############################
