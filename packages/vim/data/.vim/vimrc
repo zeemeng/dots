@@ -1,5 +1,6 @@
-" Comments in Vimscript start with a `"`.
-
+"""""""""""""""""""""""
+""" GENERAL OPTIONS """
+"""""""""""""""""""""""
 " Vim is based on Vi. Setting `nocompatible` switches from the default
 " Vi-compatibility mode and enables useful Vim functionality. This
 " configuration option turns out not to be necessary for the file named
@@ -8,9 +9,6 @@
 " loaded some other way (e.g. saved as `foo`, and then Vim started with
 " `vim -u foo`).
 set nocompatible
-
-" Turn on syntax highlighting.
-syntax on
 
 " Disable the default Vim startup message.
 set shortmess+=I
@@ -43,9 +41,6 @@ set smartcase
 " Enable searching as you type, rather than waiting till you press enter.
 set incsearch
 
-" Unbind some useless/annoying default key bindings.
-nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
-
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
@@ -53,6 +48,14 @@ set noerrorbells visualbell t_vb=
 " sometimes be convenient.
 set mouse+=a
 
+" Set appropriate tab settings 
+set tabstop=4 " displayed width of a \t character
+set shiftwidth=4 " width of one level of indentation
+
+
+""""""""""""""""""""""""""""""""""""""
+""" KEY MAPPINGS AND USER COMMANDS """
+""""""""""""""""""""""""""""""""""""""
 " Try to prevent bad habits like using the arrow keys for movement. This is
 " not the only possible bad habit. For example, holding down the h/j/k/l keys
 " for movement, rather than using more efficient movement commands, is also a
@@ -64,6 +67,25 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
 
+" Unbind some useless/annoying default key bindings.
+nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
+
+" Convenient launching of command-line mode
+nnoremap ; :
+
+" Convenient horizontal and vertical splitting
+nnoremap <C-w>> :vsplit<CR><C-w>l
+nnoremap <C-w>< :split<CR><C-w>j
+
+" Ergonomic help page access
+command! -nargs=* Help vertical help <args>
+command! -nargs=* H vertical help <args>
+command! -nargs=* Oh help <args> | only
+
+
+"""""""""""""""
+""" VISUALS """
+"""""""""""""""
 " Show currently typed command in the command line
 set showcmd
 
@@ -88,13 +110,6 @@ hi User6 ctermbg=160 ctermfg=15
 hi User7 ctermbg=67 ctermfg=16
 hi User8 ctermbg=109 ctermfg=16
 
-" Set appropriate tab settings 
-set tabstop=4 " displayed width of a \t character
-set shiftwidth=4 " width of one level of indentation
-
-" Turn on 'filetype' plugins and 'filetype' indentation settings
-filetype plugin indent on
-
 " Explicitly set the background mode to "dark" when using Tmux (i.e.
 " when the "term" option equals "screen*" or "tmux*"), so that Vim can set an appropriate
 " default colorscheme. Normally the "background" option would be set
@@ -113,5 +128,19 @@ endif
 " detection
 set bg=dark
 
+
+""""""""""""""""""""""""""
+""" SYNTAX AND EDITING """
+""""""""""""""""""""""""""
 " Set the default syntax highlighting for "sh" file type to be POSIX compliant
 let g:is_posix = 1
+
+" Turn on syntax highlighting.
+syntax on
+
+" Turn on 'filetype' plugins and 'filetype' indentation settings
+filetype plugin indent on
+
+" Source the fold_settings.vim configurations.
+runtime fold_settings.vim
+

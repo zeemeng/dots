@@ -287,6 +287,22 @@ M.general = {
     [";"] = { ":", "Enter command mode", opts = { nowait = true } },
 
     ["<Leader>0"] = { "$", "Go to end of line" },
+
+    ["<C-w>>"] = {
+      ":vsplit<CR><C-w>l", "Create a vertical split and place the cursor in the new split",
+      opts = {
+        noremap = true,
+        silent = true,
+      },
+    },
+
+    ["<C-w><"] = {
+      ":split<CR><C-w>j", "Create a horizontal split and place the cursor in the new split",
+      opts = {
+        noremap = true,
+        silent = true,
+      },
+    },
   },
 }
 

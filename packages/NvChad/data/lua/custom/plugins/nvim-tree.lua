@@ -2,6 +2,13 @@ return {
   "nvim-tree/nvim-tree.lua",
   lazy = false,
   opts = {
+    filters = {
+      git_ignored = false,
+      custom = {
+        "^\\.git$"
+      },
+    },
+
     git = {
       enable = true,
     },
