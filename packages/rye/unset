@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Standard unset
+"$PKG_REPO/default/unset"
+
+# Remove leftover files
+rm -rf ~/.rye
+

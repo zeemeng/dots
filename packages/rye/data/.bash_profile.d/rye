@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Sourcing a shell script that adds rye to $PATH
+. "$HOME/.rye/env"
+
+# Shell completion
+eval "$(rye self completion)"
+
+# Prevent auto installation
+export RYE_NO_AUTO_INSTALL=1
+

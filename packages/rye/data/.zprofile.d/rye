@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+# Sourcing a shell script that adds rye to $PATH
+. "$HOME/.rye/env"
+
+# Make sure ~/.zfunc is added to fpath, before compinit.
+COMPLETION_PATH="$HOME/.rye/zsh-completion"
+mkdir -p "$COMPLETION_PATH"
+fpath=("$COMPLETION_PATH" $fpath)
+rye self completion -s zsh > "$COMPLETION_PATH"/_rye
+compinit
+
+# Prevent auto installation
+export RYE_NO_AUTO_INSTALL=1
+
