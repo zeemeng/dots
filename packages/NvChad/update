@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+if ! command -v git >/dev/null; then
+	printf "ERROR: failed to update 'NvChad' for unable to locate utility 'git'." >&2
+	exit 1
+fi
+
+# Pull commits from the upstream NvChad repo's "v2.0" branch into the "packages/NvChad/data" subtree.
+# For documentation on `git subtree` usage, see:
+# https://github.com/git/git/blob/master/contrib/subtree/git-subtree.txt
+git subtree --squash -P 'packages/NvChad/data' pull 'https://github.com/NvChad/NvChad.git' 'refs/heads/v2.0'
+
