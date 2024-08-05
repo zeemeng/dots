@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+RYE_TOOLCHAIN="$(pyenv which python3.12)" "$PKG_REPO/packages/$PKG/installer.sh"
+

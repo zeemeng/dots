@@ -11,7 +11,6 @@ export PYENV_ROOT='${PKG_CONFIG_DEST}/.pyenv'
 # https://github.com/pyenv/pyenv/tree/master/plugins/python-build
 export PYTHON_CONFIGURE_OPTS='--enable-optimizations --with-lto'
 export PYTHON_CFLAGS='-march=native -mtune=native'
-
 export PYTHON_BUILD_SKIP_MIRROR=1
 "
 SHELL_INIT_2='
