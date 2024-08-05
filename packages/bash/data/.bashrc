@@ -160,11 +160,10 @@ fi
 ### Sourcing external files ###
 ###############################
 
-# Source aliases
+# Source shell-commons
 [ -f ~/.aliases ] && . ~/.aliases
-
-# Source custom shell functions
 [ -f ~/.shfuns ] && . ~/.shfuns
+[ -f ~/.env ] && . ~/.env
 
 # Source some local configuration file if it exists
 if [ -f ~/.bashrc.local ]; then 

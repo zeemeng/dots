@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+
+# Custom function to "cd" and "ls" a given directory
+c () {
+	cd "$@" && printf "> $(pwd)\n\n" && ls -lAhF
+}
+
+# Takes a single argument representing a pathname. Creates the specified pathname and `cd` into it.
+mcd () {
+	mkdir -p "$1" && cd "$1"
+}
+
+# `cd` into the parent git root directory
+cgr () {
+	cd "$(git rev-parse --show-toplevel)"
+}
+
+# List each segment of the PATH env var, one per line.
+lp () {
+	echo "$PATH" | tr ':' '\n'
+}
+
+# List each segment of the expanded argument as a colon-separated list, one per line.
+lvar () {
+	echo "$@" | tr ':' '\n'
+}
+
+# Wrapper function for suppressing stderr
+noerr() {
+	"$@" 2>/dev/null
+}
+
+# Wrapper function for suppressing stdout and stderr
+noout() {
+	"$@" >/dev/null 2>&1
+}
+

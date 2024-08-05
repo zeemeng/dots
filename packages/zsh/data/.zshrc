@@ -76,27 +76,14 @@ precmd() {
 }
 
 
-#####################
-### Miscellaneous ###
-#####################
-
-# Set the default editor
-export EDITOR='vim'
-
-# Set the output coloring of `ls` on macOS and FreeBSD
-# See man page for macOS `ls` for details
-export LSCOLORS='gxCxExdxFxegedabagacad'
-
-
 ###############################
 ### Sourcing external files ###
 ###############################
 
-# Source aliases
+# Source shell-commons
 [ -f ~/.aliases ] && . ~/.aliases
-
-# Source custom shell functions
 [ -f ~/.shfuns ] && . ~/.shfuns
+[ -f ~/.env ] && . ~/.env
 
 # Source some local configuration file if it exists
 if [ -f ~/.zshrc.local ]; then 
