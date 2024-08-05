@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+rm -f "${PKG_CONFIG_DEST}/.bash_profile.d/pyenv"
+rm -f "${PKG_CONFIG_DEST}/.zprofile.d/pyenv"
+
+if [ -z "$(ls -A "${PKG_CONFIG_DEST}/.bash_profile.d")" ]; then rmdir "${PKG_CONFIG_DEST}/.bash_profile.d"; fi
+if [ -z "$(ls -A "${PKG_CONFIG_DEST}/.zprofile.d")" ]; then rmdir "${PKG_CONFIG_DEST}/.bash_profile.d"; fi
+

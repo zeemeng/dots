@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+if ! command -v git >/dev/null; then
+	printf "ERROR: failed to install '$PKG' for unable to locate utility 'git'." >&2
+	exit 1
+fi
+
+PYENV_ROOT="${PKG_CONFIG_DEST}/.pyenv"
+rm -rf "$PYENV_ROOT"
+git clone 'https://github.com/pyenv/pyenv.git' "$PYENV_ROOT"
+
+# Add official pyenv plugins
+git clone 'https://github.com/pyenv/pyenv-doctor.git'  "$PYENV_ROOT/plugins/pyenv-doctor"
+git clone 'https://github.com/pyenv/pyenv-update.git'  "$PYENV_ROOT/plugins/pyenv-update"
+git clone 'https://github.com/pyenv/pyenv-virtualenv.git'  "$PYENV_ROOT/plugins/pyenv-virtualenv"
+
+# Optionally, try to compile a dynamic Bash extension to speed up Pyenv. Don't worry if it fails; Pyenv will still work normally
+cd "$PYENV_ROOT" && src/configure && make -C src
+
