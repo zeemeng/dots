@@ -1,0 +1,14 @@
+CursorColour=255,255,255
+ThemeFile=flat-ui-custom.minttyrc
+Term=xterm-256color
+FontHeight=14
+Font=Cascadia Code
+CursorType=block
+CursorBlinks=no
+
+Locale=
+Charset=
+Transparency=off
+OpaqueWhenFocused=no
+Scrollbar=none
+

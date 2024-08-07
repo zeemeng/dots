@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+case "$(uname -s)" in
+	MINGW64*) "$PKG_REPO/default/setup";;
+	*) printf "SETDOTS >>> Package 'mintty' is available for Cygwin and Msys2 on Windows only. Skipping setup...\n" >&2
+esac
+
