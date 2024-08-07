@@ -83,23 +83,17 @@ generate_prompt() {
 	    xterm-color|*-256color) color_prompt=yes;;
 	esac
 	
-	# # set variable identifying the chroot you work in (used in the prompt below)
-	# if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-	#     debian_chroot=$(cat /etc/debian_chroot)
-	# fi
-
 	if [ "$color_prompt" = yes ]; then
-	    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;38;5;36m\]\u@\h\[\033[00m\]:\[\033[01;38;5;33m\]\w\[\033[00m\]\$ '
+	    # PS1='\[\033[01;38;5;36m\]\u@\h\[\033[00m\]:\[\033[01;38;5;33m\]\w\[\033[00m\]\$ '
 		PS1="$CYAN\u@\h$RESET:$BLUE\w$RESET"
 	else
-	    # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+	    # PS1='\u@\h:\w\$ '
 	    PS1='\u@\h:\w'
 	fi
 	
 	# If this is an xterm set the title to user@host:dir
 	case "$TERM" in
 	    xterm*|rxvt*)
-	    # PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1";;
 	    PS1="\[\e]0;\u@\h: \w\a\]$PS1";;
 	esac
 
