@@ -1,4 +1,5 @@
-alias cdd="cd ~/Desktop"
+alias cdd="cd ~/Desktop && ls -lAh"
+alias cds="cd ~/src && ls -lAh"
 alias cl=clear
 alias d=docker
 alias dps='docker ps -a'
