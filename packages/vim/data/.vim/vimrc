@@ -67,6 +67,12 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
 
+" Convenient window resizing
+nnoremap + :resize +1<CR>
+nnoremap _ :resize -1<CR>
+nnoremap ( :vertical resize +1<CR>
+nnoremap ) :vertical resize -1<CR>
+
 " Unbind some useless/annoying default key bindings.
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 

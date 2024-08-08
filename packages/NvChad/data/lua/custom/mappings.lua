@@ -303,6 +303,38 @@ M.general = {
         silent = true,
       },
     },
+
+    ["+"] = {
+      ":resize +1<CR>", "Increase window height by 1 line",
+      opts = {
+        noremap = true,
+        silent = true,
+      },
+    },
+
+    ["_"] = {
+      ":resize -1<CR>", "Decrease window height by 1 line",
+      opts = {
+        noremap = true,
+        silent = true,
+      },
+    },
+
+    ["("] = {
+      ":vertical resize +1<CR>", "Increase window width by 1 line",
+      opts = {
+        noremap = true,
+        silent = true,
+      },
+    },
+
+    [")"] = {
+      ":vertical resize -1<CR>", "Decrease window width by 1 line",
+      opts = {
+        noremap = true,
+        silent = true,
+      },
+    },
   },
 }
 
