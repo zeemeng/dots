@@ -6,6 +6,9 @@ return {
       "lua-language-server",
       "stylua",
 
+      -- Python stuff
+      "pyright",
+
       -- web dev stuff
       "css-lsp",
       "html-lsp",

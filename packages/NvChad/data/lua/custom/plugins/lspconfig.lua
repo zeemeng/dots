@@ -10,7 +10,7 @@ return {
     local lspconfig = require "lspconfig"
 
     -- if you just want default config for the servers then put them in a table
-    local servers = { "html", "cssls", "tsserver", "clangd", "emmet_ls" }
+    local servers = { "html", "cssls", "tsserver", "clangd", "emmet_ls", "pyright" }
 
     for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup {
@@ -18,6 +18,8 @@ return {
         capabilities = default_configs.capabilities,
       }
     end
+
+    vim.diagnostic.config({virtual_text = { severity = { min = "WARN" }}})
 
     -- to initialize a language server with custom configs, call its `setup` method separately
     -- lspconfig.pyright.setup { blabla }
