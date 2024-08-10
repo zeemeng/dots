@@ -18,6 +18,18 @@ M.disabled = {
     ["<A-i>"] = "",
     ["<A-h>"] = "",
     ["<A-v>"] = "",
+    ["<leader>h"] = {
+      function()
+        require("nvterm.terminal").new "horizontal"
+      end,
+      "New horizontal term",
+    },
+    ["<leader>v"] = {
+      function()
+        require("nvterm.terminal").new "vertical"
+      end,
+      "New vertical term",
+    },
 
     -- DISABLE default NvChad lsp mappings
     ["<leader>ls"] = {
@@ -123,7 +135,21 @@ M.nvterm = {
         require("nvterm.terminal").toggle "vertical"
       end,
       "Toggle vertical term",
-    }
+    },
+
+    ["<leader>H"] = {
+      function()
+        require("nvterm.terminal").new "horizontal"
+      end,
+      "New horizontal term",
+    },
+
+    ["<leader>V"] = {
+      function()
+        require("nvterm.terminal").new "vertical"
+      end,
+      "New vertical term",
+    },
   },
 }
 
@@ -274,9 +300,9 @@ M.gitsigns = {
 
 M.telescope = {
   n = {
-    ["<leader>tt"] = { "<cmd> Telescope themes <CR>", "Nvchad theme picker" },
+    -- ["<leader>tt"] = { "<cmd> Telescope themes <CR>", "Nvchad theme picker" },
 
-    ["<leader>th"] = { "<cmd> Telescope highlights <CR>", "Look up highlight groups" },
+    ["<leader>hl"] = { "<cmd> Telescope highlights <CR>", "Look up highlight groups" },
 
     ["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" },
   }

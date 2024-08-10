@@ -6,15 +6,13 @@ M.open_nvim_tree = function(data)
   -- buffer is a real file on the disk
   local real_file = vim.fn.filereadable(data.file) == 1
 
-  -- buffer is a [No Name]
-  local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
-
-  if not real_file and not no_name then
-    return
+  if real_file then
+    -- open the tree, find the file but don't focus it
+    require("nvim-tree.api").tree.toggle({ focus = false, find_file = true, })
   end
 
-  -- open the tree, find the file but don't focus it
-  require("nvim-tree.api").tree.toggle({ focus = false, find_file = true, })
+  -- buffer is a [No Name]
+  -- local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
 end
 
 -- Toggle markers for whitespaces and EOL

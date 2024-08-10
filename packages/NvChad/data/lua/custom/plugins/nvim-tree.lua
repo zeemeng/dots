@@ -1,6 +1,6 @@
 return {
   "nvim-tree/nvim-tree.lua",
-  lazy = false,
+  lazy = true,
   opts = {
     filters = {
       git_ignored = false,
