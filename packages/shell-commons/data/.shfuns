@@ -35,3 +35,9 @@ noout() {
 	"$@" >/dev/null 2>&1
 }
 
+# Invoke neovim using the configuration profile specified by "$1"
+nva() (
+	APPNAME="$1" && shift
+	NVIM_APPNAME="$APPNAME" nvim "$@"
+)
+
