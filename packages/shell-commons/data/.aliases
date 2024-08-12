@@ -2,11 +2,12 @@ alias cdd="cd ~/Desktop && ls -lAh"
 alias cds="cd ~/src && ls -lAh"
 alias cl=clear
 alias d=docker
+alias dots="cd ~/src/dots && nv"
 alias dps='docker ps -a'
 alias dr='docker run'
 alias dri='docker run -it'
 alias dsys='docker system'
-alias e=exit
+alias e=echo
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias g=git

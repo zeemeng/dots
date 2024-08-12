@@ -8,6 +8,8 @@ M.ui = {
   theme = "nightfox",
   theme_toggle = { "nightfox", "one_light" },
 
+  lsp_semantic_tokens = true,
+
   hl_override = highlights.override,
   hl_add = highlights.add,
 

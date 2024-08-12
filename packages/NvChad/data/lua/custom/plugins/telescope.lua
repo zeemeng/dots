@@ -32,6 +32,11 @@ return {
     defaults = {
       mappings = {
         i = {
+          -- Mapping <C-m> interferes with <CR> action. Bug report filed at upstream.
+          -- https://github.com/nvim-telescope/telescope.nvim/issues/3246
+          -- Above issue closed. Problem due to limitation of terminals/term emulators.
+          -- Many interpret <C-m> and <CR> as the same keyboard sequence.
+
           -- Scroll the preview window
           ["<C-j>"] = actions.preview_scrolling_down,
           ["<C-k>"] = actions.preview_scrolling_up,
@@ -42,11 +47,9 @@ return {
           ["<Tab>"] = actions.move_selection_worse,
           ["<S-Tab>"] = actions.move_selection_better,
           ["<C-s>"] = actions.toggle_selection,
-          ["<C-q>"] = send_to_qflist_and_open,
 
-          -- Mapping <C-m> interferes with <CR> action. Bug report filed at upstream.
-          -- https://github.com/nvim-telescope/telescope.nvim/issues/3246
-          -- ["<C-m>"] = actions.toggle_selection,
+          -- Operations on selection
+          ["<C-q>"] = send_to_qflist_and_open,
           ["<CR>"] = select_one_or_multi,
         },
 
@@ -62,12 +65,10 @@ return {
           ["<S-Tab>"] = actions.move_selection_better,
           ["<C-s>"] = actions.toggle_selection,
           ["s"] = actions.toggle_selection,
+
+          -- Operations on selection
           ["<C-q>"] = send_to_qflist_and_open,
           ["q"] = send_to_qflist_and_open,
-
-          -- Mapping <C-m> interferes with <CR> action. Bug report filed at upstream.
-          -- https://github.com/nvim-telescope/telescope.nvim/issues/3246
-          -- ["<C-m>"] = actions.toggle_selection,
           ["<CR>"] = select_one_or_multi,
         },
       },
@@ -84,6 +85,24 @@ return {
           },
         },
       },
+      git_status = {
+        mappings = {
+        i = {
+          ["<Tab>"] = actions.move_selection_worse,
+          ["<S-Tab>"] = actions.move_selection_better,
+
+          ["<C-s>"] = actions.git_staging_toggle,
+        },
+
+        n = {
+          ["<Tab>"] = actions.move_selection_worse,
+          ["<S-Tab>"] = actions.move_selection_better,
+
+          ["<C-s>"] = actions.git_staging_toggle,
+          ["s"] = actions.git_staging_toggle,
+        },
+      }
+      }
     },
   },
 }

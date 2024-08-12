@@ -169,7 +169,7 @@ M.lspconfig = {
       "LSP rename symbol",
     },
 
-    ["<leader>fd"] = {
+    ["<leader>sd"] = {
       function()
         vim.diagnostic.open_float { border = "rounded" }
       end,
