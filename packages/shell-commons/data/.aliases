@@ -31,6 +31,7 @@ alias grema='git remote add -f'
 alias gremao='git remote add -f origin'
 alias grep='grep --color=auto'
 alias gs="git status"
+alias igrep='grep -i --color=auto'
 alias ls='ls --color=auto'
 alias ll='ls -lAhF'
 alias l='ls -CF'
