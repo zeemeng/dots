@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+Remaps CAPS LOCK key (0x39) to ESC key (0x29) and vice versa using standard macOS utility `hidutil`
+See refs:
+https://stackoverflow.com/questions/127591/using-caps-lock-as-esc-in-mac-os-x#46460200
+https://developer.apple.com/library/archive/technotes/tn2450/_index.html
+man page for launchctl(1), launchd.plist(5)
+-->
+<plist version="1.0">
+  <dict>
+      <key>Label</key>
+      <string>user.hidutil.userkeymapping</string>
+      <key>ProgramArguments</key>
+      <array>
+        <string>/usr/bin/hidutil</string>
+        <string>property</string>
+        <string>--set</string>
+        <string>
+        {
+          "UserKeyMapping": [
+            {
+              "HIDKeyboardModifierMappingSrc":0x700000039,
+              "HIDKeyboardModifierMappingDst":0x700000029
+            },
+            {
+              "HIDKeyboardModifierMappingSrc":0x700000029,
+              "HIDKeyboardModifierMappingDst":0x700000039
+            }
+          ]
+        }
+        </string>
+      </array>
+      <key>RunAtLoad</key>
+      <true/>
+  </dict>
+</plist>
+

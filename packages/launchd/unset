@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+launchctl unload "$PKG_CONFIG_DEST/Library/LaunchAgents/user.hidutil.userkeymapping.plist"
+
