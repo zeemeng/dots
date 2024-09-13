@@ -25,6 +25,15 @@ HISTFILESIZE=200
 shopt -s histappend
 
 
+############################
+### Source shell-commons ###
+############################
+
+if [ -f ~/.shrc ]; then
+	. ~/.shrc
+fi
+
+
 #############################
 ### Setting shell options ###
 #############################
@@ -123,13 +132,6 @@ PROMPT_COMMAND="generate_prompt"
 ### Miscellaneous ###
 #####################
 
-# Set the default editor
-export EDITOR='vim'
-
-# Set the output coloring of `ls` on macOS and FreeBSD
-# See man page for macOS `ls` for details
-export LSCOLORS='gxCxExdxFxegedabagacad'
-
 # If GNU coreutils' `dircolors` is available, use it to set env var LS_COLORS
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -154,10 +156,10 @@ fi
 ### Sourcing external files ###
 ###############################
 
-# Source shell-commons
-[ -f ~/.aliases ] && . ~/.aliases
-[ -f ~/.shfuns ] && . ~/.shfuns
-[ -f ~/.env ] && . ~/.env
+# Source drop-in files
+[ -d ~/.bashrc.d ] && for conf in ~/.bashrc.d/*; do
+	. "$conf"
+done
 
 # Source some local configuration file if it exists
 if [ -f ~/.bashrc.local ]; then 

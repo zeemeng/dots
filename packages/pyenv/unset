@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-rm -f "${PKG_CONFIG_DEST}/.common_profile.d/pyenv"
-if [ -z "$(ls -A "${PKG_CONFIG_DEST}/.common_profile.d")" ]; then rmdir "${PKG_CONFIG_DEST}/.common_profile.d"; fi
+rm -f "${PKG_CONFIG_DEST}/.shrc.d/pyenv"
+if [ -z "$(ls -A "${PKG_CONFIG_DEST}/.shrc.d")" ]; then rmdir "${PKG_CONFIG_DEST}/.shrc.d"; fi
 

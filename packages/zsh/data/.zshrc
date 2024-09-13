@@ -1,3 +1,19 @@
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+    *) return;;
+esac
+
+
+############################
+### Source shell-commons ###
+############################
+
+if [ -f ~/.shrc ]; then
+	. ~/.shrc
+fi
+
+
 ################################
 ### Setting Zsh key bindings ###
 ################################
@@ -73,10 +89,10 @@ precmd() {
 ### Sourcing external files ###
 ###############################
 
-# Source shell-commons
-[ -f ~/.aliases ] && . ~/.aliases
-[ -f ~/.shfuns ] && . ~/.shfuns
-[ -f ~/.env ] && . ~/.env
+# Source drop-in files
+[ -d ~/.zshrc.d ] && for conf in ~/.zshrc.d/*; do
+	. "$conf"
+done
 
 # Source some local configuration file if it exists
 if [ -f ~/.zshrc.local ]; then 

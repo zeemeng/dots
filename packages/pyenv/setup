@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 
-mkdir -p "${PKG_CONFIG_DEST}/.common_profile.d"
+mkdir -p "${PKG_CONFIG_DEST}/.shrc.d"
 
 printf "
 export PYENV_ROOT='${PKG_CONFIG_DEST}/.pyenv'
@@ -11,10 +11,10 @@ export PYENV_ROOT='${PKG_CONFIG_DEST}/.pyenv'
 export PYTHON_CONFIGURE_OPTS='--enable-optimizations --with-lto'
 export PYTHON_CFLAGS='-march=native -mtune=native'
 export PYTHON_BUILD_SKIP_MIRROR=1
-" > "${PKG_CONFIG_DEST}/.common_profile.d/pyenv"
+" > "${PKG_CONFIG_DEST}/.shrc.d/pyenv"
 
 printf '
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-' >> "${PKG_CONFIG_DEST}/.common_profile.d/pyenv"
+' >> "${PKG_CONFIG_DEST}/.shrc.d/pyenv"
 

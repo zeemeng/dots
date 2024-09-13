@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+# Source aliases
+[ -f ~/.alias ] && . ~/.alias
+
+# Source POSIX functions
+[ -f ~/.shfn ] && . ~/.shfn
+
+# Set the default editor
+export EDITOR='vim'
+
+# Set the output coloring of `ls` on macOS and FreeBSD
+# See man page for macOS `ls` for details
+export LSCOLORS='gxCxExdxFxegedabagacad'
+
+# Source drop-in files
+[ -d ~/.shrc.d ] && for conf in ~/.shrc.d/*; do
+	. "$conf"
+done
+
+# Source some local configuration file if it exists
+if [ -f ~/.shrc.local ]; then
+	. ~/.shrc.local
+fi
