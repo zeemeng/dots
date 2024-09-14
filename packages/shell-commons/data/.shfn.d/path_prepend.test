@@ -1,0 +1,61 @@
+# vim: ft=sh
+
+. "$(dirname "$0")/$(basename "$0" .test)"
+. "$(dirname "$0")/shfn_test"
+
+test_setup () {
+	PATH=''
+	path_prepend abc && echo $PATH
+}
+shfn_test -n 'Empty PATH' -f test_setup -a 'abc'
+
+test_setup () {
+	PATH=':'
+	path_prepend abc && echo $PATH
+}
+echo pre
+shfn_test -n 'Single colon' -f test_setup -a 'abc:'
+echo post
+
+test_setup () {
+	PATH='::'
+	path_prepend abc && echo $PATH
+}
+shfn_test -n 'Double colon' -f test_setup -a 'abc:'
+
+test_setup () {
+	PATH='111:222::333'
+	path_prepend '/pre/pended' && echo $PATH
+}
+shfn_test -n 'Double colon in middle' -f test_setup -a '/pre/pended:111:222::333'
+
+test_setup () {
+	PATH=':111:222::333:'
+	path_prepend '/pre/pended' && echo $PATH
+}
+shfn_test -n 'Double colon in middle + start and end with colon' -f test_setup -a '/pre/pended::111:222::333:'
+
+test_setup () {
+	PATH='111:222:/pre/pended:333'
+	path_prepend '/pre/pended' && echo $PATH
+}
+shfn_test -n 'Target prefix in middle' -f test_setup -a '/pre/pended:111:222:333'
+
+test_setup () {
+	PATH=':111:222:/pre/pended:333:'
+	path_prepend '/pre/pended' && echo $PATH
+}
+shfn_test -n 'Target prefix in middle + start and end with colon' -f test_setup -a '/pre/pended::111:222:333:'
+
+test_setup () {
+	PATH=''
+	path_prepend '111:222' && echo $PATH
+}
+shfn_test -n 'Invalid target prefix containing colon' -f test_setup -e1
+
+test_setup () {
+	PATH=''
+	path_prepend && echo $PATH
+}
+shfn_test -n 'Missing target prefix' -f test_setup -e1
+

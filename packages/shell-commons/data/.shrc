@@ -1,11 +1,5 @@
 #!/usr/bin/env sh
 
-# Source aliases
-[ -f ~/.alias ] && . ~/.alias
-
-# Source POSIX functions
-[ -f ~/.shfn ] && . ~/.shfn
-
 # Set the default editor
 export EDITOR='vim'
 
@@ -13,12 +7,38 @@ export EDITOR='vim'
 # See man page for macOS `ls` for details
 export LSCOLORS='gxCxExdxFxegedabagacad'
 
+# ANSI SGR sequences to set terminal colors
+# https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters
+export CLI_RED='\033[0;31m'
+export CLI_GREEN='\033[0;32m'
+export CLI_YELLOW='\033[0;33m'
+export CLI_BLUE='\033[0;36m'
+export CLI_BOLD_RED='\033[1;31m'
+export CLI_BOLD_GREEN='\033[1;32m'
+export CLI_BOLD_YELLOW='\033[1;33m'
+export CLI_BOLD_BLUE='\033[1;36m'
+export CLI_BOLD='\033[1m' # No Color
+export CLI_NC='\033[0m' # No Color
+
+# Source aliases
+if [ -f ~/.alias ]; then
+	. ~/.alias
+fi
+
+# Source POSIX functions
+if [ -f ~/.shfn ]; then
+	. ~/.shfn
+fi
+
 # Source drop-in files
-[ -d ~/.shrc.d ] && for conf in ~/.shrc.d/*; do
-	. "$conf"
-done
+if [ -d ~/.shrc.d ]; then
+	for conf in ~/.shrc.d/*; do
+		. "$conf"
+	done
+fi
 
 # Source some local configuration file if it exists
 if [ -f ~/.shrc.local ]; then
 	. ~/.shrc.local
 fi
+

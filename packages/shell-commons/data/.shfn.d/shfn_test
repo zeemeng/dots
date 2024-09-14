@@ -1,0 +1,75 @@
+# vim: ft=sh
+
+shfn_test () {
+	OPTIND=1 # Reset OPTIND to 1 to clear any value potentially set by previous invocations of "getopts", as a safety measure.
+	while getopts "n:f:a:e:" OPT; do
+		case "$OPT" in
+			n) test_name="$OPTARG";;
+			f) cmd_name="$OPTARG";;
+			a) assert_stdout="$OPTARG";;
+			e) assert_status="$OPTARG";;
+			?) cat <<- EOF
+			USAGE:
+			shfn_test -n test_name -f cmd_name [-a stdout_assertion] [-e x] [cmd_args ...]
+
+			EOF
+			return 1
+		esac
+	done
+	shift $((OPTIND - 1))
+
+	if [ -z "$test_name" ]; then
+		printf "shfn_test: Usage error. Option '-n' requires an argument that is a non-empty string as the test name.\n" >&2
+		return 1
+	fi
+
+	if [ -z "$cmd_name" ]; then
+		printf "shfn_test: Usage error. Option '-f' requires an argument that is the name of a valid command.\n" >&2
+		return 1
+	fi
+
+	if ! command -v "$cmd_name" >/dev/null; then
+		printf "shfn_test: Usage error. Target command '$cmd_name' cannot be found.\n" >&2
+		return 1
+	fi
+
+	if [ -z "$assert_status" ]; then
+		assert_status=0
+	elif ! { [ "$assert_status" -ge 0 ] || [ "$assert_status" -le 255 ]; } 2>/dev/null; then
+		printf "shfn_test: Usage error. Option '-e' requires an argument with integer value between 0 and 255 as the asserted exit status.\n" >&2
+		return 1
+	fi
+
+	result_stdout="$("$cmd_name" "$@" 2>/dev/null)"
+	result_status="$?"
+
+	printf "${CLI_BLUE}TEST:${CLI_NC} $test_name\n"
+
+	if [ "$result_stdout" = "$assert_stdout" ] && [ "$result_status" = "$assert_status" ]; then
+		printf "${CLI_BLUE}STATE:${CLI_NC} ${CLI_BOLD_GREEN}PASS${CLI_NC}\n"
+	else
+		printf "${CLI_BLUE}STATE:${CLI_NC} ${CLI_BOLD_RED}FAIL${CLI_NC}\n"
+	fi
+
+	printf "${CLI_BLUE}DETAIL:${CLI_NC}\n\t${CLI_BLUE}Full command:${CLI_NC} $cmd_name $@\n"
+
+	if [ "$result_status" != "$assert_status" ]; then
+		printf "\t${CLI_BLUE}Asserted status:${CLI_NC} $assert_status\n"
+		printf "\t${CLI_YELLOW}Got:${CLI_NC} $result_status\n"
+	fi
+
+	if [ "$result_stdout" != "$assert_stdout" ]; then
+		printf "\t${CLI_BLUE}Asserted stdout:${CLI_NC}\n$assert_stdout\n"
+		printf "\t${CLI_YELLOW}Got:${CLI_NC}\n$result_stdout\n"
+	fi
+
+	printf '\n'
+	if [ "$result_stdout" = "$assert_stdout" ] && [ "$result_status" = "$assert_status" ]; then
+		unset OPT OPTARG test_name cmd_name assert_stdout assert_status result_stdout result_status
+		return 0
+	else
+		unset OPT OPTARG test_name cmd_name assert_stdout assert_status result_stdout result_status
+		return 1
+	fi
+}
+

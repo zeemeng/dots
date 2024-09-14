@@ -41,3 +41,13 @@ nva() (
 	NVIM_APPNAME="$APPNAME" nvim "$@"
 )
 
+# Source drop-in files
+if [ -d ~/.shfn.d ]; then
+	for func_def in ~/.shfn.d/*; do
+		case "$func_def" in
+			*.test) ;;
+			*) . "$func_def" ;;
+		esac
+	done
+fi
+

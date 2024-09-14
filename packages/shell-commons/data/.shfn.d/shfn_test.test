@@ -1,0 +1,6 @@
+# vim: ft=sh
+
+. "$(dirname "$0")/$(basename "$0" .test)"
+
+shfn_test -n'first test' -fls -e10 -- ~/src
+
