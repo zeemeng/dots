@@ -6,9 +6,11 @@ if [ -f ~/.shprofile ]; then
 fi
 
 # Source bash-specific drop-ins 
-[ -d ~/.bash_profile.d ] && for conf in ~/.bash_profile.d/*; do
-	. "$conf"
-done
+if [ -d ~/.bash_profile.d ]; then
+	for conf in ~/.bash_profile.d/*; do
+		. "$conf"
+	done
+fi
 
 # Source some local configuration file if it exists
 if [ -f ~/.bash_profile.local ]; then

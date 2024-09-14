@@ -1,8 +1,11 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc) for examples
 
+#################################################
+### Guard for interactive-only shell settings ###
+#################################################
 
-# If not running interactively, don't do anything
+# If not running interactively, return early
 case $- in
     *i*) ;;
     *) return;;
@@ -91,7 +94,7 @@ generate_prompt() {
 	case "$TERM" in
 	    xterm-color|*-256color) color_prompt=yes;;
 	esac
-	
+
 	if [ "$color_prompt" = yes ]; then
 	    # PS1='\[\033[01;38;5;36m\]\u@\h\[\033[00m\]:\[\033[01;38;5;33m\]\w\[\033[00m\]\$ '
 		PS1="$CYAN\u@\h$RESET:$BLUE\w$RESET"
@@ -99,7 +102,7 @@ generate_prompt() {
 	    # PS1='\u@\h:\w\$ '
 	    PS1='\u@\h:\w'
 	fi
-	
+
 	# If this is an xterm set the title to user@host:dir
 	case "$TERM" in
 	    xterm*|rxvt*)
@@ -149,7 +152,9 @@ if ! shopt -oq posix; then
 fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+if [ -x /usr/bin/lesspipe ]; then
+	eval "$(SHELL=/bin/sh lesspipe)"
+fi
 
 
 ###############################
@@ -157,12 +162,14 @@ fi
 ###############################
 
 # Source drop-in files
-[ -d ~/.bashrc.d ] && for conf in ~/.bashrc.d/*; do
-	. "$conf"
-done
+if [ -d ~/.bashrc.d ]; then
+	for conf in ~/.bashrc.d/*; do
+		. "$conf"
+	done
+fi
 
 # Source some local configuration file if it exists
-if [ -f ~/.bashrc.local ]; then 
+if [ -f ~/.bashrc.local ]; then
 	. ~/.bashrc.local
 fi
 

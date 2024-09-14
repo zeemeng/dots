@@ -1,22 +1,33 @@
-# If not running interactively, don't do anything
+#################################################
+### Guard for interactive-only shell settings ###
+#################################################
+
+# If not running interactively, return early
 case $- in
     *i*) ;;
     *) return;;
 esac
 
 
+#############################
+### Set Zsh shell options ###
+#############################
+
+set -o POSIX_JOBS
+set -o POSIX_ALIASES
+set -o POSIX_ARGZERO
+set -o POSIX_BUILTINS # Especially since the default behaviour of Zsh's `getopts` differs from POSIX
+set -o POSIX_TRAPS
+# set -o SH_GLOB # Disabled since Zsh feature might be useful interactively
+# set -o SH_FILE_EXPANSION # Disabled since Zsh feature might be useful interactively
+# set -o SH_NULLCMD # Disabled since Zsh feature might be useful interactively
+set -o SH_OPTION_LETTERS
+set -o SH_WORD_SPLIT # Very important assumption. Will be required for proper behaviour of certain custom shell functions
+
+
 ############################
-### Source shell-commons ###
+### Set Zsh key bindings ###
 ############################
-
-if [ -f ~/.shrc ]; then
-	. ~/.shrc
-fi
-
-
-################################
-### Setting Zsh key bindings ###
-################################
 
 # Use vi mode
 bindkey -v
@@ -30,7 +41,7 @@ bindkey "^R" history-incremental-pattern-search-backward
 #############################
 
 # Zsh special hook function that is executed before each prompt.
-# For documentation on Zsh hook functions, prompt customization sequences, colour 
+# For documentation on Zsh hook functions, prompt customization sequences, colour
 # codes, and examples, see refs:
 # https://zsh.sourceforge.io/Doc/Release/Functions.html#Hook-Functions
 # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
@@ -56,7 +67,7 @@ precmd() {
 	    # PS1='\u@\h:\w\$ '
 		PS1="%n@%m:%~"
 	fi
-	
+
 #	!!! Yanked from .bashrc, not sure how to setup the feature in zsh !!!
 #	# If this is an xterm set the title to user@host:dir
 #	case "$TERM" in
@@ -85,17 +96,28 @@ precmd() {
 }
 
 
+############################
+### Source shell-commons ###
+############################
+
+if [ -f ~/.shrc ]; then
+	. ~/.shrc
+fi
+
+
 ###############################
-### Sourcing external files ###
+### Source external files ###
 ###############################
 
 # Source drop-in files
-[ -d ~/.zshrc.d ] && for conf in ~/.zshrc.d/*; do
-	. "$conf"
-done
+if [ -d ~/.zshrc.d ]; then
+	for conf in ~/.zshrc.d/*; do
+		. "$conf"
+	done
+fi
 
 # Source some local configuration file if it exists
-if [ -f ~/.zshrc.local ]; then 
+if [ -f ~/.zshrc.local ]; then
 	. ~/.zshrc.local
 fi
 

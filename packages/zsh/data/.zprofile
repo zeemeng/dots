@@ -9,9 +9,11 @@ if [ -f ~/.shprofile ]; then
 fi
 
 # Source drop-in files
-[ -d ~/.zprofile.d ] && for conf in ~/.zprofile.d/*; do
-	. "$conf"
-done
+if [ -d ~/.zprofile.d ]; then
+	for conf in ~/.zprofile.d/*; do
+		. "$conf"
+	done
+fi
 
 # Source some local configuration file if it exists
 if [ -f ~/.zprofile.local ]; then
