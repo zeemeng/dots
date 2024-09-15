@@ -96,6 +96,20 @@ precmd() {
 }
 
 
+####################################
+### Enable Zsh completion system ###
+####################################
+
+# Needs to autoload and call function `compinit` before adding program-specific/third-party
+# completion functions (i.e. Before sourcing drop-in files).
+# https://zsh.sourceforge.io/Doc/Release/Completion-System.html#index-compinit
+#
+# Ignore insecure directories found by compaudit with -i option when calling compinit
+# https://github.com/zsh-users/zsh/blob/master/Completion/compinit#L67
+autoload -U compinit
+compinit -i
+
+
 ############################
 ### Source shell-commons ###
 ############################

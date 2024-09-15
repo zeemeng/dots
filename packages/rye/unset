@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-
-# Standard unset
-"$PKG_REPO/default/unset"
-
-# Remove leftover Zsh completion files
-rm -rf "$HOME/.rye/zsh-completion"
-if [ -z "$(ls -A "$HOME/.rye")" ]; then rmdir "$HOME/.rye"; fi
-
