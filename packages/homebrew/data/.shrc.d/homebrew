@@ -3,6 +3,7 @@
 export HOMEBREW_PREFIX="/opt/homebrew";
 export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
 export HOMEBREW_REPOSITORY="/opt/homebrew";
+export HOMEBREW_CASK_OPTS="--require-sha"
 path_prepend '/opt/homebrew/sbin'
 path_prepend '/opt/homebrew/bin'
 [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}";
