@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-rm -f "${PKG_CONFIG_DEST}/.shrc.d/pyenv"
-if [ -z "$(ls -A "${PKG_CONFIG_DEST}/.shrc.d")" ]; then rmdir "${PKG_CONFIG_DEST}/.shrc.d"; fi
+rm -f "${SETDOTS_DEST}/.shrc.d/pyenv"
+if [ -z "$(ls -A "${SETDOTS_DEST}/.shrc.d")" ]; then rmdir "${SETDOTS_DEST}/.shrc.d"; fi
 

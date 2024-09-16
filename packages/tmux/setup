@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
-# For the execution of the default setup script, reassign PKG_CONFIG_DEST depending on value of XDG_CONFIG_HOME
+# For the execution of the default setup script, reassign SETDOTS_DEST depending on value of XDG_CONFIG_HOME
 [ "$XDG_CONFIG_HOME" ] && TMUX_CONFD="$XDG_CONFIG_HOME/tmux" || TMUX_CONFD="$HOME/.config/tmux"
-PKG_CONFIG_DEST="$TMUX_CONFD" "$PKG_REPO/default/setup"
+SETDOTS_DEST="$TMUX_CONFD" "$SETDOTS_REPO/default/setup"
 
 # Create dynamically generated shell profile drop-in
-mkdir -p "$PKG_CONFIG_DEST/.shrc.d"
-echo "export TMUX_CONFD='$TMUX_CONFD'" > "$PKG_CONFIG_DEST/.shrc.d/tmux"
+mkdir -p "$SETDOTS_DEST/.shrc.d"
+echo "export TMUX_CONFD='$TMUX_CONFD'" > "$SETDOTS_DEST/.shrc.d/tmux"
 

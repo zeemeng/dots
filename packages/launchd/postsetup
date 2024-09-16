@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-launchctl load "$PKG_CONFIG_DEST/Library/LaunchAgents/user.hidutil.userkeymapping.plist"
+launchctl load "$SETDOTS_DEST/Library/LaunchAgents/user.hidutil.userkeymapping.plist"
 if launchctl list user.hidutil.userkeymapping >/dev/null 2>&1; then
 	echo "SETDOTS: *launchd* LaunchAgent 'user.hidutil.userkeymapping' has been successfully loaded. ✔"
 else

@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
-rm "$PKG_CONFIG_DEST/.shrc.d/tmux"
-if [ "$(ls -A "$PKG_CONFIG_DEST/.shrc.d")" ]; then rmdir "$PKG_CONFIG_DEST/.shrc.d"; fi
+rm "$SETDOTS_DEST/.shrc.d/tmux"
+if [ "$(ls -A "$SETDOTS_DEST/.shrc.d")" ]; then rmdir "$SETDOTS_DEST/.shrc.d"; fi
 
-# For the execution of the default unset script, reassign PKG_CONFIG_DEST depending on value of XDG_CONFIG_HOME
+# For the execution of the default unset script, reassign SETDOTS_DEST depending on value of XDG_CONFIG_HOME
 [ "$XDG_CONFIG_HOME" ] && TMUX_CONFD="$XDG_CONFIG_HOME/tmux" || TMUX_CONFD="$HOME/.config/tmux"
-PKG_CONFIG_DEST="$TMUX_CONFD" "$PKG_REPO/default/unset"
+SETDOTS_DEST="$TMUX_CONFD" "$SETDOTS_REPO/default/unset"
