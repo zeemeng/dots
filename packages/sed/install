@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+if [ "$(uname -s)" = "Darwin" ]; then
+	# If on macOS, install the GNU version of `sed` as executable `gsed`
+	#
+	# This version offers more powerful regex capabilities than the system-provided
+	# version (BSD version: restricting regex to POSIX BRE/ERE + extra char classes `[[:<:]]`
+	# and `[[:>:]]` as word boundaries).
+	# https://unix.stackexchange.com/questions/190334/sed-word-boundaries-on-macos
+	# https://stackoverflow.com/questions/12178924/os-x-sed-e-doesnt-accept-extended-regular-expressions
+	PKG='gnu-sed' "$SETDOTS_REPO/default/install"
+else
+	# Default install otherwise
+	"$SETDOTS_REPO/default/install"
+fi
+
