@@ -2,6 +2,7 @@
 
 shfn_test () {
 	OPTIND=1 # Reset OPTIND to 1 to clear any value potentially set by previous invocations of "getopts", as a safety measure.
+	OPTARG= # Explicitly redeclare OPTARG for Zsh usage, since its version of `getopts` will stop setting OPTARG if it has previously been explicitly unset..
 	while getopts "n:f:a:e:" OPT; do
 		case "$OPT" in
 			n) test_name="$OPTARG";;

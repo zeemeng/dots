@@ -13,9 +13,7 @@ test_setup () {
 	PATH=':'
 	path_prepend abc && echo $PATH
 }
-echo pre
 shfn_test -n 'Single colon' -f test_setup -a 'abc:'
-echo post
 
 test_setup () {
 	PATH='::'

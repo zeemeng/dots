@@ -1,36 +1,27 @@
 # vim: ft=sh
 
 path_prepend () {
+	# Try to find `printf` and `sed` in case PATH has been messed up previously
+	_printf="$(command -v printf || command -v /usr/bin/printf || command -v /bin/printf)" || exit 127
+	_sed="$(command -v sed || command -v /usr/bin/sed || command -v /bin/sed)" || exit 127
+
 	case "$1" in
-		'') printf "path_prepend: Missing argument\n" >&2; exit 1 ;;
+		'') "$_printf" "path_prepend: Missing argument\n" >&2; exit 1 ;;
 
 		# https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html#tag_08_03
-		*:*) printf "path_prepend: The path prefix '$1' cannot be added to environment variable PATH as it contains one or more <colon> character(s).\n" >&2; exit 1 ;;
+		*:*) "$_printf" "path_prepend: The path prefix '$1' cannot be added to environment variable PATH as it contains one or more <colon> character(s).\n" >&2; exit 1 ;;
 	esac
 
-	# echo ">$PATH<"
 	case "$PATH" in
 		'') PATH="$1" ;;
 		:|::) PATH="$1:" ;;
 		*)
-			OLD_IFS="$IFS"
-			IFS=':'
-			# In case PATH terminates with a <colon>, the POSIX field splitting algorithm (link 1)
-			# using the redefined IFS would not generate a zero-length (empty string) field as intended
-			# by the semantics of the trailing <colon> in PATH (link 2).
-			# 1: https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html#tag_19_06_05
-			# 2: https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html#tag_08_03
-			PATH="$PATH:"
-
-			for P in $PATH; do
-				# echo ">>>$P"
-				if [ "$P" != "$1" ]; then NEW_PATH="$NEW_PATH:$P"; fi
-			done
-			PATH="$1$NEW_PATH"
-
-			IFS="$OLD_IFS"
-			unset OLD_IFS NEW_PATH
+			# Need to escape colon-literals because the sed substitution function can only use <colon> as the expression seperator
+			# as it is the only character guaranteed to not appear in the parameter $1 (pathname to be added to PATH)
+			col='\:'
+			PATH="$("$_printf" "$PATH" | "$_sed" -e "s:${col}${1}${col}:${col}:g" -e "s:^${1}${col}::" -e "s:${col}${1}$::")"
+			PATH="$1:$PATH"
+			unset -v col _printf _sed
 	esac
-	# echo ">$PATH<"
 }
 
