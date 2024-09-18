@@ -1,12 +1,16 @@
-alias cdd="cd ~/Desktop && ls -lAh"
+alias cdD="cd ~/Desktop && ls -lAh"
+alias cdd="cd ~/src/dots"
 alias cds="cd ~/src && ls -lAh"
 alias cl=clear
 alias d=docker
+alias dimg='docker images'
 alias dots="cd ~/src/dots && nv"
 alias dps='docker ps -a'
 alias dr='docker run'
-alias dri='docker run -it'
-alias dsys='docker system'
+alias drit='docker run -it'
+alias drm='docker rm --volumes'
+alias drma="docker rm --volumes --force $(docker ps --quiet --all)"
+alias drmi='docker rmi'
 alias e=echo
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -38,6 +42,7 @@ alias ls='ls --color=auto'
 alias ll='ls -lAhF'
 alias l='ls -CF'
 alias m=man
+alias md=mkdir
 alias n=npm
 alias nv=nvim
 alias nr="npm run"
@@ -46,6 +51,7 @@ alias p=python3
 alias psh='ps -p $$'
 alias py=python3
 alias q=exit
+alias sctl='systemctl'
 alias ss1=sha1sum
 alias ss2=sha256sum
 alias ss512=sha512sum
