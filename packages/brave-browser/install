@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+HOMEBREW_CASK=1 "$SETDOTS_REPO/default/install"
+
