@@ -41,6 +41,11 @@ nva() (
 	NVIM_APPNAME="$APPNAME" nvim "$@"
 )
 
+# Chain `jq` and `less` with colorized output
+jql () {
+	jq --color-output "$@" | less -R
+}
+
 # Source drop-in files
 if [ -d ~/.shfn.d ]; then
 	for func_def in ~/.shfn.d/*; do
