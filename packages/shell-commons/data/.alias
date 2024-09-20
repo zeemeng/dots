@@ -38,9 +38,11 @@ alias gremao='git remote add -f origin'
 alias grep='grep --color=auto'
 alias gs='git status'
 alias igrep='grep -i --color=auto'
-alias ls='ls --color=auto'
+alias l='less -M -R'
+alias lctl=launchctl
 alias ll='ls -lAhF'
-alias l='ls -CF'
+alias lm='less -m -R'
+alias ls='ls --color=auto'
 alias m=man
 alias md=mkdir
 alias n=npm
@@ -48,6 +50,7 @@ alias nv=nvim
 alias nr='npm run'
 alias ns='npm start'
 alias p=python3
+alias ppl='plutil -p'
 alias psh='ps -p $$'
 alias py=python3
 alias q=exit
