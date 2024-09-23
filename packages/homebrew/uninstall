@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+local_uninstaller="$(dirname "$(realpath "$0")")/official_installer/uninstall.sh"
+remote_uninstaller='https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh'
+
+if ! curl -fsSL "$remote_uninstaller" | diff "$local_uninstaller" - >/dev/null 2>&1; then
+	printf '%s\n%s\n' 'The official Homebrew uninstaller found at the following remote location is different from the local version.' "$remote_uninstaller"
+	printf 'Do you want to proceed with the local version? (y)es / (n)o: '
+	read RESPONSE
+	case "$RESPONSE" in
+		Y*|y*) printf '\n';;
+		*) printf '%s\n' 'Aborting..'; exit 1;;
+	esac
+fi
+
+"$local_uninstaller"
+
