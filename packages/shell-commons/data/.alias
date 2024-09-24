@@ -1,3 +1,5 @@
+# vim: ft=sh
+
 alias cdD='cd ~/Desktop && ls -lAh'
 alias cdd='cd ~/src/dots'
 alias cds='cd ~/src && ls -lAh'
@@ -66,4 +68,9 @@ alias uncommit='git reset --mixed HEAD~'
 alias v=vim
 alias xcommit='git reset --hard HEAD~'
 alias xo=xdg-open
+
+# Source a local configuration file if it exists
+if [ -f ~/.alias.local ]; then
+	. ~/.alias.local
+fi
 
