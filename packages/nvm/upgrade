@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+if [ -d "$NVM_DIR" ]; then
+	cd "$NVM_DIR"
+	git fetch --all --tags
+	git checkout $(git describe --tags --abbrev=0)
+else
+	printf '%s\n' 'ERROR: the installation directory for NVM could not be located. Aborting..' >&2
+	exit 1
+fi
+
