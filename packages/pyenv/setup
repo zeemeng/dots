@@ -4,6 +4,7 @@
 mkdir -p "${SETDOTS_DEST}/.shrc.d"
 
 printf "
+if ! [ -s '${SETDOTS_DEST}/.pyenv/bin/pyenv' ]; then return; fi
 export PYENV_ROOT='${SETDOTS_DEST}/.pyenv'
 
 # Build optimization flags for 'pyenv's 'python-build' plugin. See ref below.

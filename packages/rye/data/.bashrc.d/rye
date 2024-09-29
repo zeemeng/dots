@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Sourcing a shell script that adds rye to $PATH
-. "$HOME/.rye/env"
+if [ -s "$HOME/.rye/env" ]; then . "$HOME/.rye/env"; else return; fi
 
 # Shell completion
 eval "$(rye self completion)"
