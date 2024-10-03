@@ -13,7 +13,7 @@ esac
 ### Set Zsh shell options ###
 #############################
 
-set -o POSIX_JOBS
+# set -o POSIX_JOBS # Disabled for the sake of `nvm` (which does not function properly with this option on)
 set -o POSIX_ALIASES
 set -o POSIX_ARGZERO
 set -o POSIX_BUILTINS # Especially since the default behaviour of Zsh's `getopts` differs from POSIX

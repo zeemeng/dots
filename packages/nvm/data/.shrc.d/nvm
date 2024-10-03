@@ -1,7 +1,14 @@
 # vim: ft=sh
 
+# Avoid NVM related variables inherited from the environment
+unset NVM_BIN NVM_CD_FLAGS NVM_INC NVM_RC_VERSION
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-path_prepend "$NVM_BIN" # Prevents duplicate NVM segments in PATH from occuring in tmux sessions
+if ! [ -s "$NVM_DIR/nvm.sh" ] && ! [ -s "$NVM_DIR/bash_completion" ]; then
+	unset NVM_DIR
+	return
+fi
+
+. "$NVM_DIR/nvm.sh"
+. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ "$NVM_BIN" ]; then path_prepend "$NVM_BIN"; fi # Prevents duplicate NVM segments in PATH from occuring in tmux sessions
 
