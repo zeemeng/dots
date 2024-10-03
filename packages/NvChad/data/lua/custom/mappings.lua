@@ -314,6 +314,13 @@ M.general = {
 
     ["<Leader>0"] = { "$", "Go to end of line" },
 
+    ["<C-p>"] = {
+      "<C-i>", "Go to [count] newer cursor position in jump list (replaces CTRL-I command).",
+      opts = {
+        noremap = true,
+      },
+    },
+
     ["<C-w>>"] = {
       ":vsplit<CR><C-w>l", "Create a vertical split and place the cursor in the new split",
       opts = {

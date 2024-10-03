@@ -6,10 +6,10 @@ path_prepend () {
 	_sed="$(command -v sed || command -v /usr/bin/sed || command -v /bin/sed)" || exit 127
 
 	case "$1" in
-		'') "$_printf" "path_prepend: Missing argument\n" >&2; exit 1 ;;
+		'') "$_printf" "path_prepend: Missing argument\n" >&2; return 1 ;;
 
 		# https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap08.html#tag_08_03
-		*:*) "$_printf" "path_prepend: The path prefix '$1' cannot be added to environment variable PATH as it contains one or more <colon> character(s).\n" >&2; exit 1 ;;
+		*:*) "$_printf" "path_prepend: The path prefix '$1' cannot be added to environment variable PATH as it contains one or more <colon> character(s).\n" >&2; return 1 ;;
 	esac
 
 	case "$PATH" in
