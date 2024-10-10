@@ -4,7 +4,7 @@
 export EDITOR='vim'
 
 # Set the default man pager
-export MANPAGER='less -sR'
+export MANPAGER='less -isR'
 
 # Set the output coloring of `ls` on macOS and FreeBSD
 # See man page for macOS `ls` for details

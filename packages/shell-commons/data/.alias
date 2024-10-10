@@ -16,10 +16,15 @@ alias cdd='cd ~/src/dots'
 alias cds='cd ~/src && ls -lAh'
 alias cl=clear
 alias d=docker
+alias dcl='docker rm --volumes --force $(docker ps --quiet --all)'
+alias dex='docker exec'
+alias di='docker images'
 alias dimg='docker images'
 alias dots='cd ~/src/dots && nvim'
+alias dp='docker ps -a'
 alias dps='docker ps -a'
 alias dr='docker run'
+alias dre='docker restart'
 alias drit='docker run -it'
 alias drm='docker rm --volumes'
 alias drma='docker rm --volumes --force $(docker ps --quiet --all)'
@@ -59,10 +64,10 @@ alias grshh='git reset --hard HEAD~'
 alias gs='git status'
 alias jctl=journalctl
 alias igrep='grep -i --color=auto'
-alias l='less -M -R'
+alias le='less -i -M -R'
 alias lctl=launchctl
-alias ll='ls -lAhF'
-alias lm='less -m -R'
+alias ll='ls -lAhF --color=always'
+alias lem='less -i -m -R'
 alias ls='ls --color=auto'
 alias m=man
 alias md=mkdir
