@@ -20,15 +20,18 @@ dexit () {
 }
 
 # Same as the `dexit` function defined above, but restart the target container first.
-dreexit () {
+dreexit () (
+	set -e
+
 	case "$#" in
-		0|1) dreexit_container="$(docker ps -aq | head -n1)";;
+		0) dreexit_container="$(docker ps -aq | head -n1)"; set 'bash';;
+		1) dreexit_container="$(docker ps -aq | head -n1)";;
 		*) dreexit_container="$1"; shift;;
 	esac
 
 	docker restart "$dreexit_container"
 	docker exec -it "$dreexit_container" "$@"
-}
+)
 
 # Quicker docker help commands
 dh () {
