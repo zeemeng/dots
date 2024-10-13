@@ -1,16 +1,18 @@
 # vim: ft=sh
 
+sudo_cmd() { printf "[sudo_cmd] ${CLI_YELLOW}sudo %s${CLI_NC}\n" "$*" && sudo "$*"; }
+
 alias a=apt
-alias ai='sudo apt install'
-alias ap='sudo apt purge'
+alias ai='sudo_cmd apt install'
+alias ap='sudo_cmd apt purge'
 alias aarm='apt autoremove'
 alias arm='apt remove'
 alias ali='apt list --installed'
 alias alu='apt list --upgradeable'
-alias asearch='apt search'
-alias ashow='apt show'
-alias aud='sudo apt update'
-alias aug='sudo apt upgrade'
+alias ase='apt search'
+alias ash='apt show'
+alias aud='sudo_cmd apt update'
+alias aug='sudo_cmd apt upgrade'
 alias cdD='cd ~/Desktop && ls -lAh'
 alias cdd='cd ~/src/dots'
 alias cds='cd ~/src && ls -lAh'
