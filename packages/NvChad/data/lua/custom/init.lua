@@ -21,4 +21,7 @@ vim.api.nvim_create_user_command("ListCharsToggle", utils.list_chars_toggle, {
 vim.api.nvim_create_user_command('Help', 'vertical help <args>', { nargs = '*' })
 vim.api.nvim_create_user_command('H', 'vertical help <args>', { nargs = '*' })
 vim.api.nvim_create_user_command('Oh', 'help <args> | only', { nargs = '*' })
+-- Close all buffers except the current one. (1. close all buffers; 2. edit the last
+-- opened buffer; 3. close the unnamed buffer created after step 1)
+vim.api.nvim_create_user_command('Bdo', '%bd | e# | bd#', {})
 

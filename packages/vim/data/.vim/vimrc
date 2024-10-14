@@ -48,7 +48,7 @@ set noerrorbells visualbell t_vb=
 " sometimes be convenient.
 set mouse+=a
 
-" Set appropriate tab settings 
+" Set appropriate tab settings
 set tabstop=4 " displayed width of a \t character
 set shiftwidth=4 " width of one level of indentation
 
@@ -93,6 +93,10 @@ nnoremap <C-w>< :split<CR><C-w>j
 command! -nargs=* Help vertical help <args>
 command! -nargs=* H vertical help <args>
 command! -nargs=* Oh help <args> | only
+
+" Close all buffers except the current one. (1. close all buffers; 2. edit the last
+" opened buffer; 3. close the unnamed buffer created after step 1)
+command! Bdo %bd | e# | bd#
 
 
 """""""""""""""
