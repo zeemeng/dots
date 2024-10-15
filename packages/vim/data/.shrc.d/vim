@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+# Set the default editor
+export EDITOR='vim'
+

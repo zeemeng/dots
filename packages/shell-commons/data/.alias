@@ -47,7 +47,7 @@ alias gcoa='git commit --all'
 alias gcoam='git commit --all -m'
 alias gd='git diff'
 alias gdh='git diff HEAD'
-alias gdpc='git diff HEAD~' # Diff against one commit back from the current HEAD
+alias gdhp='git diff HEAD~' # Diff against one commit back from the current HEAD
 alias gds='git diff --staged'
 alias gf='git fetch'
 alias gh='git help'
@@ -66,10 +66,10 @@ alias grshh='git reset --hard HEAD~'
 alias gs='git status'
 alias jctl=journalctl
 alias igrep='grep -i --color=auto'
-alias le='less -i -M -R'
+alias le='less +Gg'
 alias lctl=launchctl
 alias ll='ls -lAhF --color=always'
-alias lem='less -i -m -R'
+alias lem='less -m +Gg'
 alias ls='ls --color=auto'
 alias m=man
 alias md=mkdir

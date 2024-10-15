@@ -1,11 +1,5 @@
 #!/usr/bin/env sh
 
-# Set the default editor
-export EDITOR='vim'
-
-# Set the default man pager
-export MANPAGER='less -isR'
-
 # Set the output coloring of `ls` on macOS and FreeBSD
 # See man page for macOS `ls` for details
 export LSCOLORS='gxCxExdxFxegedabagacad'

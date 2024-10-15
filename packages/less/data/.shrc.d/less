@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Options applied on program startup
+export LESS='--ignore-case --mouse --wheel-lines=4 --RAW-CONTROL-CHARS --LONG-PROMPT'
+
+# Set the default man pager
+export MANPAGER='less --squeeze-blank-lines +Gg'
+

@@ -44,7 +44,7 @@ jql () {
 }
 
 l () {
-	eval "$@" | less -i -M -R
+	eval "$@" | less +Gg
 }
 
 # List each segment of the PATH env var, one per line.
