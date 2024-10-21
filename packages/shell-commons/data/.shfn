@@ -88,3 +88,8 @@ if [ -d ~/.shfn.d ]; then
 	done
 fi
 
+# Source some local function definition file if it exists
+if [ -f ~/.shfn.local ]; then
+	. ~/.shfn.local
+fi
+
