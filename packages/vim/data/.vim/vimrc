@@ -52,20 +52,25 @@ set mouse+=a
 set tabstop=4 " displayed width of a \t character
 set shiftwidth=4 " width of one level of indentation
 
+" Set a faster timeoutlen to not wait the default 1s when multiple mappings
+" and/or key codes share the same leading input sequence.
+set timeoutlen=200
 
-""""""""""""""""""""""""""""""""""""""
-""" KEY MAPPINGS AND USER COMMANDS """
-""""""""""""""""""""""""""""""""""""""
-" Try to prevent bad habits like using the arrow keys for movement. This is
-" not the only possible bad habit. For example, holding down the h/j/k/l keys
-" for movement, rather than using more efficient movement commands, is also a
-" bad habit. The former is enforceable through a .vimrc, while we don't know
-" how to prevent the latter.
-" Do this in normal mode...
-nnoremap <Left>  :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up>    :echoe "Use k"<CR>
-nnoremap <Down>  :echoe "Use j"<CR>
+
+""""""""""""""""""""
+""" KEY MAPPINGS """
+""""""""""""""""""""
+" Convenient cursor motion while in insert mode
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <C-q> <C-o>w
+inoremap <C-b> <C-o>b
+inoremap <C-e> <Esc>ea
+
+" Convenient launching of command-line mode
+nnoremap ; :
 
 " Convenient navigation between windows
 nnoremap <C-h> <C-w>h
@@ -79,20 +84,25 @@ nnoremap _ :resize -1<CR>
 nnoremap ( :vertical resize +1<CR>
 nnoremap ) :vertical resize -1<CR>
 
+" Quickly scroll down [count] lines. To scroll up [count] lines, use the
+" default mapping <C-e>
+nnoremap <C-q> <C-y>
+
 " Unbind some useless/annoying default key bindings.
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
-
-" Convenient launching of command-line mode
-nnoremap ; :
 
 " Convenient horizontal and vertical splitting
 nnoremap <C-w>> :vsplit<CR><C-w>l
 nnoremap <C-w>< :split<CR><C-w>j
 
+
+""""""""""""""""
+""" COMMANDS """
+"""""""""""""""
 " Ergonomic help page access
-command! -nargs=* Help vertical help <args>
 command! -nargs=* H vertical help <args>
-command! -nargs=* Oh help <args> | only
+command! -nargs=* Ho help <args> | only
+command! Hq helpclose
 
 " Close all buffers except the current one. (1. close all buffers; 2. edit the last
 " opened buffer; 3. close the unnamed buffer created after step 1)

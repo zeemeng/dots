@@ -15,7 +15,14 @@ M.ui = {
 
   nvdash = {
     load_on_startup = true
-  }
+  },
+
+  statusline = {
+    -- modules arg here is the default table of modules
+    overriden_modules = function(modules)
+      table.insert(modules, "| L %-2l | C %-2c ")
+    end,
+  },
 }
 
 M.plugins = "custom.plugins"

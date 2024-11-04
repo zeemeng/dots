@@ -25,7 +25,7 @@
 -- https://github.com/Konfekt/FastFold?tab=readme-ov-file#example-setup
 --
 -- NEOVIM SPECIFICS
--- Neovim provides enhanced folding capabilities via "nvim-treesitter", which uses 
+-- Neovim provides enhanced folding capabilities via "nvim-treesitter", which uses
 -- the "expr" fold method by providing an "expr" evaluation function that generates
 -- fold based on the syntax tree.
 --
@@ -45,7 +45,7 @@ opt.foldlevelstart = 99
 M.custom_foldtext = function()
   local line = vim.fn.getline(vim.v.foldstart)
   local numOfLines = vim.v.foldend - vim.v.foldstart
-  local fillCount = vim.fn.winwidth("%") - #line - #tostring(numOfLines) - 14
+  local fillCount = vim.fn.winwidth(0) - #line - #tostring(numOfLines) - 14
   return line .. "  " .. string.rep(".", fillCount) .. " (" .. numOfLines .. " L)"
 end
 vim.opt.foldtext = "v:lua.require'custom.fold_settings'.custom_foldtext()"
@@ -78,7 +78,7 @@ vim.g.zsh_fold_enable = 1
 vim.g.html_syntax_folding = 1
 vim.g.xml_syntax_folding = 1
 -- For C, you can add these lines in a file in the "after" directory in "runtimepath".
--- For Unix this would be: ~/.vim/after/syntax/c.vim. 
+-- For Unix this would be: ~/.vim/after/syntax/c.vim.
 --     syn sync fromstart
 --     set foldmethod=syntax
 

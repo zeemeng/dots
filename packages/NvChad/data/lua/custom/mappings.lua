@@ -173,7 +173,7 @@ M.lspconfig = {
       function()
         vim.diagnostic.open_float { border = "rounded" }
       end,
-      "Floating diagnostic",
+      "Show floating diagnostic",
     },
 
     ["[d"] = {
@@ -309,6 +309,14 @@ M.telescope = {
 }
 
 M.general = {
+  i = {
+    ["<C-q>"] = { "<C-o>w", "Move cursor N words forward" },
+
+    ["<C-b>"] = { "<C-o>b", "Move cursor N words backward" },
+
+    ["<C-e>"] = { "<Esc>ea", "Move cursor forward to the end of word N" },
+  },
+
   n = {
     [";"] = { ":", "Enter command mode", opts = { nowait = true } },
 
@@ -316,6 +324,13 @@ M.general = {
 
     ["<C-p>"] = {
       "<C-i>", "Go to [count] newer cursor position in jump list (replaces CTRL-I command).",
+      opts = {
+        noremap = true,
+      },
+    },
+
+    ["<C-q>"] = {
+      "<C-y>", "Scroll [count] lines downwards",
       opts = {
         noremap = true,
       },

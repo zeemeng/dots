@@ -21,9 +21,15 @@ local select_one_or_multi = function(prompt_bufnr)
 end
 
 local send_to_qflist_and_open = function(prompt_bufnr)
-  actions.send_selected_to_qflist(prompt_bufnr)
+  actions.smart_send_to_qflist(prompt_bufnr)
+  vim.cmd(":cfirst") -- Dirty fix for preventing the first [no name] buffer from being kept as a separate window
   actions.open_qflist(prompt_bufnr)
   vim.cmd(":cfirst")
+end
+
+local edit_all = function(prompt_bufnr)
+  actions.select_all(prompt_bufnr)
+  select_one_or_multi(prompt_bufnr)
 end
 
 return {
@@ -46,11 +52,13 @@ return {
           -- Use tab to only move the selector and use <C-s> to toggle marker/selection
           ["<Tab>"] = actions.move_selection_worse,
           ["<S-Tab>"] = actions.move_selection_better,
-          ["<C-s>"] = actions.toggle_selection,
+          ["<C-s>"] = actions.toggle_selection + actions.move_selection_worse,
+          ["<C-c>"] = actions.drop_all,
 
           -- Operations on selection
           ["<C-q>"] = send_to_qflist_and_open,
           ["<CR>"] = select_one_or_multi,
+          ["<C-e>"] = edit_all,
         },
 
         n = {
@@ -63,13 +71,15 @@ return {
           -- Use tab to only move the selector and use <C-s> to toggle marker/selection
           ["<Tab>"] = actions.move_selection_worse,
           ["<S-Tab>"] = actions.move_selection_better,
-          ["<C-s>"] = actions.toggle_selection,
+          ["<C-s>"] = actions.toggle_selection + actions.move_selection_worse,
           ["s"] = actions.toggle_selection,
+          ["<C-c>"] = actions.drop_all,
 
           -- Operations on selection
           ["<C-q>"] = send_to_qflist_and_open,
           ["q"] = send_to_qflist_and_open,
           ["<CR>"] = select_one_or_multi,
+          ["<C-e>"] = edit_all,
         },
       },
     },
