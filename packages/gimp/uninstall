@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-if [ "$(uname -s)" -eq 'Darwin' ]; then export HOMEBREW_CASK=1; fi
+if [ "$(uname -s)" = 'Darwin' ]; then export HOMEBREW_CASK=1; fi
 
 "$CONFMAN_REPO/default/uninstall"
 
