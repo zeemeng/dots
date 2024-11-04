@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
-# For the execution of the default setup script, reassign SETDOTS_DEST depending on value of XDG_CONFIG_HOME
+# For the execution of the default setup script, reassign CONFMAN_DEST depending on value of XDG_CONFIG_HOME
 [ "$XDG_CONFIG_HOME" ] && TMUX_CONFD="$XDG_CONFIG_HOME/tmux" || TMUX_CONFD="$HOME/.config/tmux"
-SETDOTS_DEST="$TMUX_CONFD" "$SETDOTS_REPO/default/setup"
+CONFMAN_DEST="$TMUX_CONFD" "$CONFMAN_REPO/default/setup"
 
 # Create dynamically generated shell profile drop-in
-mkdir -p "$SETDOTS_DEST/.shrc.d"
-echo "export TMUX_CONFD='$TMUX_CONFD'" > "$SETDOTS_DEST/.shrc.d/tmux"
+mkdir -p "$CONFMAN_DEST/.shrc.d"
+echo "export TMUX_CONFD='$TMUX_CONFD'" > "$CONFMAN_DEST/.shrc.d/tmux"
 

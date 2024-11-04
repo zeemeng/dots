@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-RYE_TOOLCHAIN="$(pyenv which python3.12)" "$SETDOTS_REPO/$PKG/installer.sh"
+RYE_TOOLCHAIN="$(pyenv which python3.12)" "$CONFMAN_REPO/$PKG/installer.sh"
 

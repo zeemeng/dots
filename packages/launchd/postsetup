@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
-launchctl load "$SETDOTS_DEST/Library/LaunchAgents/user.hidutil.userkeymapping.plist"
+launchctl load "$CONFMAN_DEST/Library/LaunchAgents/user.hidutil.userkeymapping.plist"
 if launchctl list user.hidutil.userkeymapping >/dev/null 2>&1; then
-	echo "SETDOTS: *launchd* LaunchAgent 'user.hidutil.userkeymapping' has been successfully loaded. ✔"
+	echo "CONFMAN: *launchd* LaunchAgent 'user.hidutil.userkeymapping' has been successfully loaded. ✔"
 else
 	echo "ERROR: Failed loading *launchd* LaunchAgent 'user.hidutil.userkeymapping'" >&2
 	exit 1

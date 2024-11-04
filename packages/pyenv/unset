@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-rm -f "${SETDOTS_DEST}/.shrc.d/pyenv"
-if [ -z "$(ls -A "${SETDOTS_DEST}/.shrc.d")" ]; then rmdir "${SETDOTS_DEST}/.shrc.d"; fi
+rm -f "${CONFMAN_DEST}/.shrc.d/pyenv"
+if [ -z "$(ls -A "${CONFMAN_DEST}/.shrc.d")" ]; then rmdir "${CONFMAN_DEST}/.shrc.d"; fi
 

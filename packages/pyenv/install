@@ -5,7 +5,7 @@ if ! command -v git >/dev/null; then
 	exit 1
 fi
 
-PYENV_ROOT="${SETDOTS_DEST}/.pyenv"
+PYENV_ROOT="${CONFMAN_DEST}/.pyenv"
 rm -rf "$PYENV_ROOT"
 git clone 'https://github.com/pyenv/pyenv.git' "$PYENV_ROOT"
 
@@ -18,7 +18,7 @@ git clone 'https://github.com/pyenv/pyenv-virtualenv.git'  "$PYENV_ROOT/plugins/
 cd "$PYENV_ROOT" && src/configure && make -C src
 
 # Immediately set up the shell environment for 'pyenv' usage on install
-export PYENV_ROOT="${SETDOTS_DEST}/.pyenv"
+export PYENV_ROOT="${CONFMAN_DEST}/.pyenv"
 
 # Build optimization flags for 'pyenv's 'python-build' plugin. See ref below.
 # https://github.com/pyenv/pyenv/tree/master/plugins/python-build

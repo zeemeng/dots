@@ -4,6 +4,6 @@ if [ "$(uname -s)" = "Darwin" ]; then
 	printf 'Skipping installation with Homebrew on macOS, prefer the system-provided Zsh to avoid. Avoids issues with compinit..\n'
 else
 	# Default install otherwise
-	"$SETDOTS_REPO/default/install"
+	"$CONFMAN_REPO/default/install"
 fi
 

@@ -2,5 +2,5 @@
 
 if [ "$(uname -s)" -eq 'Darwin' ]; then export HOMEBREW_CASK=1; fi
 
-"$SETDOTS_REPO/default/uninstall"
+"$CONFMAN_REPO/default/uninstall"
 
