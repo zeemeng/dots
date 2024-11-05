@@ -1,0 +1,41 @@
+# vim: ft=sh
+
+git_ensure_clone () {
+	REPO="$1" && shift
+	case "$1" in
+		-*) DEST='.';;
+		*) DEST="$1" && shift;;
+	esac
+
+	if [ -d "$DEST" ]; then
+		cd "$DEST"
+	else
+		git clone "$@" "$REPO" "$DEST"
+		return
+	fi
+
+	if ! git status --short >/dev/null 2>&1; then
+		cd - >/dev/null 2>&1;
+		rm -rf "$DEST"
+		git clone "$@" "$REPO" "$DEST"
+		return
+	fi
+
+	if git ls-remote --heads "$REPO" >/dev/null 2>&1; then
+		printf "Source repo '$REPO' already cloned at destination '$DEST'. Skipping..\n" >&2
+	else
+		GET_PARAM_VAL=
+		REMOTE_NAME='origin'
+
+		for PARAM; do
+			if [ "$GET_PARAM_VAL" = 1 ]; then REMOTE_NAME="$PARAM" && break; fi
+			if [ "$PARAM" = '-o' ]; then GET_PARAM_VAL=1; fi
+		done
+
+		if git ls-remote "$REMOTE_NAME" >/dev/null 2>&1; then REMOTE_NAME="${REMOTE_NAME}2"; fi
+		git remote add "$REMOTE_NAME" "$REPO"
+	fi
+
+	cd - >/dev/null 2>&1;
+}
+

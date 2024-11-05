@@ -8,9 +8,9 @@ if [ "$(uname -s)" = "Darwin" ]; then
 	# and `[[:>:]]` as word boundaries).
 	# https://unix.stackexchange.com/questions/190334/sed-word-boundaries-on-macos
 	# https://stackoverflow.com/questions/12178924/os-x-sed-e-doesnt-accept-extended-regular-expressions
-	PKG='gnu-sed' "$CONFMAN_REPO/default/install"
+	PKG='gnu-sed' "$CONFMAN_TASK" install
 else
 	# Default install otherwise
-	"$CONFMAN_REPO/default/install"
+	"$CONFMAN_TASK" install
 fi
 

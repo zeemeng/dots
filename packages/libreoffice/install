@@ -2,5 +2,5 @@
 
 if [ "$(uname -s)" = 'Darwin' ]; then export HOMEBREW_CASK=1; fi
 
-"$CONFMAN_REPO/default/install"
+"$CONFMAN_TASK" install
 

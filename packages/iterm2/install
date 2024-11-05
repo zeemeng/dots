@@ -1,4 +1,3 @@
 #!/usr/bin/env sh
 
-HOMEBREW_CASK=1 "$CONFMAN_REPO/default/install"
-
+HOMEBREW_CASK=1 "$CONFMAN_TASK" install

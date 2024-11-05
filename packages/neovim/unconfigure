@@ -2,5 +2,5 @@
 
 [ "$XDG_CONFIG_HOME" ] && CONFMAN_DEST="$XDG_CONFIG_HOME/nvim" || CONFMAN_DEST="$HOME/.config/nvim"
 
-"$CONFMAN_REPO/default/unset"
+"$CONFMAN_TASK" unconfigure
 
