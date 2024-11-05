@@ -352,6 +352,13 @@ M.general = {
       },
     },
 
+    ["<C-x>"] = {
+      "@:<CR>", "Repeat the last Ex command",
+      opts = {
+        noremap = true,
+      },
+    },
+
     ["+"] = {
       ":resize +1<CR>", "Increase window height by 1 line",
       opts = {
