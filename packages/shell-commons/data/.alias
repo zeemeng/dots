@@ -66,6 +66,7 @@ alias greshh='git reset --hard HEAD~'
 alias gs='git status'
 alias jctl=journalctl
 alias igrep='grep -i --color=auto'
+alias l1='ls -1A'
 alias le='less +Gg'
 alias lctl=launchctl
 alias ll='ls -lAhF --color=always'
