@@ -1,4 +1,5 @@
-#!/usr/bin/env sh -e
+#!/usr/bin/env sh
+set -e
 
 launchctl unload "$CONFMAN_DEST/Library/LaunchAgents/user.hidutil.userkeymapping.plist"
 
