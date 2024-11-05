@@ -108,6 +108,8 @@ command! Hq helpclose
 " opened buffer; 3. close the unnamed buffer created after step 1)
 command! Bdo %bd | e# | bd#
 
+" Write file and reedit to refresh syntax highlighting
+command! W w | e
 
 """""""""""""""
 """ VISUALS """

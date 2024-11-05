@@ -42,3 +42,6 @@ vim.api.nvim_create_user_command('Hq', 'helpclose', {})
 -- opened buffer; 3. close the unnamed buffer created after step 1)
 vim.api.nvim_create_user_command('Bdo', '%bd | e# | bd#', {})
 
+-- Write file and reedit to refresh syntax highlighting
+vim.api.nvim_create_user_command('W', 'w | e', {})
+
