@@ -50,28 +50,23 @@ bindkey "^R" history-incremental-pattern-search-backward
 #############################
 
 # Zsh special hook function that is executed before each prompt.
-# For documentation on Zsh hook functions, prompt customization sequences, colour
-# codes, and examples, see refs:
-# https://zsh.sourceforge.io/Doc/Release/Functions.html#Hook-Functions
-# https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
-# https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
 precmd() {
 	local EXIT_CODE="$?"
 
 	# Define color variables only if the terminal supports color display
 	case "$TERM" in
-	    xterm-color|*-256color) ps1_define_colors;;
+	    xterm-color|*-256color) ps1_define_colors zsh;;
 	esac
 
 	# Baseline prompt
 	PS1="$PS1_CYAN%n@%m$PS1_RESET:$PS1_BLUE%~$PS1_RESET"
 
-#	!!! Yanked from .bashrc, not sure how to setup the feature in zsh !!!
-#	# If this is an xterm set the title to user@host:dir
-#	case "$TERM" in
-#	    xterm*|rxvt*)
-#	    PS1="\[\e]0;\u@\h: \w\a\]$PS1";;
-#	esac
+	# # !!! Yanked from .bashrc, not sure how to setup the feature in zsh !!!
+	# # If this is an xterm set the title to user@host:dir
+	# case "$TERM" in
+	#     xterm*|rxvt*)
+	#     PS1="\[\e]0;\u@\h: \w\a\]$PS1";;
+	# esac
 
 	# Additional segments
 	local PS1_GIT_INFO=$(ps1_git_info)

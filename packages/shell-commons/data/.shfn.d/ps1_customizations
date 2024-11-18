@@ -1,0 +1,94 @@
+# vim: ft=sh
+
+ps1_define_colors () {
+	# Variables to help produce a properly formatted SGR sequence wrapped as a non-printing
+	# Bash prompt sequence. A valid PS1 sequence shall be of a format like such:
+	# 	${ESC_L}${SGR_L}...${SGR_R}${ESC_R}
+	# where '...' represents a colon separated list of SGR parameters.
+	#
+	# See references:
+	# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+	# https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters
+	#
+	# Excerpt:
+	# 38	Set foreground color	Next arguments are 5;n or 2;r;g;b
+	# 48	Set foreground color	Next arguments are 5;n or 2;r;g;b
+	#
+	# For values of `n`, see:
+	# https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+
+
+	# For documentation on Zsh hook functions, prompt customization sequences, colour
+	# codes, and examples, see refs:
+	# https://zsh.sourceforge.io/Doc/Release/Functions.html#Hook-Functions
+	# https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
+	# https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
+
+	case "$1" in
+		bash)
+			local ESC_L='\[' # Start of unprintable bash PS1 sequence
+			local ESC_R='\]';; # End of unprintable bash PS1 sequence
+		zsh)
+			local ESC_L='%{' # Start of unprintable Zsh PS1 sequence
+			local ESC_R='%}';; # End of unprintable Zsh PS1 sequence
+	esac
+	local SGR_L=$'\e[' # ANSI Control Sequence Introducer (CSI) token
+	local SGR_R='m'
+	local RESET='0' # SGR param. Turn off all attributes
+
+	PS1_CYAN="${ESC_L}${SGR_L}1;38;5;36${SGR_R}${ESC_R}"
+	PS1_BLUE="${ESC_L}${SGR_L}1;38;5;33${SGR_R}${ESC_R}"
+	PS1_RED="${ESC_L}${SGR_L}1;38;5;1${SGR_R}${ESC_R}"
+	PS1_GREEN="${ESC_L}${SGR_L}1;38;5;2${SGR_R}${ESC_R}"
+	PS1_YELLOW="${ESC_L}${SGR_L}0;38;5;227${SGR_R}${ESC_R}"
+	PS1_RESET="${ESC_L}${SGR_L}0${SGR_R}${ESC_R}"
+
+	PS1_GIT_GREEN="${ESC_L}${SGR_L}0;38;5;42${SGR_R}${ESC_R}"
+	PS1_GIT_RED="${ESC_L}${SGR_L}0;38;5;203${SGR_R}${ESC_R}"
+	PS1_GIT_BLUE="${ESC_L}${SGR_L}0;38;5;39${SGR_R}${ESC_R}"
+}
+
+ps1_git_info () {
+	if ! command -v git >/dev/null; then return; fi
+
+	local BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
+	local COMMIT=$(git rev-parse --short HEAD 2>/dev/null)
+	local UNTRACKED=0
+	local MODIFIED=0
+	local STAGED=0
+	local STAT_LABEL=''
+
+	while IFS=$'\n' read -r STAT_LINE; do
+		case "$STAT_LINE" in
+			'') ;;
+			'??'*) UNTRACKED=$((UNTRACKED + 1));;
+			' '*) MODIFIED=$((MODIFIED + 1));;
+			?' '*) STAGED=$((STAGED + 1));;
+			*) MODIFIED=$((MODIFIED + 1)); STAGED=$((STAGED + 1));;
+		esac
+	done <<-EOF
+		$(git status --porcelain 2>/dev/null)
+	EOF
+
+	if [ $((UNTRACKED + MODIFIED + STAGED)) -ne 0 ]; then
+		STAT_LABEL=" ✗"
+		if [ "$STAGED" != 0 ]; then STAT_LABEL="$STAT_LABEL ${PS1_GIT_GREEN}${STAGED}S${PS1_RESET}"; fi
+		if [ "$MODIFIED" != 0 ]; then STAT_LABEL="$STAT_LABEL ${PS1_GIT_RED}${MODIFIED}M${PS1_RESET}"; fi
+		if [ "$UNTRACKED" != 0 ]; then STAT_LABEL="$STAT_LABEL ${PS1_GIT_BLUE}${UNTRACKED}U${PS1_RESET}"; fi
+	fi
+
+	if [ "$BRANCH" ]; then
+		printf ' (%s%s%s%s)' "${PS1_YELLOW}" "${BRANCH}" "${PS1_RESET}" "${STAT_LABEL}"
+	elif [ "$COMMIT" ]; then
+		printf ' (%s%.4s%s%s)' "$PS1_YELLOW" "$COMMIT" "$PS1_RESET" "$STAT_LABEL"
+	fi
+}
+
+ps1_exit_status () {
+	if [ "$1" -eq 0 ]; then
+		printf ' %s√%s' "$PS1_GREEN" "$PS1_RESET"
+	else
+		printf ' %s!%s%s' "$PS1_RED" "$1" "$PS1_RESET"
+	fi
+}
+

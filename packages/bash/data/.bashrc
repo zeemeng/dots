@@ -62,7 +62,7 @@ generate_prompt() {
 
 	# Define color variables only if the terminal supports color display
 	case "$TERM" in
-	    xterm-color|*-256color) ps1_define_colors;;
+	    xterm-color|*-256color) ps1_define_colors bash;;
 	esac
 
 	# Baseline prompt
