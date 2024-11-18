@@ -46,8 +46,8 @@ local file_type = function ()
   local ft = vim.bo.filetype
   -- local label = "%#St_file_info# [" .. vim.bo.filetype:upper() .. "]" -- insert at pos 2
   -- local label = "%#St_LspStatus# [" .. vim.bo.filetype:upper() .. "]%#St_no_exists#" -- insert at pos 3
-  local label = "%#St_gitIcons# " .. vim.bo.filetype:upper() .. " %#St_no_exists#|" -- insert at pos 3
-  if ft == "" then return ft else return label end
+  local label = "%#St_gitIcons# " .. vim.bo.filetype:upper() .. " %#St_no_exists#" -- insert at pos 3
+  return ft == "" and ft or label
 end
 
 -- Path to overriding theme and highlights files
@@ -75,8 +75,10 @@ M.ui = {
       -- replace the default file info of only file name with relative path
       modules[2] = file_info()
 
+      local ft_label = file_type()
+      local git_label = modules[3]
       -- add file type indicator
-      table.insert(modules, 3, file_type())
+      table.insert(modules, 3, (git_label == '' or ft_label == '') and file_type() or file_type() .. '|')
 
       -- add current line and column numbers
       table.insert(modules, "| L %-2l | C %-2c ")
