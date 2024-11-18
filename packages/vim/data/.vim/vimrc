@@ -72,6 +72,9 @@ inoremap <C-e> <Esc>ea
 " Convenient launching of command-line mode
 nnoremap ; :
 
+" Repeat last find character (forward) using <CR> or <C-m>
+nnoremap <C-m> ;
+
 " Convenient navigation between windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

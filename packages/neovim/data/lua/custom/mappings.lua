@@ -320,6 +320,8 @@ M.general = {
   n = {
     [";"] = { ":", "Enter command mode", opts = { nowait = true } },
 
+    ["<C-m>"] = { ";", "Repeat last find character (forward) using <CR> or <C-m>", opts = { noremap = true } },
+
     ["<Leader>0"] = { "$", "Go to end of line" },
 
     ["<C-p>"] = {
