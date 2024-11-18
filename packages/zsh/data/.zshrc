@@ -26,6 +26,15 @@ set -o SH_WORD_SPLIT # Very important assumption. Will be required for proper be
 
 
 ############################
+### Source shell-commons ###
+############################
+
+if [ -f ~/.shrc ]; then
+	. ~/.shrc
+fi
+
+
+############################
 ### Set Zsh key bindings ###
 ############################
 
@@ -47,26 +56,15 @@ bindkey "^R" history-incremental-pattern-search-backward
 # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
 # https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
 precmd() {
-	local EC="$?"
-	local CYAN="%B%F{36}"
-	local BLUE="%B%F{33}"
-	local RED="%B%F{1}"
-	local GREEN="%B%F{2}"
-	local YELLOW="%F{227}"
-	local RESET="%f%b"
+	local EXIT_CODE="$?"
 
-	# set a fancy prompt (non-color, unless we know we "want" color)
+	# Define color variables only if the terminal supports color display
 	case "$TERM" in
-	    xterm-color|*-256color) color_prompt=yes;;
+	    xterm-color|*-256color) ps1_define_colors;;
 	esac
 
-	if [ "$color_prompt" = yes ]; then
-	    # PS1='\[\033[01;38;5;36m\]\u@\h\[\033[00m\]:\[\033[01;38;5;33m\]\w\[\033[00m\]\$ '
-		PS1="$CYAN%n@%m$RESET:$BLUE%~$RESET"
-	else
-	    # PS1='\u@\h:\w\$ '
-		PS1="%n@%m:%~"
-	fi
+	# Baseline prompt
+	PS1="$PS1_CYAN%n@%m$PS1_RESET:$PS1_BLUE%~$PS1_RESET"
 
 #	!!! Yanked from .bashrc, not sure how to setup the feature in zsh !!!
 #	# If this is an xterm set the title to user@host:dir
@@ -75,24 +73,10 @@ precmd() {
 #	    PS1="\[\e]0;\u@\h: \w\a\]$PS1";;
 #	esac
 
-	if command -v git >/dev/null; then
-		GIT_BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
-		GIT_COMMIT=$(git rev-parse --short HEAD 2>/dev/null)
-		if [ "$GIT_BRANCH" ]; then
-			PS1="$PS1 (${YELLOW}${GIT_BRANCH}${RESET})"
-		elif [ "$GIT_COMMIT" ]; then
-			SHORT_HASH=$(printf '%.4s' "$GIT_COMMIT")
-			PS1="$PS1 (${YELLOW}${SHORT_HASH}${RESET})"
-		fi
-	fi
-
-	if [ "$EC" -eq 0 ]; then
-		PS1="${PS1}${GREEN} √${RESET}"
-	else
-		PS1="${PS1}${RED} !${EC}${RESET}"
-	fi
-
-	PS1="$PS1 \$ "
+	# Additional segments
+	local PS1_GIT_INFO=$(ps1_git_info)
+	local PS1_EXIT_STATUS=$(ps1_exit_status $EXIT_CODE)
+	PS1="${PS1}${PS1_GIT_INFO}${PS1_EXIT_STATUS} \$ "
 }
 
 
@@ -108,15 +92,6 @@ precmd() {
 # https://github.com/zsh-users/zsh/blob/master/Completion/compinit#L67
 autoload -U compinit
 compinit -i
-
-
-############################
-### Source shell-commons ###
-############################
-
-if [ -f ~/.shrc ]; then
-	. ~/.shrc
-fi
 
 
 ###############################

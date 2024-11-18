@@ -58,50 +58,15 @@ shopt -s globstar
 #############################
 
 generate_prompt() {
-	local EC="$?"
+	local EXIT_CODE="$?"
 
-	# Variables to help produce a properly formatted SGR sequence wrapped as a non-printing
-	# Bash prompt sequence. A valid PS1 sequence shall be of a format like such:
-	# 	${ESC_L}${SGR_L}...${SGR_R}${ESC_R}
-	# where '...' represents a colon separated list of SGR parameters.
-	#
-	# See references:
-	# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
-	# https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters
-	#
-	# Excerpt:
-	# 38	Set foreground color	Next arguments are 5;n or 2;r;g;b
-	# 38	Set foreground color	Next arguments are 5;n or 2;r;g;b
-	#
-	# For values of `n`, see:
-	# https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-
-	local ESC_L='\[' # Start of unprintable bash PS1 sequence
-	local ESC_R='\]' # End of unprintable bash PS1 sequence
-	local SGR_L='\033[' # ANSI Control Sequence Introducer (CSI) token
-	local SGR_R='m'
-	local BOLD_FG='1;38;' # SGR params.
-	local RESET='0' # SGR param. Turn off all attributes
-
-	local CYAN="${ESC_L}${SGR_L}${BOLD_FG}5;36${SGR_R}${ESC_R}"
-	local BLUE="${ESC_L}${SGR_L}${BOLD_FG}5;33${SGR_R}${ESC_R}"
-	local RED="${ESC_L}${SGR_L}1;31${SGR_R}${ESC_R}"
-	local GREEN="${ESC_L}${SGR_L}1;32${SGR_R}${ESC_R}"
-	local YELLOW="${ESC_L}${SGR_L}38;5;227${SGR_R}${ESC_R}"
-	local RESET="${ESC_L}${SGR_L}0${SGR_R}${ESC_R}"
-
-	# set a fancy prompt (non-color, unless we know we "want" color)
+	# Define color variables only if the terminal supports color display
 	case "$TERM" in
-	    xterm-color|*-256color) color_prompt=yes;;
+	    xterm-color|*-256color) ps1_define_colors;;
 	esac
 
-	if [ "$color_prompt" = yes ]; then
-	    # PS1='\[\033[01;38;5;36m\]\u@\h\[\033[00m\]:\[\033[01;38;5;33m\]\w\[\033[00m\]\$ '
-		PS1="$CYAN\u@\h$RESET:$BLUE\w$RESET"
-	else
-	    # PS1='\u@\h:\w\$ '
-	    PS1='\u@\h:\w'
-	fi
+	# Baseline prompt
+	PS1="$PS1_CYAN\u@\h$PS1_RESET:$PS1_BLUE\w$PS1_RESET"
 
 	# If this is an xterm set the title to user@host:dir
 	case "$TERM" in
@@ -109,23 +74,10 @@ generate_prompt() {
 	    PS1="\[\e]0;\u@\h: \w\a\]$PS1";;
 	esac
 
-	if command -v git >/dev/null; then
-		GIT_BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null)
-		GIT_COMMIT=$(git rev-parse --short HEAD 2>/dev/null)
-		if [ "$GIT_BRANCH" ]; then
-			PS1="$PS1 (${YELLOW}${GIT_BRANCH}${RESET})"
-		elif [ "$GIT_COMMIT" ]; then
-			PS1=$(printf "$PS1 ($YELLOW%.4s$RESET)" "$GIT_COMMIT")
-		fi
-	fi
-
-	if [ "$EC" -eq 0 ]; then
-		PS1="${PS1}${GREEN} √${RESET}"
-	else
-		PS1="${PS1}${RED} !${EC}${RESET}"
-	fi
-
-	PS1="$PS1 \$ "
+	# Additional segments
+	local PS1_GIT_INFO=$(ps1_git_info)
+	local PS1_EXIT_STATUS=$(ps1_exit_status $EXIT_CODE)
+	PS1="${PS1}${PS1_GIT_INFO}${PS1_EXIT_STATUS} \$ "
 }
 
 PROMPT_COMMAND="generate_prompt"
