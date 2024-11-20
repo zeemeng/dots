@@ -309,89 +309,50 @@ M.telescope = {
 }
 
 M.general = {
-  i = {
-    ["<C-q>"] = { "<C-o>w", "Move cursor N words forward" },
+  ["!"] = {
+    ["<C-h>"] = { "<Left>", "Move cursor left", opts = { noremap = true } },
+    ["<C-j>"] = { "<Down>", "Move cursor down", opts = { noremap = true } },
+    ["<C-k>"] = { "<Up>", "Move cursor up", opts = { noremap = true } },
+    ["<C-l>"] = { "<Right>", "Move cursor right", opts = { noremap = true } },
 
-    ["<C-b>"] = { "<C-o>b", "Move cursor N words backward" },
-
-    ["<C-e>"] = { "<Esc>ea", "Move cursor forward to the end of word N" },
+    ["<C-s>"] = { "<Esc><Cmd>w<CR>", "Write the buffer", opts = { noremap = true } },
   },
 
-  n = {
+  i = {
+    ["<C-f>"] = { "<C-o>w", "Move cursor 1 words forward", opts = { noremap = true } },
+    ["<C-b>"] = { "<C-o>b", "Move cursor 1 words backward", opts = { noremap = true } },
+    ["<C-e>"] = { "<Esc>ea", "Move cursor forward to the end of word N", opts = { noremap = true } },
+  },
+
+  [""] = {
+    ["<C-h>"] = { "<C-w>h", "Move cursor to the left-side window", opts = { noremap = true } },
+    ["<C-j>"] = { "<C-w>j", "Move cursor to the downward window", opts = { noremap = true } },
+    ["<C-k>"] = { "<C-w>k", "Move cursor to the upward window", opts = { noremap = true } },
+    ["<C-l>"] = { "<C-w>l", "Move cursor to the right-side window", opts = { noremap = true } },
+
+    ["+"] = { ":resize +1<CR>", "Increase window height by 1 line", opts = { noremap = true, silent = true } },
+    ["_"] = { ":resize -1<CR>", "Decrease window height by 1 line", opts = { noremap = true, silent = true } },
+    ["("] = { ":vertical resize +1<CR>", "Increase window width by 1 line", opts = { noremap = true, silent = true } },
+    [")"] = { ":vertical resize -1<CR>", "Decrease window width by 1 line", opts = { noremap = true, silent = true } },
+
+    ["<C-p>"] = { "<C-i>", "Go to [count] newer cursor position in jump list (replaces CTRL-I command).", opts = { noremap = true } },
+    ["<C-q>"] = { "<C-y>", "Scroll [count] lines downwards", opts = { noremap = true } },
+
+    ["<C-w>>"] = { ":vsplit<CR><C-w>l", "Create a vertical split and place the cursor in the new split", opts = { noremap = true, silent = true } },
+    ["<C-w><"] = { ":split<CR><C-w>j", "Create a horizontal split and place the cursor in the new split", opts = { noremap = true, silent = true } },
+
+    ["<C-b>"] = { "<Cmd>ls<CR>", "List open buffers", opts = { noremap = true } },
     [";"] = { ":", "Enter command mode", opts = { nowait = true } },
-
     ["<C-m>"] = { ";", "Repeat last find character (forward) using <CR> or <C-m>", opts = { noremap = true } },
+    ["<C-x>"] = { "@:<CR>", "Repeat the last Ex command", opts = { noremap = true } },
+    ["<C-s>"] = { "<Cmd>w<CR>", "Write the buffer", opts = { noremap = true } },
+  },
 
-    ["<Leader>0"] = { "$", "Go to end of line" },
-
-    ["<C-p>"] = {
-      "<C-i>", "Go to [count] newer cursor position in jump list (replaces CTRL-I command).",
-      opts = {
-        noremap = true,
-      },
-    },
-
-    ["<C-q>"] = {
-      "<C-y>", "Scroll [count] lines downwards",
-      opts = {
-        noremap = true,
-      },
-    },
-
-    ["<C-w>>"] = {
-      ":vsplit<CR><C-w>l", "Create a vertical split and place the cursor in the new split",
-      opts = {
-        noremap = true,
-        silent = true,
-      },
-    },
-
-    ["<C-w><"] = {
-      ":split<CR><C-w>j", "Create a horizontal split and place the cursor in the new split",
-      opts = {
-        noremap = true,
-        silent = true,
-      },
-    },
-
-    ["<C-x>"] = {
-      "@:<CR>", "Repeat the last Ex command",
-      opts = {
-        noremap = true,
-      },
-    },
-
-    ["+"] = {
-      ":resize +1<CR>", "Increase window height by 1 line",
-      opts = {
-        noremap = true,
-        silent = true,
-      },
-    },
-
-    ["_"] = {
-      ":resize -1<CR>", "Decrease window height by 1 line",
-      opts = {
-        noremap = true,
-        silent = true,
-      },
-    },
-
-    ["("] = {
-      ":vertical resize +1<CR>", "Increase window width by 1 line",
-      opts = {
-        noremap = true,
-        silent = true,
-      },
-    },
-
-    [")"] = {
-      ":vertical resize -1<CR>", "Decrease window width by 1 line",
-      opts = {
-        noremap = true,
-        silent = true,
-      },
-    },
+  t = {
+    ["<C-h>"] = { "<C-\\><C-N><C-w>h", "Move cursor to the left-side window", opts = { noremap = true } },
+    ["<C-j>"] = { "<C-\\><C-N><C-w>j", "Move cursor to the downward window", opts = { noremap = true } },
+    ["<C-k>"] = { "<C-\\><C-N><C-w>k", "Move cursor to the upward window", opts = { noremap = true } },
+    ["<C-l>"] = { "<C-\\><C-N><C-w>l", "Move cursor to the right-side window", opts = { noremap = true } },
   },
 }
 

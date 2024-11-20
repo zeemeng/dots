@@ -30,13 +30,26 @@ end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
 -- USER COMMANDS
-vim.api.nvim_create_user_command("Ws", list_chars_toggle, {
-  desc = "Toggle visual markers for whitespaces and EOL",
-})
+-- Toggle visual markers for whitespaces and EOL
+vim.api.nvim_create_user_command("Ws", list_chars_toggle, { desc = "Toggle visual markers for whitespaces and EOL" })
+
 -- Ergonomic help page access
-vim.api.nvim_create_user_command('H', 'vertical help <args>', { nargs = '*' })
-vim.api.nvim_create_user_command('Ho', 'help <args> | only', { nargs = '*' })
+vim.api.nvim_create_user_command('H', 'vertical help <args>', { bar = true, nargs = '*', complete = 'help' })
+vim.api.nvim_create_user_command('Ho', 'help <args> | only', { bar = true, nargs = '*', complete = 'help' })
+vim.api.nvim_create_user_command('Ht', 'tab help <args>', { bar = true, nargs = '*', complete = 'help' })
+vim.api.nvim_create_user_command('Hi', 'vertical help index', {})
+vim.api.nvim_create_user_command('Hoi', 'help index | only', {})
+vim.api.nvim_create_user_command('Hti', 'tab help index', {})
+vim.api.nvim_create_user_command('Hcl', 'helpclose', {})
 vim.api.nvim_create_user_command('Hq', 'helpclose', {})
+
+-- Tab management
+vim.api.nvim_create_user_command('T', 'tabedit <args>', { bar = true, nargs = '*', complete = 'file' })
+vim.api.nvim_create_user_command('Tcl', 'tabclose<bang> <args>', { bang = true, nargs = '?' })
+vim.api.nvim_create_user_command('To', 'tabonly<bang> <args>', { bang = true, nargs = '?' })
+vim.api.nvim_create_user_command('Tm', 'tabmove <args>', { nargs = '?' })
+vim.api.nvim_create_user_command('Tf', 'tabfirst', {})
+vim.api.nvim_create_user_command('Tl', 'tablast', {})
 
 -- Close all buffers except the current one. (1. close all buffers; 2. edit the last
 -- opened buffer; 3. close the unnamed buffer created after step 1)

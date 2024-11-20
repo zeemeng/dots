@@ -1,6 +1,4 @@
-"""""""""""""""""""""""
-""" GENERAL OPTIONS """
-"""""""""""""""""""""""
+" !!! NEEDS TO BE AT THE TOP. ALTERS VALUES OF OTHER OPTIONS WHEN SET/UNSET !!!
 " Vim is based on Vi. Setting `nocompatible` switches from the default
 " Vi-compatibility mode and enables useful Vim functionality. This
 " configuration option turns out not to be necessary for the file named
@@ -10,104 +8,107 @@
 " `vim -u foo`).
 set nocompatible
 
-" Disable the default Vim startup message.
-set shortmess+=I
-
-" Show line numbers.
-set number relativenumber
-
-" Always show the status line at the bottom, even if you only have one window open.
-set laststatus=2
-
-" The backspace key has slightly unintuitive behavior by default. For example,
-" by default, you can't backspace before the insertion point set with 'i'.
-" This configuration makes backspace behave more reasonably, in that you can
-" backspace over anything.
-set backspace=indent,eol,start
-
-" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
-" shown in any window) that has unsaved changes. This is to prevent you from "
-" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
-" hidden buffers helpful enough to disable this protection. See `:help hidden`
-" for more information on this.
-"set hidden
-
-" This setting makes search case-insensitive when all characters in the string
-" being searched are lowercase. However, the search becomes case-sensitive if
-" it contains any capital letters. This makes searching more convenient.
-set ignorecase
-set smartcase
-
-" Enable searching as you type, rather than waiting till you press enter.
-set incsearch
-
-" Disable audible bell because it's annoying.
-set noerrorbells visualbell t_vb=
-
-" Enable mouse support. You should avoid relying on this too much, but it can
-" sometimes be convenient.
-set mouse+=a
-
-" Set appropriate tab settings
-set tabstop=4 " displayed width of a \t character
-set shiftwidth=4 " width of one level of indentation
-
-" Set a faster timeoutlen to not wait the default 1s when multiple mappings
-" and/or key codes share the same leading input sequence.
-set timeoutlen=200
-
 
 """"""""""""""""""""
 """ KEY MAPPINGS """
 """"""""""""""""""""
+" *map-table*
+"          Mode  | Norm | Ins | Cmd | Vis | Sel | Opr | Term | Lang | ~
+" Command        +------+-----+-----+-----+-----+-----+------+------+ ~
+" [nore]map      | yes  |  -  |  -  | yes | yes | yes |  -   |  -   |
+" n[nore]map     | yes  |  -  |  -  |  -  |  -  |  -  |  -   |  -   |
+" [nore]map!     |  -   | yes | yes |  -  |  -  |  -  |  -   |  -   |
+" i[nore]map     |  -   | yes |  -  |  -  |  -  |  -  |  -   |  -   |
+" c[nore]map     |  -   |  -  | yes |  -  |  -  |  -  |  -   |  -   |
+" v[nore]map     |  -   |  -  |  -  | yes | yes |  -  |  -   |  -   |
+" x[nore]map     |  -   |  -  |  -  | yes |  -  |  -  |  -   |  -   |
+" s[nore]map     |  -   |  -  |  -  |  -  | yes |  -  |  -   |  -   |
+" o[nore]map     |  -   |  -  |  -  |  -  |  -  | yes |  -   |  -   |
+" t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
+" l[nore]map     |  -   | yes | yes |  -  |  -  |  -  |  -   | yes  |
+
 " Convenient cursor motion while in insert mode
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
-inoremap <C-q> <C-o>w
+noremap! <C-h> <Left>
+noremap! <C-j> <Down>
+noremap! <C-k> <Up>
+noremap! <C-l> <Right>
+inoremap <C-f> <C-o>w
 inoremap <C-b> <C-o>b
 inoremap <C-e> <Esc>ea
 
-" Convenient launching of command-line mode
-nnoremap ; :
-
-" Repeat last find character (forward) using <CR> or <C-m>
-nnoremap <C-m> ;
-
 " Convenient navigation between windows
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
 
 " Convenient window resizing
-nnoremap + :resize +1<CR>
-nnoremap _ :resize -1<CR>
+" '(' and ')' are normal-only maps, since these keys are useful in visual mode
+noremap + :resize +1<CR>
+noremap _ :resize -1<CR>
 nnoremap ( :vertical resize +1<CR>
 nnoremap ) :vertical resize -1<CR>
 
+" Go to [count] newer cursor position in jump list
+noremap <C-p> <C-i>
+
 " Quickly scroll down [count] lines. To scroll up [count] lines, use the
 " default mapping <C-e>
-nnoremap <C-q> <C-y>
-
-" Unbind some useless/annoying default key bindings.
-nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
+noremap <C-q> <C-y>
 
 " Convenient horizontal and vertical splitting
-nnoremap <C-w>> :vsplit<CR><C-w>l
-nnoremap <C-w>< :split<CR><C-w>j
+noremap <C-w>> :vsplit<CR><C-w>l
+noremap <C-w>< :split<CR><C-w>j
+
+" Toggle Netrw
+noremap <C-n> <Cmd>Lex<CR>
+
+" List open buffers
+noremap <C-b> <Cmd>ls<CR>
+
+" 1. Convenient launching of command-line mode
+" 2. Repeat last find character (forward) using <CR> or <C-m>
+noremap ; :
+noremap <C-m> ;
 
 " Repeat the last Ex command
-nnoremap <C-x> @:<CR>
+noremap <C-x> @:<CR>
+
+" Close enough to the behaviour in neovim
+noremap Q @q
+
+" Write the buffer
+noremap <C-s> <Cmd>w<CR>
+noremap! <C-s> <Esc><Cmd>w<CR>
+
+" Clear current search highlights
+nnoremap <Esc> <Cmd>nohlsearch<CR>
+
 
 """"""""""""""""
 """ COMMANDS """
 """""""""""""""
-" Ergonomic help page access
-command! -nargs=* H vertical help <args>
-command! -nargs=* Ho help <args> | only
+" Help pages quick access
+command! -bar -nargs=* -complete=help H vertical help <args>
+command! -bar -nargs=* -complete=help Ho help <args> | only
+command! -bar -nargs=* -complete=help Ht tab help <args>
+command! Hi vertical help index
+command! Hoi help index | only
+command! Hti tab help index
+command! Hcl helpclose
 command! Hq helpclose
+
+" Tab management
+command! -bar -nargs=* -complete=file T tabedit <args>
+command! -bang -nargs=? Tcl tabclose<bang> <args>
+command! -bang -nargs=? To tabonly<bang> <args>
+command! -nargs=? Tm tabmove <args>
+command! Tf tabfirst
+command! Tl tablast
 
 " Close all buffers except the current one. (1. close all buffers; 2. edit the last
 " opened buffer; 3. close the unnamed buffer created after step 1)
@@ -116,11 +117,33 @@ command! Bdo %bd | e# | bd#
 " Write file and reedit to refresh syntax highlighting
 command! W w | e
 
+
 """""""""""""""
 """ VISUALS """
 """""""""""""""
+"Set Netrw to tree style listing
+let g:netrw_liststyle = 3
+
+" Disable the default Vim startup message.
+set shortmess+=I
+
+" Short search match count
+set shortmess-=S
+
+" Highlight all search matches
+set hlsearch
+
+" Show line numbers.
+set number relativenumber
+
+" Always show the status line at the bottom, even if you only have one window open.
+set laststatus=2
+
 " Show currently typed command in the command line
 set showcmd
+
+" Explicitly set bg to dark to avoid improper auto-detection of bg color
+" set bg=dark
 
 " Set a proper status line
 set statusline=
@@ -143,28 +166,49 @@ hi User6 ctermbg=160 ctermfg=15
 hi User7 ctermbg=67 ctermfg=16
 hi User8 ctermbg=109 ctermfg=16
 
-" Explicitly set the background mode to "dark" when using Tmux (i.e.
-" when the "term" option equals "screen*" or "tmux*"), so that Vim can set an appropriate
-" default colorscheme. Normally the "background" option would be set
-" automatically depending on the value of the "t_RB" option. However Tmux has
-" incomplete support for SGR (Select Graphic Rendition) terminal control sequences, more specifically, it
-" fails to provide support for "querying" OSC (Operating System Command) 11 to obtain the currently
-" applied terminal background color. "terminfo" databases for "screen*" and
-" "tmux*" are also not built-in in Vim, and if these are absent or contain incorrect
-" information, it may also hinder Vim's ability to properly detect the
-" background color of the terminal.
-if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
-	set background=dark
-endif
 
-" Explicitly set bg to dark to deal with many instances of improper bg color
-" detection
-set bg=dark
+"""""""""""""""""""""""
+""" GENERAL OPTIONS """
+"""""""""""""""""""""""
+" The backspace key has slightly unintuitive behavior by default. For example,
+" by default, you can't backspace before the insertion point set with 'i'.
+" This configuration makes backspace behave more reasonably, in that you can
+" backspace over anything.
+set backspace=indent,eol,start
 
+" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
+" shown in any window) that has unsaved changes. This is to prevent you from "
+" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
+" hidden buffers helpful enough to disable this protection. See `:help hidden`
+" for more information on this.
+set hidden
 
-""""""""""""""""""""""""""
-""" SYNTAX AND EDITING """
-""""""""""""""""""""""""""
+" This setting makes search case-insensitive when all characters in the string
+" being searched are lowercase. However, the search becomes case-sensitive if
+" it contains any capital letters. This makes searching more convenient.
+set ignorecase
+set smartcase
+
+" Enable searching as you type, rather than waiting till you press enter.
+set incsearch
+
+" Disable audible bell because it's annoying.
+set noerrorbells visualbell t_vb=
+
+" Enable mouse support
+set mouse+=a
+
+" Set appropriate tab settings
+set tabstop=4 " displayed width of a \t character
+set shiftwidth=4 " width of one level of indentation
+
+" Set a faster timeoutlen to not wait the default 1s when multiple mappings
+" and/or key codes share the same leading input sequence.
+set timeoutlen=200
+
+" Put new splits to the right-side by default
+set splitright
+
 " Set the default syntax highlighting for "sh" file type to be POSIX compliant
 let g:is_posix = 1
 
