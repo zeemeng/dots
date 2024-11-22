@@ -5,4 +5,4 @@ if [ "$(ls -A "$CONFMAN_DEST/.shrc.d")" ]; then rmdir "$CONFMAN_DEST/.shrc.d"; f
 
 # For the execution of the default unconfigure script, reassign CONFMAN_DEST depending on value of XDG_CONFIG_HOME
 [ "$XDG_CONFIG_HOME" ] && TMUX_CONFD="$XDG_CONFIG_HOME/tmux" || TMUX_CONFD="$HOME/.config/tmux"
-CONFMAN_DEST="$TMUX_CONFD" "$CONFMAN_TASK" unconfigure
+CONFMAN_DEST="$TMUX_CONFD" confman -D unconfigure

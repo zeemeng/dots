@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-HOMEBREW_CASK=1 PKG='visual-studio-code' "$CONFMAN_TASK" install
+HOMEBREW_CASK=1 PKG='visual-studio-code' confman -D install
 
