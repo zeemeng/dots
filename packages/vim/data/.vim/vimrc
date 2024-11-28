@@ -32,9 +32,19 @@ noremap! <C-h> <Left>
 noremap! <C-j> <Down>
 noremap! <C-k> <Up>
 noremap! <C-l> <Right>
-inoremap <C-f> <C-o>w
-inoremap <C-b> <C-o>b
+noremap! <C-y> <Home>
+noremap! <C-t> <End>
+
+" Insert mode word-boundary cursor motion
+inoremap <C-f> <S-Right>
+inoremap <C-b> <S-Left>
 inoremap <C-e> <Esc>ea
+inoremap <C-d> <C-o>d$
+
+" Command mode word-boundary cursor motion
+cnoremap <C-f> <S-Right><Right>
+cnoremap <C-b> <S-Left>
+cnoremap <C-e> <S-Right>
 
 " Convenient navigation between windows
 noremap <C-h> <C-w>h
@@ -48,10 +58,10 @@ tnoremap <C-l> <C-\><C-N><C-w>l
 
 " Convenient window resizing
 " '(' and ')' are normal-only maps, since these keys are useful in visual mode
-noremap + :resize +1<CR>
-noremap _ :resize -1<CR>
-nnoremap ( :vertical resize +1<CR>
-nnoremap ) :vertical resize -1<CR>
+noremap + <Cmd>resize +1<CR>
+noremap _ <Cmd>resize -1<CR>
+nnoremap ( <Cmd>vertical resize +1<CR>
+nnoremap ) <Cmd>vertical resize -1<CR>
 
 " Go to [count] newer cursor position in jump list
 noremap <C-p> <C-i>
@@ -74,6 +84,9 @@ noremap <C-b> <Cmd>ls<CR>
 " 2. Repeat last find character (forward) using <CR> or <C-m>
 noremap ; :
 noremap <C-m> ;
+
+" Convenient launching of buffer-like window for editing ex-commands
+noremap q; q:i
 
 " Repeat the last Ex command
 noremap <C-x> @:<CR>
@@ -197,6 +210,10 @@ set noerrorbells visualbell t_vb=
 
 " Enable mouse support
 set mouse+=a
+
+" Automatically yank, delete, change and put using the "+" register (system
+" clipboard) instead of the default unnamed register
+set clipboard=unnamedplus
 
 " Set appropriate tab settings
 set tabstop=4 " displayed width of a \t character

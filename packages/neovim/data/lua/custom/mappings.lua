@@ -314,14 +314,23 @@ M.general = {
     ["<C-j>"] = { "<Down>", "Move cursor down", opts = { noremap = true } },
     ["<C-k>"] = { "<Up>", "Move cursor up", opts = { noremap = true } },
     ["<C-l>"] = { "<Right>", "Move cursor right", opts = { noremap = true } },
+    ["<C-y>"] = { "<Home>", "Move cursor to begining of line", opts = { noremap = true } },
+    ["<C-t>"] = { "<End>", "Move cursor to end of line", opts = { noremap = true } },
 
     ["<C-s>"] = { "<Esc><Cmd>w<CR>", "Write the buffer", opts = { noremap = true } },
   },
 
   i = {
-    ["<C-f>"] = { "<C-o>w", "Move cursor 1 words forward", opts = { noremap = true } },
-    ["<C-b>"] = { "<C-o>b", "Move cursor 1 words backward", opts = { noremap = true } },
-    ["<C-e>"] = { "<Esc>ea", "Move cursor forward to the end of word N", opts = { noremap = true } },
+    ["<C-f>"] = { "<S-Right>", "(ins-mode) Move cursor 1 words forward", opts = { noremap = true } },
+    ["<C-b>"] = { "<S-Left>", "(ins-mode) Move cursor 1 words backward", opts = { noremap = true } },
+    ["<C-e>"] = { "<Esc>ea", "(ins-mode) Move cursor forward to the end of word N", opts = { noremap = true } },
+    ["<C-d>"] = { "<C-o>d$", "(ins-mode) Delete until end of line", opts = { noremap = true } },
+  },
+
+  c = {
+    ["<C-f>"] = { "<S-Right><Right>", "(cmd-mode) Move cursor 1 words forward", opts = { noremap = true } },
+    ["<C-b>"] = { "<S-Left>", "(cmd-mode) Move cursor 1 words backward", opts = { noremap = true } },
+    ["<C-e>"] = { "<S-Right>", "(cmd-mode) Move cursor forward to the end of word N", opts = { noremap = true } },
   },
 
   [""] = {
@@ -330,10 +339,8 @@ M.general = {
     ["<C-k>"] = { "<C-w>k", "Move cursor to the upward window", opts = { noremap = true } },
     ["<C-l>"] = { "<C-w>l", "Move cursor to the right-side window", opts = { noremap = true } },
 
-    ["+"] = { ":resize +1<CR>", "Increase window height by 1 line", opts = { noremap = true, silent = true } },
-    ["_"] = { ":resize -1<CR>", "Decrease window height by 1 line", opts = { noremap = true, silent = true } },
-    ["("] = { ":vertical resize +1<CR>", "Increase window width by 1 line", opts = { noremap = true, silent = true } },
-    [")"] = { ":vertical resize -1<CR>", "Decrease window width by 1 line", opts = { noremap = true, silent = true } },
+    ["+"] = { "<Cmd>resize +1<CR>", "Increase window height by 1 line", opts = { noremap = true, silent = true } },
+    ["_"] = { "<Cmd>resize -1<CR>", "Decrease window height by 1 line", opts = { noremap = true, silent = true } },
 
     ["<C-p>"] = { "<C-i>", "Go to [count] newer cursor position in jump list (replaces CTRL-I command).", opts = { noremap = true } },
     ["<C-q>"] = { "<C-y>", "Scroll [count] lines downwards", opts = { noremap = true } },
@@ -343,9 +350,15 @@ M.general = {
 
     ["<C-b>"] = { "<Cmd>ls<CR>", "List open buffers", opts = { noremap = true } },
     [";"] = { ":", "Enter command mode", opts = { nowait = true } },
+    ["q;"] = { "q:i", "Convenient launching of buffer-like window for editing ex-commands", opts = { noremap = true } },
     ["<C-m>"] = { ";", "Repeat last find character (forward) using <CR> or <C-m>", opts = { noremap = true } },
     ["<C-x>"] = { "@:<CR>", "Repeat the last Ex command", opts = { noremap = true } },
     ["<C-s>"] = { "<Cmd>w<CR>", "Write the buffer", opts = { noremap = true } },
+  },
+
+  n = {
+    ["("] = { "<Cmd>vertical resize +1<CR>", "Increase window width by 1 line", opts = { noremap = true, silent = true } },
+    [")"] = { "<Cmd>vertical resize -1<CR>", "Decrease window width by 1 line", opts = { noremap = true, silent = true } },
   },
 
   t = {
@@ -353,6 +366,10 @@ M.general = {
     ["<C-j>"] = { "<C-\\><C-N><C-w>j", "Move cursor to the downward window", opts = { noremap = true } },
     ["<C-k>"] = { "<C-\\><C-N><C-w>k", "Move cursor to the upward window", opts = { noremap = true } },
     ["<C-l>"] = { "<C-\\><C-N><C-w>l", "Move cursor to the right-side window", opts = { noremap = true } },
+    ["<C-p>"] = { "<Cmd>resize +1<CR>", "Increase window height by 1 line", opts = { noremap = true, silent = true } },
+    ["<C-o>"] = { "<Cmd>resize -1<CR>", "Decrease window height by 1 line", opts = { noremap = true, silent = true } },
+    ["<C-u>"] = { "<Cmd>vertical resize +1<CR>", "Increase window width by 1 line", opts = { noremap = true, silent = true } },
+    ["<C-i>"] = { "<Cmd>vertical resize -1<CR>", "Decrease window width by 1 line", opts = { noremap = true, silent = true } },
   },
 }
 
