@@ -5,39 +5,6 @@ c () {
 	cd "$@" && printf "> $(pwd)\n\n" && ls -lAhF
 }
 
-# `cd` into the parent git root directory
-cgr () {
-	cd "$(git rev-parse --show-toplevel)"
-}
-
-# `docker exec -it` convenience function. Defaults to targeting the first container listed by `docker ps` and defaults to invoking the command `bash`.
-dexit () {
-	case "$#" in
-		0) docker exec -it "$(docker ps -aq | head -n1)" bash;;
-		1) docker exec -it "$(docker ps -aq | head -n1)" "$@";;
-		*) docker exec -it "$@";;
-	esac
-}
-
-# Same as the `dexit` function defined above, but restart the target container first.
-dreexit () (
-	set -e
-
-	case "$#" in
-		0) dreexit_container="$(docker ps -aq | head -n1)"; set 'bash';;
-		1) dreexit_container="$(docker ps -aq | head -n1)";;
-		*) dreexit_container="$1"; shift;;
-	esac
-
-	docker restart "$dreexit_container"
-	docker exec -it "$dreexit_container" "$@"
-)
-
-# Quicker docker help commands
-dh () {
-	docker "$@" --help
-}
-
 # Chain `jq` and `less` with colorized output
 jql () {
 	jq --color-output "$@" | less -R
@@ -47,29 +14,9 @@ l () {
 	eval "$@" | less +Gg
 }
 
-# List each segment of the PATH env var, one per line.
-lp () {
-	echo "$PATH" | tr ':' '\n'
-}
-
-# List each segment of the expanded argument as a colon-separated list, one per line.
-lvar () {
-	echo "$@" | tr ':' '\n'
-}
-
 # Takes a single argument representing a pathname. Creates the specified pathname and `cd` into it.
 mkcd () {
 	mkdir -p "$1" && cd "$1"
-}
-
-# Wrapper function for suppressing stderr
-noerr() {
-	"$@" 2>/dev/null
-}
-
-# Wrapper function for suppressing stdout and stderr
-noout() {
-	"$@" >/dev/null 2>&1
 }
 
 # Invoke neovim using the configuration profile specified by "$1"

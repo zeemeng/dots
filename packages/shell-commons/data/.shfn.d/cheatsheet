@@ -1,0 +1,41 @@
+# vim: ft=sh
+
+ch () {
+	CH_OPERANDS="$@"
+	alias | grep "$CH_OPERANDS"
+
+	CH_SHFN="$(grep -C 2 "$CH_OPERANDS" ~/.shfn)"
+	if [ $? = 0 ]; then
+		printf '\n[~/.shfn] --------------------\n\n'
+		printf "$CH_SHFN\n"
+		printf '\n[~/.shfn DONE] ---------------\n\n'
+	fi
+
+	CH_SHFN_D="$(ls -1AL ~/.shfn.d | grep "$CH_OPERANDS")"
+	if [ $? = 0 ]; then
+		for ITEM in $CH_SHFN_D; do
+			printf "\n[~/.shfn.d/$ITEM] --------------------\n\n"
+			cat ~/.shfn.d/"$ITEM"
+			printf "\n[~/.shfn.d/$ITEM DONE] ---------------\n\n"
+		done
+	fi
+
+	case "$CH_OPERANDS" in tmux*)
+		printf "\n[tmux.conf] --------------------\n\n"
+		grep -C 2 'bind' ~/.config/tmux/tmux.conf
+		printf "\n[tmux.conf DONE] ---------------\n\n"
+	esac
+
+	case "$CH_OPERANDS" in vim*)
+		printf "\n[vimrc] --------------------\n\n"
+		grep -C 2 'bind' ~/.config/tmux/tmux.conf
+		printf "\n[vimrc DONE] ---------------\n\n"
+	esac
+
+	case "$CH_OPERANDS" in nvim*)
+		printf "\n[mappings.lua NVIM] --------------------\n\n"
+		cat .config/NvChad/lua/custom/mappings.lua
+		printf "\n[mappings.lua DONE] ---------------\n\n"
+	esac
+}
+
