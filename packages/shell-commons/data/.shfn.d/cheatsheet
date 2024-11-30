@@ -1,41 +1,42 @@
 # vim: ft=sh
 
 ch () {
+	print_with_labelled_guards () {
+		LINE_HEAD_LABEL="[$1]"; LINE_HEAD_PAD='-'
+		LINE_TAIL_LABEL="[$1 DONE]"; LINE_TAIL_PAD='*'
+		shift
+
+		LINE_LENGTH=80
+		stty size | read -r TERM_ROWS TERM_COLS
+		if [ "$TERM_COLS" -lt "$LINE_LENGTH" ]; then LINE_LENGTH="$TERM_COLS"; fi
+		LINE_HEAD_PAD_LENGTH="$((LINE_LENGTH - ${#LINE_HEAD_LABEL}))"
+		LINE_TAIL_PAD_LENGTH="$((LINE_LENGTH - ${#LINE_TAIL_LABEL}))"
+
+		printf "%${LINE_HEAD_PAD_LENGTH}s" | tr ' ' "${LINE_HEAD_PAD}"; printf "$LINE_HEAD_LABEL\n"
+		printf "\n$@\n\n"
+		printf "%${LINE_TAIL_PAD_LENGTH}s" | tr ' ' "${LINE_TAIL_PAD}"; printf "$LINE_TAIL_LABEL\n"
+		unset -v LINE_HEAD_LABEL LINE_TAIL_LABEL LINE_HEAD_PAD LINE_TAIL_PAD LINE_LENGTH TERM_COLS LINE_HEAD_PAD_LENGTH LINE_TAIL_PAD_LENGTH
+	}
+
 	CH_OPERANDS="$@"
-	alias | grep "$CH_OPERANDS"
+
+	CH_ALIAS="$(alias | grep "$CH_OPERANDS")"
+	if [ $? = 0 ]; then print_with_labelled_guards "~/.alias" "$CH_ALIAS"; fi
 
 	CH_SHFN="$(grep -C 2 "$CH_OPERANDS" ~/.shfn)"
-	if [ $? = 0 ]; then
-		printf '\n[~/.shfn] --------------------\n\n'
-		printf "$CH_SHFN\n"
-		printf '\n[~/.shfn DONE] ---------------\n\n'
-	fi
+	if [ $? = 0 ]; then print_with_labelled_guards "~/.shfn" "$CH_SHFN"; fi
 
 	CH_SHFN_D="$(ls -1AL ~/.shfn.d | grep "$CH_OPERANDS")"
 	if [ $? = 0 ]; then
-		for ITEM in $CH_SHFN_D; do
-			printf "\n[~/.shfn.d/$ITEM] --------------------\n\n"
-			cat ~/.shfn.d/"$ITEM"
-			printf "\n[~/.shfn.d/$ITEM DONE] ---------------\n\n"
-		done
+		for ITEM in $CH_SHFN_D; do print_with_labelled_guards "~/.shfn.d/$ITEM" "$(cat ~/.shfn.d/"$ITEM")"; done
 	fi
 
-	case "$CH_OPERANDS" in tmux*)
-		printf "\n[tmux.conf] --------------------\n\n"
-		grep -C 2 'bind' ~/.config/tmux/tmux.conf
-		printf "\n[tmux.conf DONE] ---------------\n\n"
-	esac
+	case "$CH_OPERANDS" in tmux*) print_with_labelled_guards "tmux.conf" "$(grep -C 2 'bind' ~/.config/tmux/tmux.conf)"; esac
 
-	case "$CH_OPERANDS" in vim*)
-		printf "\n[vimrc] --------------------\n\n"
-		grep -C 2 'bind' ~/.config/tmux/tmux.conf
-		printf "\n[vimrc DONE] ---------------\n\n"
-	esac
+	case "$CH_OPERANDS" in vim*) print_with_labelled_guards "vimrc" "$(grep -C 3 -e 'map[ !]' -e '^command' ~/.vim/vimrc)"; esac
 
-	case "$CH_OPERANDS" in nvim*)
-		printf "\n[mappings.lua NVIM] --------------------\n\n"
-		cat .config/NvChad/lua/custom/mappings.lua
-		printf "\n[mappings.lua DONE] ---------------\n\n"
-	esac
+	case "$CH_OPERANDS" in nvim*) print_with_labelled_guards "mappings.lua" "$(cat ~/.config/nvim/lua/custom/mappings.lua)"; esac
+
+	unset -v CH_OPERANDS CH_ALIAS CH_SHFN CH_SHFN_D ITEM
 }
 
