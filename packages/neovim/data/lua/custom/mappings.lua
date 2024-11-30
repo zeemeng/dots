@@ -310,12 +310,12 @@ M.telescope = {
 
 M.general = {
   ["!"] = {
+    ["<C-t>"] = { "<End>", "Move cursor to end of line", opts = { noremap = true } },
+    ["<C-y>"] = { "<Home>", "Move cursor to begining of line", opts = { noremap = true } },
     ["<C-h>"] = { "<Left>", "Move cursor left", opts = { noremap = true } },
     ["<C-j>"] = { "<Down>", "Move cursor down", opts = { noremap = true } },
     ["<C-k>"] = { "<Up>", "Move cursor up", opts = { noremap = true } },
     ["<C-l>"] = { "<Right>", "Move cursor right", opts = { noremap = true } },
-    ["<C-y>"] = { "<Home>", "Move cursor to begining of line", opts = { noremap = true } },
-    ["<C-t>"] = { "<End>", "Move cursor to end of line", opts = { noremap = true } },
 
     ["<C-s>"] = { "<Esc><Cmd>w<CR>", "Write the buffer", opts = { noremap = true } },
   },
@@ -325,6 +325,9 @@ M.general = {
     ["<C-b>"] = { "<S-Left>", "(ins-mode) Move cursor 1 words backward", opts = { noremap = true } },
     ["<C-e>"] = { "<Esc>ea", "(ins-mode) Move cursor forward to the end of word N", opts = { noremap = true } },
     ["<C-d>"] = { "<C-o>d$", "(ins-mode) Delete until end of line", opts = { noremap = true } },
+
+    ["<C-c>"] = { "<C-d>", "delete one shiftwidth of indent in the current line", opts = { noremap = true } },
+    ["<C-q>"] = { "<C-t>", "insert one shiftwidth of indent in the current line", opts = { noremap = true } },
   },
 
   c = {
@@ -366,10 +369,10 @@ M.general = {
     ["<C-j>"] = { "<C-\\><C-N><C-w>j", "Move cursor to the downward window", opts = { noremap = true } },
     ["<C-k>"] = { "<C-\\><C-N><C-w>k", "Move cursor to the upward window", opts = { noremap = true } },
     ["<C-l>"] = { "<C-\\><C-N><C-w>l", "Move cursor to the right-side window", opts = { noremap = true } },
-    ["<C-p>"] = { "<Cmd>resize +1<CR>", "Increase window height by 1 line", opts = { noremap = true, silent = true } },
-    ["<C-o>"] = { "<Cmd>resize -1<CR>", "Decrease window height by 1 line", opts = { noremap = true, silent = true } },
-    ["<C-u>"] = { "<Cmd>vertical resize +1<CR>", "Increase window width by 1 line", opts = { noremap = true, silent = true } },
-    ["<C-i>"] = { "<Cmd>vertical resize -1<CR>", "Decrease window width by 1 line", opts = { noremap = true, silent = true } },
+    ["<C-q>"] = { "<Cmd>resize +1<CR>", "Increase window height by 1 line", opts = { noremap = true, silent = true } },
+    ["<C-w>"] = { "<Cmd>resize -1<CR>", "Decrease window height by 1 line", opts = { noremap = true, silent = true } },
+    ["<C-o>"] = { "<Cmd>vertical resize +1<CR>", "Increase window width by 1 line", opts = { noremap = true, silent = true } },
+    ["<C-p>"] = { "<Cmd>vertical resize -1<CR>", "Decrease window width by 1 line", opts = { noremap = true, silent = true } },
   },
 }
 
