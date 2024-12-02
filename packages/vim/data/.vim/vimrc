@@ -27,28 +27,36 @@ set nocompatible
 " t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
 " l[nore]map     |  -   | yes | yes |  -  |  -  |  -  |  -   | yes  |
 
-" Convenient cursor motion while in insert mode
-noremap! <C-t> <Home>
-noremap! <C-y> <End>
+" Insert and command modes character-wise cursor motion
 noremap! <C-h> <Left>
 noremap! <C-j> <Down>
 noremap! <C-k> <Up>
 noremap! <C-l> <Right>
 
-" Insert mode word-boundary cursor motion
+" Insert and command modes word-boundary cursor motion
 inoremap <C-f> <S-Right>
 inoremap <C-b> <S-Left>
 inoremap <C-e> <Esc>ea
-inoremap <C-d> <C-o>d$
-
-" Command mode word-boundary cursor motion
 cnoremap <C-f> <S-Right><Right>
 cnoremap <C-b> <S-Left>
 cnoremap <C-e> <S-Right>
 
+" Insert and command modes line-boundary cursor motion
+noremap! <C-t> <Home>
+noremap! <C-y> <End>
+
+" Insert and command modes word-boundary deletion
+inoremap <C-w> <C-g>u<C-w>
+inoremap <C-q> <C-o>de
+cnoremap <C-q> <C-f>de<C-c>
+
+" Insert and command modes line-boundary deletion
+inoremap <C-d> <C-o>d$
+cnoremap <C-d> <C-f>d$<C-c>
+
 " Increase and decrease indent in insert mode
-inoremap <C-c> <C-d>
-inoremap <C-q> <C-t>
+inoremap <C-c> <C-t>
+inoremap <C-g> <C-d>
 
 " Convenient navigation between windows
 noremap <C-h> <C-w>h
@@ -68,12 +76,6 @@ noremap _ <Cmd>resize -1<CR>
 nnoremap ( <Cmd>vertical resize +1<CR>
 nnoremap ) <Cmd>vertical resize -1<CR>
 
-" Terminal windows resizing
-tnoremap <C-q> <Cmd>resize +1<CR>
-tnoremap <C-w> <Cmd>resize -1<CR>
-tnoremap <C-o> <Cmd>vertical resize +1<CR>
-tnoremap <C-p> <Cmd>vertical resize -1<CR>
-
 " Go to [count] newer cursor position in jump list
 noremap <C-p> <C-i>
 
@@ -81,9 +83,16 @@ noremap <C-p> <C-i>
 " default mapping <C-e>
 noremap <C-q> <C-y>
 
+" More accessible 'window commands' prefix
+map <C-x> <C-w>
+noremap <C-w><C-x> <C-w><C-w>
+
 " Convenient horizontal and vertical splitting
-noremap <C-w>> :vsplit<CR><C-w>l
-noremap <C-w>< :split<CR><C-w>j
+noremap <C-w>i :vsplit<CR><C-w>l
+noremap <C-w>u :split<CR><C-w>j
+
+" Split window and jump to declaration of identifier under the cursor
+noremap <C-w>D <C-w>i
 
 " Toggle Netrw
 noremap <C-n> <Cmd>Lex<CR>
@@ -100,7 +109,7 @@ noremap <C-m> ;
 noremap q; q:i
 
 " Repeat the last Ex command
-noremap <C-x> @:<CR>
+noremap <C-y> @:
 
 " Close enough to the behaviour in neovim
 noremap Q @q
@@ -232,7 +241,7 @@ set shiftwidth=4 " width of one level of indentation
 
 " Set a faster timeoutlen to not wait the default 1s when multiple mappings
 " and/or key codes share the same leading input sequence.
-set timeoutlen=200
+set timeoutlen=500
 
 " Put new splits to the right-side by default
 set splitright

@@ -13,6 +13,7 @@ alias ase='apt search'
 alias ash='apt show'
 alias aud='sudo_cmd apt update'
 alias aug='sudo_cmd apt upgrade'
+alias b=bash
 alias c..='c ..'
 alias ccfm='cd ~/src/confman'
 alias cdd='cd ~/Desktop && ls -lAh'
@@ -24,6 +25,7 @@ alias cgr='cd "$(git rev-parse --show-toplevel)"'
 alias cl=clear
 alias d=docker
 alias dcl='docker rm --volumes --force $(docker ps --quiet --all)'
+alias def=defaults
 alias dex='docker exec'
 alias dh='docker help'
 alias di='docker images'
@@ -92,8 +94,9 @@ alias nr='npm run'
 alias ns='npm start'
 alias p=python3
 alias port='ss -tulpn'
-alias ppl='plutil -p'
 alias psh='ps -p $$'
+alias pu=plutil
+alias pup='plutil -p'
 alias py=python3
 alias q=exit
 alias s='systemctl'
@@ -117,6 +120,7 @@ alias tk='tmux kill-server'
 alias tl='tmux ls'
 alias v=vim
 alias xo=xdg-open
+alias z=zsh
 
 # Source a local configuration file if it exists
 if [ -f ~/.alias.local ]; then

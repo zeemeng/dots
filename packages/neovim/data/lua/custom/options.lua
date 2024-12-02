@@ -1,6 +1,6 @@
 -- NEOVIM OPTIONS
 vim.opt.relativenumber = true
-vim.opt.timeoutlen = 200
+vim.opt.timeoutlen = 500
 
 -- VIM GLOBAL VARIABLES
 -- Set the default `sh.vim` syntax to be POSIX-compliant instead of being Bourne shell syntax
