@@ -1,0 +1,191 @@
+{
+  "ASCII Anti Aliased": true,
+  "ASCII Ligatures": true,
+  "Ambiguous Double Width": false,
+  "Ansi 0 Color": {
+    "Blue Component": 0,
+    "Green Component": 0,
+    "Red Component": 0
+  },
+  "Ansi 1 Color": {
+    "Blue Component": 0,
+    "Green Component": 0,
+    "Red Component": 0.73333334922790527
+  },
+  "Ansi 10 Color": {
+    "Blue Component": 0.3333333432674408,
+    "Green Component": 1,
+    "Red Component": 0.3333333432674408
+  },
+  "Ansi 11 Color": {
+    "Blue Component": 0.3333333432674408,
+    "Green Component": 1,
+    "Red Component": 1
+  },
+  "Ansi 12 Color": {
+    "Blue Component": 1,
+    "Green Component": 0.3333333432674408,
+    "Red Component": 0.3333333432674408
+  },
+  "Ansi 13 Color": {
+    "Blue Component": 1,
+    "Green Component": 0.3333333432674408,
+    "Red Component": 1
+  },
+  "Ansi 14 Color": {
+    "Blue Component": 1,
+    "Green Component": 1,
+    "Red Component": 0.3333333432674408
+  },
+  "Ansi 15 Color": {
+    "Blue Component": 1,
+    "Green Component": 1,
+    "Red Component": 1
+  },
+  "Ansi 2 Color": {
+    "Blue Component": 0,
+    "Green Component": 0.73333334922790527,
+    "Red Component": 0
+  },
+  "Ansi 3 Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.255035400390625,
+    "Color Space": "sRGB",
+    "Green Component": 0.94607372954487801,
+    "Red Component": 1
+  },
+  "Ansi 4 Color": {
+    "Blue Component": 0.73333334922790527,
+    "Green Component": 0,
+    "Red Component": 0
+  },
+  "Ansi 5 Color": {
+    "Blue Component": 0.73333334922790527,
+    "Green Component": 0,
+    "Red Component": 0.73333334922790527
+  },
+  "Ansi 6 Color": {
+    "Blue Component": 0.73333334922790527,
+    "Green Component": 0.73333334922790527,
+    "Red Component": 0
+  },
+  "Ansi 7 Color": {
+    "Blue Component": 0.73333334922790527,
+    "Green Component": 0.73333334922790527,
+    "Red Component": 0.73333334922790527
+  },
+  "Ansi 8 Color": {
+    "Blue Component": 0.3333333432674408,
+    "Green Component": 0.3333333432674408,
+    "Red Component": 0.3333333432674408
+  },
+  "Ansi 9 Color": {
+    "Blue Component": 0.3333333432674408,
+    "Green Component": 0.3333333432674408,
+    "Red Component": 1
+  },
+  "BM Growl": true,
+  "Background Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.20654296875,
+    "Color Space": "sRGB",
+    "Green Component": 0.1316680908203125,
+    "Red Component": 0.07953999936580658
+  },
+  "Background Image Location": "",
+  "Blinking Cursor": false,
+  "Blur": false,
+  "Bold Color": {
+    "Blue Component": 1,
+    "Green Component": 1,
+    "Red Component": 1
+  },
+  "Character Encoding": 4,
+  "Close Sessions On End": true,
+  "Columns": 135,
+  "Command": "/opt/homebrew/bin/tmux",
+  "Cursor Color": {
+    "Blue Component": 0.73333334922790527,
+    "Green Component": 0.73333334922790527,
+    "Red Component": 0.73333334922790527
+  },
+  "Cursor Text Color": {
+    "Blue Component": 1,
+    "Green Component": 1,
+    "Red Component": 1
+  },
+  "Custom Command": "No",
+  "Custom Directory": "No",
+  "Default Bookmark": "No",
+  "Description": "Dynamic Profile",
+  "Disable Window Resizing": true,
+  "Draw Powerline Glyphs": false,
+  "Flashing Bell": false,
+  "Foreground Color": {
+    "Alpha Component": 1,
+    "Blue Component": 1,
+    "Color Space": "sRGB",
+    "Green Component": 1,
+    "Red Component": 1
+  },
+  "Guid": "99F05A16-3BFD-49B1-BCB4-29FD24820E3B",
+  "Horizontal Spacing": 1,
+  "Idle Code": 0,
+  "Initial Text": "tmux new-session -A",
+  "Jobs to Ignore": [
+    "rlogin",
+    "ssh",
+    "slogin",
+    "telnet"
+  ],
+  "Left Option Key Changeable": false,
+  "Link Color": {
+    "Alpha Component": 1,
+    "Blue Component": 1,
+    "Color Space": "sRGB",
+    "Green Component": 0.696044921875,
+    "Red Component": 0
+  },
+  "Mouse Reporting": true,
+  "Name": "dynamic_profile",
+  "Non Ascii Font": "HasklugNF 12",
+  "Non-ASCII Anti Aliased": true,
+  "Non-ASCII Ligatures": true,
+  "Normal Font": "FiraCodeNF-Reg 20",
+  "Option Key Sends": 2,
+  "Prompt Before Closing 2": false,
+  "Right Option Key Changeable": false,
+  "Right Option Key Sends": 2,
+  "Rows": 999,
+  "Screen": -1,
+  "Scrollback Lines": 1000,
+  "Selected Text Color": {
+    "Blue Component": 0,
+    "Green Component": 0,
+    "Red Component": 0
+  },
+  "Selection Color": {
+    "Alpha Component": 1,
+    "Blue Component": 0.8997888802223325,
+    "Color Space": "sRGB",
+    "Green Component": 0.9397735595703125,
+    "Red Component": 0.31940485024824739
+  },
+  "Send Code When Idle": false,
+  "Silence Bell": false,
+  "Sync Title": false,
+  "Terminal Type": "xterm-256color",
+  "Transparency": 0,
+  "Treat Option as Alt": true,
+  "Unicode Normalization": 0,
+  "Unicode Version": 9,
+  "Unlimited Scrollback": false,
+  "Use Bold Font": true,
+  "Use Bright Bold": true,
+  "Use Italic Font": true,
+  "Use Non-ASCII Font": false,
+  "Use libtickit protocol": false,
+  "Vertical Spacing": 1,
+  "Visual Bell": true,
+  "Window Type": 0
+}

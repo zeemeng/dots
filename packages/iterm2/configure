@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+confman -L info "copying iTerm2 dynamic profile to $DYN_PROFILE_DIR"
+
+DYN_PROFILE_DIR=~/'Library/Application Support/iTerm2/DynamicProfiles'
+mkdir -p "$DYN_PROFILE_DIR"
+cp "$CONFMAN_REPO/$PKG/data/dynamic_profile.json" "$DYN_PROFILE_DIR"
+
+confman -L info "setting additional preferences in the macOS 'defaults' database"
+
+ITERM2_DOMAIN='com.googlecode.iterm2'
+defaults write "$ITERM2_DOMAIN" 'NoSyncIgnoreSystemWindowRestoration' -bool TRUE
+defaults write "$ITERM2_DOMAIN" 'NoSyncWindowRestoresWorkspaceAtLaunch' -bool FALSE
+defaults write "$ITERM2_DOMAIN" 'NoSyncTipsDisabled' -bool TRUE
+defaults write "$ITERM2_DOMAIN" 'AllowClipboardAccess' -bool TRUE
+defaults write "$ITERM2_DOMAIN" 'CopySelection' -bool FALSE
+defaults write "$ITERM2_DOMAIN" 'HideScrollbar' -bool TRUE
+defaults write "$ITERM2_DOMAIN" 'AdjustWindowForFontSizeChange' -bool FALSE
+

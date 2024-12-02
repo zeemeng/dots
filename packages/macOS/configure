@@ -1,0 +1,385 @@
+#!/usr/bin/env sh
+
+
+# Perform default `confman` configure operation by symlinking the custom LaunchAgent for
+# defining "UserKeyMapping" using the `hidutil` program
+confman -D configure
+
+
+#####################################################
+# Populate the `defaults` user preferences database #
+#####################################################
+
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+
+################################################
+# Pulled from .GlobalPreferences.XXXXXXX.plist #
+################################################
+
+# For Apple Internal Keyboard (i.e. laptop), map left & right 'Globe' key to left & right 'ctrl' keys
+defaults write 'NSGlobalDomain' "com.apple.keyboard.modifiermapping.0-0-0" -array-add \
+    '{ HIDKeyboardModifierMappingDst = 30064771296; HIDKeyboardModifierMappingSrc = 280379760050179; }' \
+    '{ HIDKeyboardModifierMappingDst = 30064771300; HIDKeyboardModifierMappingSrc = 1095216660483; }'
+
+# For Apple Internal Keyboard (i.e. laptop), map left 'ctrl' key to left 'option' key
+defaults write 'NSGlobalDomain' "com.apple.keyboard.modifiermapping.0-0-0" -array-add \
+	'{ HIDKeyboardModifierMappingDst = 30064771298; HIDKeyboardModifierMappingSrc = 30064771296; }'
+
+defaults write 'NSGlobalDomain' "AppleFontSmoothing" -int 1
+defaults write 'NSGlobalDomain' "com.apple.mouse.swapLeftRightButton" -bool false
+defaults write 'NSGlobalDomain' "com.apple.mouse.tapBehavior" -int 2
+defaults write 'NSGlobalDomain' "com.apple.trackpad.enableSecondaryClick" -bool true
+defaults write 'NSGlobalDomain' "com.apple.trackpad.fiveFingerPinchSwipeGesture" -int 2
+defaults write 'NSGlobalDomain' "com.apple.trackpad.fourFingerHorizSwipeGesture" -int 2
+defaults write 'NSGlobalDomain' "com.apple.trackpad.fourFingerPinchSwipeGesture" -int 2
+defaults write 'NSGlobalDomain' "com.apple.trackpad.fourFingerVertSwipeGesture" -int 2
+defaults write 'NSGlobalDomain' "com.apple.trackpad.momentumScroll" -bool true
+defaults write 'NSGlobalDomain' "com.apple.trackpad.pinchGesture" -bool true
+defaults write 'NSGlobalDomain' "com.apple.trackpad.rotateGesture" -bool true
+defaults write 'NSGlobalDomain' "com.apple.trackpad.scrollBehavior" -int 2
+defaults write 'NSGlobalDomain' "com.apple.trackpad.threeFingerDragGesture" -bool false
+defaults write 'NSGlobalDomain' "com.apple.trackpad.threeFingerHorizSwipeGesture" -int 2
+defaults write 'NSGlobalDomain' "com.apple.trackpad.threeFingerTapGesture" -int 0
+defaults write 'NSGlobalDomain' "com.apple.trackpad.threeFingerVertSwipeGesture" -int 2
+defaults write 'NSGlobalDomain' "com.apple.trackpad.twoFingerDoubleTapGesture" -int 1
+defaults write 'NSGlobalDomain' "com.apple.trackpad.twoFingerFromRightEdgeSwipeGesture" -int 3
+defaults write 'NSGlobalDomain' "com.apple.trackpad.version" -int 5
+
+
+########################################
+# Pulled from .GlobalPreferences.plist #
+########################################
+
+defaults write 'NSGlobalDomain' "AppleAntiAliasingThreshold" -int 4
+defaults write 'NSGlobalDomain' "AppleAquaColorVariant" -int 1
+defaults write 'NSGlobalDomain' "AppleEnableSwipeNavigateWithScrolls" -bool true
+defaults write 'NSGlobalDomain' "AppleInterfaceStyle" -string "Dark"
+defaults write 'NSGlobalDomain' "AppleKeyboardUIMode" -int 3
+defaults write 'NSGlobalDomain' "AppleLanguages" -array '( "en-CA", "fr-CA")'
+defaults write 'NSGlobalDomain' "AppleLocale" -string "en_CA"
+defaults write 'NSGlobalDomain' "AppleMenuBarFontSize" -string "large"
+defaults write 'NSGlobalDomain' "AppleMiniaturizeOnDoubleClick" -bool false
+defaults write 'NSGlobalDomain' "ApplePressAndHoldEnabled" -bool false
+defaults write 'NSGlobalDomain' "AppleReduceDesktopTinting" -bool false
+defaults write 'NSGlobalDomain' "AppleShowAllExtensions" -bool true
+defaults write 'NSGlobalDomain' "InitialKeyRepeat" -float '30.000000'
+defaults write 'NSGlobalDomain' "KB_DoubleQuoteOption" -string "“abc”"
+defaults write 'NSGlobalDomain' "KB_SingleQuoteOption" -string "‘abc’"
+defaults write 'NSGlobalDomain' "KB_SpellingLanguage" -dict '{ "KB_SpellingLanguageIsAutomatic" -bool true }'
+defaults write 'NSGlobalDomain' "KeyRepeat" -float '2.000000'
+defaults write 'NSGlobalDomain' "NavPanelFileListModeForOpenMode" -int 2
+defaults write 'NSGlobalDomain' "NSAutomaticCapitalizationEnabled" -bool true
+defaults write 'NSGlobalDomain' "NSAutomaticPeriodSubstitutionEnabled" -bool false
+defaults write 'NSGlobalDomain' "NSAutomaticSpellingCorrectionEnabled" -bool false
+defaults write 'NSGlobalDomain' "NSNavPanelFileLastListModeForOpenModeKey" -int 2
+defaults write 'NSGlobalDomain' "NSNavPanelFileListModeForOpenMode2" -int 2
+defaults write 'NSGlobalDomain' "NSScrollViewRubberbanding" -bool false
+defaults write 'NSGlobalDomain' "NSTableViewDefaultSizeMode" -int 3
+defaults write 'NSGlobalDomain' "NSUserDictionaryReplacementItems" -array '()'
+defaults write 'NSGlobalDomain' "NSUserKeyEquivalents" -dict '{ "Fill" = "@^f"; "Left" = "@^←"; "Lock Screen" = "@^l"; "Minimize" = "@^↓"; "Right" = "@^→"; "Zoom" = "@^↑" }'
+defaults write 'NSGlobalDomain' "WebAutomaticSpellingCorrectionEnabled" -bool false
+defaults write 'NSGlobalDomain' "com.apple.mouse.scaling" -float '2.000000'
+defaults write 'NSGlobalDomain' "com.apple.scrollwheel.scaling" -float '0.500000'
+defaults write 'NSGlobalDomain' "com.apple.sound.beep.feedback" -int 1
+defaults write 'NSGlobalDomain' "com.apple.sound.beep.flash" -int 0
+defaults write 'NSGlobalDomain' "com.apple.sound.beep.sound" -string "/System/Library/Sounds/Tink.aiff"
+defaults write 'NSGlobalDomain' "com.apple.sound.uiaudio.enabled" -int 1
+defaults write 'NSGlobalDomain' "com.apple.springing.delay" -float '0.500000'
+defaults write 'NSGlobalDomain' "com.apple.springing.enabled" -bool true
+defaults write 'NSGlobalDomain' "com.apple.swipescrolldirection" -bool true
+defaults write 'NSGlobalDomain' "com.apple.trackpad.forceClick" -bool true
+defaults write 'NSGlobalDomain' "com.apple.trackpad.scaling" -float '1.000000'
+defaults write 'NSGlobalDomain' "com.apple.trackpad.scrolling" -float '0.588200'
+defaults write 'NSGlobalDomain' "userMenuExtraStyle" -int 1
+
+
+####################################
+# Pulled from com.apple.dock.plist #
+####################################
+defaults write com.apple.dock "autohide" -bool true
+defaults write com.apple.dock "autohide-delay" -float '0.000000'
+defaults write com.apple.dock "expose-group-apps" -bool false
+defaults write com.apple.dock "largesize" -float '16.000000'
+defaults write com.apple.dock "magnification" -bool false
+defaults write com.apple.dock "mineffect" -string "genie"
+defaults write com.apple.dock "mru-spaces" -bool false
+defaults write com.apple.dock "orientation" -string "bottom"
+defaults write com.apple.dock "region" -string "CA"
+defaults write com.apple.dock "show-recents" -bool false
+defaults write com.apple.dock "showAppExposeGestureEnabled" -bool true
+defaults write com.apple.dock "tilesize" -float '64.000000'
+
+# Hot corners
+# Possible values:
+#  0: no-op
+#  2: Mission Control
+#  3: Show application windows
+#  4: Desktop
+#  5: Start screen saver
+#  6: Disable screen saver
+#  7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+# 13: Lock Screen
+defaults write com.apple.dock "wvous-bl-corner" -int 11
+defaults write com.apple.dock "wvous-bl-modifier" -int 0
+defaults write com.apple.dock "wvous-br-corner" -int 4
+defaults write com.apple.dock "wvous-br-modifier" -int 0
+defaults write com.apple.dock "wvous-tl-corner" -int 0
+defaults write com.apple.dock "wvous-tl-modifier" -int 0
+defaults write com.apple.dock "wvous-tr-corner" -int 2
+defaults write com.apple.dock "wvous-tr-modifier" -int 0
+
+
+#######################################################
+# Pulled from com.apple.AppleMultitouchTrackpad.plist #
+#######################################################
+
+defaults write com.apple.AppleMultitouchTrackpad "ActuateDetents" -int 1
+defaults write com.apple.AppleMultitouchTrackpad "Clicking" -bool true
+defaults write com.apple.AppleMultitouchTrackpad "Dragging" -bool true
+defaults write com.apple.AppleMultitouchTrackpad "DragLock" -int 0
+defaults write com.apple.AppleMultitouchTrackpad "FirstClickThreshold" -int 0
+defaults write com.apple.AppleMultitouchTrackpad "ForceSuppressed" -bool false
+defaults write com.apple.AppleMultitouchTrackpad "SecondClickThreshold" -int 0
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadCornerSecondaryClick" -int 0
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadFiveFingerPinchGesture" -int 2
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadFourFingerHorizSwipeGesture" -int 2
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadFourFingerPinchGesture" -int 2
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadFourFingerVertSwipeGesture" -int 2
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadHandResting" -bool true
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadHorizScroll" -int 1
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadMomentumScroll" -bool true
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadPinch" -int 1
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadRightClick" -bool true
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadRotate" -int 1
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadScroll" -bool true
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadThreeFingerDrag" -bool false
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadThreeFingerHorizSwipeGesture" -int 2
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadThreeFingerTapGesture" -int 0
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadThreeFingerVertSwipeGesture" -int 2
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadTwoFingerDoubleTapGesture" -int 1
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadTwoFingerFromRightEdgeSwipeGesture" -int 3
+defaults write com.apple.AppleMultitouchTrackpad "USBMouseStopsTrackpad" -int 0
+defaults write com.apple.AppleMultitouchTrackpad "UserPreferences" -bool true
+defaults write com.apple.AppleMultitouchTrackpad "version" -int 12
+
+
+########################################################################
+# Pulled from com.apple.driver.AppleBluetoothMultitouch.trackpad.plist #
+########################################################################
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "Clicking" -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "Dragging" -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "DragLock" -bool false
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadCornerSecondaryClick" -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadFiveFingerPinchGesture" -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadFourFingerHorizSwipeGesture" -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadFourFingerPinchGesture" -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadFourFingerVertSwipeGesture" -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadHandResting" -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadHorizScroll" -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadMomentumScroll" -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadPinch" -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadRightClick" -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadRotate" -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadScroll" -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadThreeFingerDrag" -bool false
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadThreeFingerHorizSwipeGesture" -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadThreeFingerTapGesture" -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadThreeFingerVertSwipeGesture" -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadTwoFingerDoubleTapGesture" -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadTwoFingerFromRightEdgeSwipeGesture" -int 3
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "USBMouseStopsTrackpad" -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "UserPreferences" -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "version" -int 5
+
+
+###############################################
+# Pulled from com.apple.menuextra.clock.plist #
+###############################################
+
+defaults write com.apple.menuextra.clock "FlashDateSeparators" -bool false
+defaults write com.apple.menuextra.clock "IsAnalog" -bool false
+defaults write com.apple.menuextra.clock "Show24Hour" -bool true
+defaults write com.apple.menuextra.clock "ShowAMPM" -bool true
+defaults write com.apple.menuextra.clock "ShowDate" -int 0
+defaults write com.apple.menuextra.clock "ShowDayOfWeek" -bool true
+defaults write com.apple.menuextra.clock "ShowSeconds" -bool true
+
+
+###########################################################################
+# Extras from: https://github.com/mathiasbynens/dotfiles/blob/main/.macos #
+###########################################################################
+
+# Make Dock icons of hidden applications translucent
+defaults write com.apple.dock showhidden -bool true
+
+# Disable smart quotes as they’re annoying when typing code
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Disable the crash reporter
+defaults write com.apple.CrashReporter DialogType -string "none"
+
+# Enable Secure Keyboard Entry in Terminal.app
+# See: https://security.stackexchange.com/a/47786/8918
+defaults write com.apple.terminal SecureKeyboardEntry -bool true
+
+# Use plain text mode for new TextEdit documents
+defaults write com.apple.TextEdit RichText -int 0
+
+# Show the main window when launching Activity Monitor
+defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
+
+# Visualize CPU usage in the Activity Monitor Dock icon
+defaults write com.apple.ActivityMonitor IconType -int 5
+
+# Show all processes in Activity Monitor
+defaults write com.apple.ActivityMonitor ShowCategory -int 0
+
+
+###############################################################################
+# Screen                                                                      #
+###############################################################################
+
+# Save screenshots to the desktop
+defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+
+# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+defaults write com.apple.screencapture type -string "png"
+
+# Disable shadow in screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
+
+# Show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+# Finder: show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# Finder: show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
+# Display full POSIX path as Finder window title
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# Keep folders on top when sorting by name
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+# Disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Use list view in all Finder windows by default
+# Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+# Avoid creating .DS_Store files on network or USB volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# Automatically open a new Finder window when a volume is mounted
+defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
+defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+
+# Show the ~/Library folder
+chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+
+
+###############################################################################
+# Safari & WebKit                                                             #
+###############################################################################
+
+# Privacy: don’t send search queries to Apple
+defaults write com.apple.Safari UniversalSearchEnabled -bool false
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+
+# Press Tab to highlight each item on a web page
+defaults write com.apple.Safari WebKitTabToLinksPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks -bool true
+
+# Show the full URL in the address bar (note-bool this still hides the scheme)
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true
+
+# Prevent Safari from opening ‘safe’ files automatically after downloading
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+
+# Allow hitting the Backspace key to go to the previous page in history
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true
+
+# Hide Safari’s sidebar in Top Sites
+defaults write com.apple.Safari ShowSidebarInTopSites -bool false
+
+# Enable Safari’s debug menu
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+
+# Make Safari’s search banners default to Contains instead of Starts With
+defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
+
+# Remove useless icons from Safari’s bookmarks bar
+defaults write com.apple.Safari ProxiesInBookmarksBar -array '()'
+
+# Enable the Develop menu and the Web Inspector in Safari
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+
+# Enable continuous spellchecking
+defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
+# Disable auto-correct
+defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false
+
+# Disable AutoFill
+defaults write com.apple.Safari AutoFillFromAddressBook -bool false
+defaults write com.apple.Safari AutoFillPasswords -bool false
+defaults write com.apple.Safari AutoFillCreditCardData -bool false
+defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
+
+# Warn about fraudulent websites
+defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
+
+# Disable Java
+defaults write com.apple.Safari WebKitJavaEnabled -bool false
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles -bool false
+
+# Block pop-up windows
+defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
+
+# Enable “Do Not Track”
+defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+
+# Update extensions automatically
+defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
+
+
+###############################################################################
+# Kill affected applications                                                  #
+###############################################################################
+
+for app in "Activity Monitor" \
+	"Address Book" \
+	"Calendar" \
+	"cfprefsd" \
+	"Contacts" \
+	"Dock" \
+	"Finder" \
+	"Mail" \
+	"Messages" \
+	"Photos" \
+	"Safari" \
+	"SystemUIServer" \
+	"Terminal"; do
+	killall "${app}" &> /dev/null
+done
+
+confman -L info "Done. Note that some of these changes require a logout/restart to take effect."
+
