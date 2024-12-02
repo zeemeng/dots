@@ -2,13 +2,15 @@
 
 confman -L info "copying iTerm2 dynamic profile to $DYN_PROFILE_DIR"
 
-DYN_PROFILE_DIR=~/'Library/Application Support/iTerm2/DynamicProfiles'
-mkdir -p "$DYN_PROFILE_DIR"
-cp "$CONFMAN_REPO/$PKG/data/dynamic_profile.json" "$DYN_PROFILE_DIR"
+DYN_PROFILES_DIR=~/'Library/Application Support/iTerm2/DynamicProfiles'
+DYN_PROFILES_SRC="$CONFMAN_REPO/$PKG/data/dynamic_profile.json"
+mkdir -p "$DYN_PROFILES_DIR"
+cp "$DYN_PROFILES_SRC" "$DYN_PROFILES_DIR"
 
 confman -L info "setting additional preferences in the macOS 'defaults' database"
 
 ITERM2_DOMAIN='com.googlecode.iterm2'
+DYN_PROFILES_GUID="$(sed -n 's/^[[:space:]]*"Guid": "\(.*\)",$/\1/p' "$DYN_PROFILES_SRC")"
 defaults write "$ITERM2_DOMAIN" 'NoSyncIgnoreSystemWindowRestoration' -bool TRUE
 defaults write "$ITERM2_DOMAIN" 'NoSyncWindowRestoresWorkspaceAtLaunch' -bool FALSE
 defaults write "$ITERM2_DOMAIN" 'NoSyncTipsDisabled' -bool TRUE
@@ -16,4 +18,7 @@ defaults write "$ITERM2_DOMAIN" 'AllowClipboardAccess' -bool TRUE
 defaults write "$ITERM2_DOMAIN" 'CopySelection' -bool FALSE
 defaults write "$ITERM2_DOMAIN" 'HideScrollbar' -bool TRUE
 defaults write "$ITERM2_DOMAIN" 'AdjustWindowForFontSizeChange' -bool FALSE
+defaults write "$ITERM2_DOMAIN" "Default Bookmark Guid" -string "$DYN_PROFILES_GUID"
+
+confman -L warning "kill all iTerm2 processes and restart application for preferences to take effect.."
 

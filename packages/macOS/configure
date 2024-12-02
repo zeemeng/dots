@@ -15,18 +15,18 @@ confman -D configure
 osascript -e 'tell application "System Preferences" to quit'
 
 
-################################################
-# Pulled from .GlobalPreferences.XXXXXXX.plist #
-################################################
+###############################################
+# Pulled from .GlobalPreferences.XXXXXX.plist #
+###############################################
 
 # For Apple Internal Keyboard (i.e. laptop), map left & right 'Globe' key to left & right 'ctrl' keys
 defaults write 'NSGlobalDomain' "com.apple.keyboard.modifiermapping.0-0-0" -array-add \
-    '{ HIDKeyboardModifierMappingDst = 30064771296; HIDKeyboardModifierMappingSrc = 280379760050179; }' \
-    '{ HIDKeyboardModifierMappingDst = 30064771300; HIDKeyboardModifierMappingSrc = 1095216660483; }'
+    '{ "HIDKeyboardModifierMappingDst" = 30064771296; "HIDKeyboardModifierMappingSrc" = 280379760050179; }' \
+    '{ "HIDKeyboardModifierMappingDst" = 30064771300; "HIDKeyboardModifierMappingSrc" = 1095216660483; }'
 
 # For Apple Internal Keyboard (i.e. laptop), map left 'ctrl' key to left 'option' key
 defaults write 'NSGlobalDomain' "com.apple.keyboard.modifiermapping.0-0-0" -array-add \
-	'{ HIDKeyboardModifierMappingDst = 30064771298; HIDKeyboardModifierMappingSrc = 30064771296; }'
+	'{ "HIDKeyboardModifierMappingDst" = 30064771298; "HIDKeyboardModifierMappingSrc" = 30064771296; }'
 
 defaults write 'NSGlobalDomain' "AppleFontSmoothing" -int 1
 defaults write 'NSGlobalDomain' "com.apple.mouse.swapLeftRightButton" -bool false
@@ -58,7 +58,7 @@ defaults write 'NSGlobalDomain' "AppleAquaColorVariant" -int 1
 defaults write 'NSGlobalDomain' "AppleEnableSwipeNavigateWithScrolls" -bool true
 defaults write 'NSGlobalDomain' "AppleInterfaceStyle" -string "Dark"
 defaults write 'NSGlobalDomain' "AppleKeyboardUIMode" -int 3
-defaults write 'NSGlobalDomain' "AppleLanguages" -array '( "en-CA", "fr-CA")'
+defaults write 'NSGlobalDomain' "AppleLanguages" -array "en-CA" "fr-CA"
 defaults write 'NSGlobalDomain' "AppleLocale" -string "en_CA"
 defaults write 'NSGlobalDomain' "AppleMenuBarFontSize" -string "large"
 defaults write 'NSGlobalDomain' "AppleMiniaturizeOnDoubleClick" -bool false
@@ -68,7 +68,7 @@ defaults write 'NSGlobalDomain' "AppleShowAllExtensions" -bool true
 defaults write 'NSGlobalDomain' "InitialKeyRepeat" -float '30.000000'
 defaults write 'NSGlobalDomain' "KB_DoubleQuoteOption" -string "“abc”"
 defaults write 'NSGlobalDomain' "KB_SingleQuoteOption" -string "‘abc’"
-defaults write 'NSGlobalDomain' "KB_SpellingLanguage" -dict '{ "KB_SpellingLanguageIsAutomatic" -bool true }'
+defaults write 'NSGlobalDomain' "KB_SpellingLanguage" '{ "KB_SpellingLanguageIsAutomatic" = 1; }'
 defaults write 'NSGlobalDomain' "KeyRepeat" -float '2.000000'
 defaults write 'NSGlobalDomain' "NavPanelFileListModeForOpenMode" -int 2
 defaults write 'NSGlobalDomain' "NSAutomaticCapitalizationEnabled" -bool true
@@ -78,8 +78,8 @@ defaults write 'NSGlobalDomain' "NSNavPanelFileLastListModeForOpenModeKey" -int 
 defaults write 'NSGlobalDomain' "NSNavPanelFileListModeForOpenMode2" -int 2
 defaults write 'NSGlobalDomain' "NSScrollViewRubberbanding" -bool false
 defaults write 'NSGlobalDomain' "NSTableViewDefaultSizeMode" -int 3
-defaults write 'NSGlobalDomain' "NSUserDictionaryReplacementItems" -array '()'
-defaults write 'NSGlobalDomain' "NSUserKeyEquivalents" -dict '{ "Fill" = "@^f"; "Left" = "@^←"; "Lock Screen" = "@^l"; "Minimize" = "@^↓"; "Right" = "@^→"; "Zoom" = "@^↑" }'
+defaults write 'NSGlobalDomain' "NSUserDictionaryReplacementItems" '()'
+defaults write 'NSGlobalDomain' "NSUserKeyEquivalents" '{ "Fill" = "@^f"; "Left" = "@^←"; "Lock Screen" = "@^l"; "Minimize" = "@^↓"; "Right" = "@^→"; "Zoom" = "@^↑"; }'
 defaults write 'NSGlobalDomain' "WebAutomaticSpellingCorrectionEnabled" -bool false
 defaults write 'NSGlobalDomain' "com.apple.mouse.scaling" -float '2.000000'
 defaults write 'NSGlobalDomain' "com.apple.scrollwheel.scaling" -float '0.500000'
@@ -197,6 +197,40 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadTwoFi
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "USBMouseStopsTrackpad" -int 0
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "UserPreferences" -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "version" -int 5
+
+
+#############################################
+# Pulled from com.apple.controlcenter.plist #
+#############################################
+
+defaults write com.apple.controlcenter.plist "AVDesktopPlaybackControlsControllerShowsDurationInsteadOfTimeRemainingDefaultsKey" -bool true
+defaults write com.apple.controlcenter.plist "NSStatusItem Preferred Position UserSwitcher" -int 332
+defaults write com.apple.controlcenter.plist "NSStatusItem Preferred Position ScreenMirroring" -int 331
+defaults write com.apple.controlcenter.plist "NSStatusItem Preferred Position Display" -int 324
+defaults write com.apple.controlcenter.plist "NSStatusItem Preferred Position FocusModes" -int 318
+defaults write com.apple.controlcenter.plist "NSStatusItem Preferred Position NowPlaying" -int 301
+defaults write com.apple.controlcenter.plist "NSStatusItem Preferred Position Battery" -int 230
+defaults write com.apple.controlcenter.plist "NSStatusItem Preferred Position WiFi" -int 192
+defaults write com.apple.controlcenter.plist "NSStatusItem Preferred Position BentoBox" -int 158
+defaults write com.apple.controlcenter.plist "NSStatusItem Visible Battery" -bool true
+defaults write com.apple.controlcenter.plist "NSStatusItem Visible BentoBox" -bool true
+defaults write com.apple.controlcenter.plist "NSStatusItem Visible Clock" -bool true
+defaults write com.apple.controlcenter.plist "NSStatusItem Visible UserSwitcher" -bool true
+defaults write com.apple.controlcenter.plist "NSStatusItem Visible WiFi" -bool true
+
+
+####################################################
+# Pulled from com.apple.controlcenter.xxxxxx.plist #
+####################################################
+
+defaults write com.apple.controlcenter.plist AccessibilityShortcuts -int 8
+defaults write com.apple.controlcenter.plist Battery -int 3
+defaults write com.apple.controlcenter.plist BatteryShowPercentage -bool true
+defaults write com.apple.controlcenter.plist Hearing -int 4
+defaults write com.apple.controlcenter.plist MusicRecognition -int 1
+defaults write com.apple.controlcenter.plist StageManager -int 8
+defaults write com.apple.controlcenter.plist UserSwitcher -int 22
+defaults write com.apple.controlcenter.plist VoiceControl -int 8
 
 
 ###############################################
@@ -324,7 +358,7 @@ defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
 
 # Remove useless icons from Safari’s bookmarks bar
-defaults write com.apple.Safari ProxiesInBookmarksBar -array '()'
+defaults write com.apple.Safari ProxiesInBookmarksBar '()'
 
 # Enable the Develop menu and the Web Inspector in Safari
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
@@ -376,10 +410,9 @@ for app in "Activity Monitor" \
 	"Messages" \
 	"Photos" \
 	"Safari" \
-	"SystemUIServer" \
-	"Terminal"; do
+	"SystemUIServer"; do
 	killall "${app}" &> /dev/null
 done
 
-confman -L info "Done. Note that some of these changes require a logout/restart to take effect."
+confman -L warning "Done. Note that some of these changes require a logout/restart to take effect."
 
