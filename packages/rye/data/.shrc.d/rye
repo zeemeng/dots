@@ -4,9 +4,8 @@
 if [ -d "$HOME/.rye/shims" ]; then path_prepend "$HOME/.rye/shims"; else return; fi
 
 # Shell completion
-STARTUP_SHELL_NAME="$(ps -p $$ -o comm='')"
-eval "$(rye self completion -s "${STARTUP_SHELL_NAME#-}")"
-unset -v STARTUP_SHELL_NAME
+# First regex deletes all path segments except the last. Second regex deletes any single hyphen character at begining.
+eval "$(rye self completion -s "$(ps -p $$ -o comm='' | sed -E -e 's/^.*\///' -e 's/^-//')")"
 
 # Prevent auto installation
 export RYE_NO_AUTO_INSTALL=1
