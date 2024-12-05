@@ -25,6 +25,20 @@ set -o SH_OPTION_LETTERS
 set -o SH_WORD_SPLIT # Very important assumption. Will be required for proper behaviour of certain custom shell functions
 
 
+####################################
+### Enable Zsh completion system ###
+####################################
+
+# Needs to autoload and call function `compinit` before adding program-specific/third-party
+# completion functions (i.e. Before sourcing drop-in files).
+# https://zsh.sourceforge.io/Doc/Release/Completion-System.html#index-compinit
+#
+# Ignore insecure directories found by compaudit with -i option when calling compinit
+# https://github.com/zsh-users/zsh/blob/master/Completion/compinit#L67
+autoload -U compinit
+compinit -i
+
+
 ############################
 ### Source shell-commons ###
 ############################
@@ -73,20 +87,6 @@ precmd() {
 	local PS1_EXIT_STATUS=$(ps1_exit_status $EXIT_CODE)
 	PS1="${PS1}${PS1_GIT_INFO}${PS1_EXIT_STATUS} \$ "
 }
-
-
-####################################
-### Enable Zsh completion system ###
-####################################
-
-# Needs to autoload and call function `compinit` before adding program-specific/third-party
-# completion functions (i.e. Before sourcing drop-in files).
-# https://zsh.sourceforge.io/Doc/Release/Completion-System.html#index-compinit
-#
-# Ignore insecure directories found by compaudit with -i option when calling compinit
-# https://github.com/zsh-users/zsh/blob/master/Completion/compinit#L67
-autoload -U compinit
-compinit -i
 
 
 ###############################

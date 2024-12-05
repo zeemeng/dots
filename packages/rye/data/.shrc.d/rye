@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# Sourcing a shell script that adds rye to $PATH
+if [ -d "$HOME/.rye/shims" ]; then path_prepend "$HOME/.rye/shims"; else return; fi
+
+# Shell completion
+STARTUP_SHELL_NAME="$(ps -p $$ -o comm='')"
+eval "$(rye self completion -s "${STARTUP_SHELL_NAME#-}")"
+unset -v STARTUP_SHELL_NAME
+
+# Prevent auto installation
+export RYE_NO_AUTO_INSTALL=1
+
