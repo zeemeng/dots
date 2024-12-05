@@ -1,0 +1,41 @@
+#!/usr/bin/env sh
+
+set -e
+
+case "$(uname -s)" in
+	# macOS
+	Darwin)
+		HOMEBREW_CASK=1 EXTRA_OPTS='--fontdir=/Library/Fonts' PKG='font-fira-code-nerd-font' confman -D install
+		HOMEBREW_CASK=1 EXTRA_OPTS='--fontdir=/Library/Fonts' PKG='font-hasklug-nerd-font' confman -D install
+		exit 0;;
+	# MSYS2 UCRT
+	MSYS*)
+		PKG='mingw-w64-ucrt-x86_64-ttf-firacode-nerd' confman -D install
+		PKG='mingw-w64-ucrt-x86_64-otf-hasklig-nerd' confman -D install
+		exit 0;;
+esac
+
+case "$CONFMAN_MGR" in
+	# Arch linux
+	pacman)
+		PKG='ttf-firacode-nerd' confman -D install
+		PKG='otf-hasklig-nerd' confman -D install;;
+	# Alpine linux
+	apk)
+		PKG='font-fira-code-nerd' confman -D install
+		PKG='font-hasklig-nerd' confman -D install;;
+	# Debian/Ubuntu linux (refs below)
+	# https://docs.rockylinux.org/books/nvchad/nerd_fonts/
+	# https://github.com/ryanoasis/nerd-fonts/blob/master/install.sh
+	apt)
+		git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts "$CONFMAN_DEST/nerd-fonts"
+		cd "$CONFMAN_DEST/nerd-fonts"
+		git sparse-checkout add patched-fonts/FiraCode
+		git sparse-checkout add patched-fonts/Hasklig
+		./install.sh -l FiraCode Hasklig;;
+	# Error condition
+	*)
+		confman -L error "No suitable package manager for installing PKG '$PKG'"
+		exit 1;;
+esac
+

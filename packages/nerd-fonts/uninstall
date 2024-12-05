@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+set -e
+
+case "$(uname -s)" in
+	# macOS
+	Darwin)
+		HOMEBREW_CASK=1 PKG='font-fira-code-nerd-font' confman -D uninstall
+		HOMEBREW_CASK=1 PKG='font-hasklug-nerd-font' confman -D uninstall
+		exit 0;;
+	# MSYS2 UCRT
+	MSYS*)
+		PKG='mingw-w64-ucrt-x86_64-ttf-firacode-nerd' confman -D uninstall
+		PKG='mingw-w64-ucrt-x86_64-otf-hasklig-nerd' confman -D uninstall
+		exit 0;;
+esac
+
+case "$CONFMAN_MGR" in
+	# Arch linux
+	pacman)
+		PKG='ttf-firacode-nerd' confman -D uninstall
+		PKG='otf-hasklig-nerd' confman -D uninstall;;
+	# Alpine linux
+	apk)
+		PKG='font-fira-code-nerd' confman -D uninstall
+		PKG='font-hasklig-nerd' confman -D uninstall;;
+	# Debian/Ubuntu linux (refs below)
+	# https://docs.rockylinux.org/books/nvchad/nerd_fonts/
+	# https://github.com/ryanoasis/nerd-fonts/blob/master/install.sh
+	apt)
+		cd "$CONFMAN_DEST/nerd-fonts"
+		./install.sh --remove
+	# Error condition
+	*)
+		confman -L error "No suitable package manager for uninstalling PKG '$PKG'"
+		exit 1;;
+esac
+
