@@ -33,7 +33,10 @@ ch () {
 
 	case "$CH_OPERANDS" in tmux*) print_with_labelled_guards "tmux.conf" "$(grep -C 2 'bind' ~/.config/tmux/tmux.conf)"; esac
 
-	case "$CH_OPERANDS" in vim*) print_with_labelled_guards "vimrc" "$(grep -C 3 -e 'map[ !]' -e '^command' ~/.vim/vimrc)"; esac
+	case "$CH_OPERANDS" in vim*)
+		print_with_labelled_guards "mappings.vim" "$(cat ~/.vim/mappings.vim)"
+		print_with_labelled_guards "commands.vim" "$(cat ~/.vim/commands.vim)"
+	esac
 
 	case "$CH_OPERANDS" in nvim*) print_with_labelled_guards "mappings.lua" "$(cat ~/.config/nvim/lua/custom/mappings.lua)"; esac
 

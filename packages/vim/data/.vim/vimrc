@@ -1,3 +1,6 @@
+"""""""""""""""""""""""
+""" GENERAL OPTIONS """
+"""""""""""""""""""""""
 " !!! NEEDS TO BE AT THE TOP. ALTERS VALUES OF OTHER OPTIONS WHEN SET/UNSET !!!
 " Vim is based on Vi. Setting `nocompatible` switches from the default
 " Vi-compatibility mode and enables useful Vim functionality. This
@@ -8,154 +11,48 @@
 " `vim -u foo`).
 set nocompatible
 
+" The backspace key has slightly unintuitive behavior by default. For example,
+" by default, you can't backspace before the insertion point set with 'i'.
+" This configuration makes backspace behave more reasonably, in that you can
+" backspace over anything.
+set backspace=indent,eol,start
 
-""""""""""""""""""""
-""" KEY MAPPINGS """
-""""""""""""""""""""
-" *map-table*
-"          Mode  | Norm | Ins | Cmd | Vis | Sel | Opr | Term | Lang | ~
-" Command        +------+-----+-----+-----+-----+-----+------+------+ ~
-" [nore]map      | yes  |  -  |  -  | yes | yes | yes |  -   |  -   |
-" n[nore]map     | yes  |  -  |  -  |  -  |  -  |  -  |  -   |  -   |
-" [nore]map!     |  -   | yes | yes |  -  |  -  |  -  |  -   |  -   |
-" i[nore]map     |  -   | yes |  -  |  -  |  -  |  -  |  -   |  -   |
-" c[nore]map     |  -   |  -  | yes |  -  |  -  |  -  |  -   |  -   |
-" v[nore]map     |  -   |  -  |  -  | yes | yes |  -  |  -   |  -   |
-" x[nore]map     |  -   |  -  |  -  | yes |  -  |  -  |  -   |  -   |
-" s[nore]map     |  -   |  -  |  -  |  -  | yes |  -  |  -   |  -   |
-" o[nore]map     |  -   |  -  |  -  |  -  |  -  | yes |  -   |  -   |
-" t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
-" l[nore]map     |  -   | yes | yes |  -  |  -  |  -  |  -   | yes  |
+" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
+" shown in any window) that has unsaved changes. This is to prevent you from "
+" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
+" hidden buffers helpful enough to disable this protection. See `:help hidden`
+" for more information on this.
+set hidden
 
-" Insert and command modes character-wise cursor motion
-noremap! <C-h> <Left>
-noremap! <C-j> <Down>
-noremap! <C-k> <Up>
-noremap! <C-l> <Right>
+" This setting makes search case-insensitive when all characters in the string
+" being searched are lowercase. However, the search becomes case-sensitive if
+" it contains any capital letters. This makes searching more convenient.
+set ignorecase
+set smartcase
 
-" Insert and command modes word-boundary cursor motion
-inoremap <C-f> <S-Right>
-inoremap <C-b> <S-Left>
-inoremap <C-e> <Esc>ea
-cnoremap <C-f> <S-Right><Right>
-cnoremap <C-b> <S-Left>
-cnoremap <C-e> <S-Right>
+" Enable searching as you type, rather than waiting till you press enter.
+set incsearch
 
-" Insert and command modes line-boundary cursor motion
-noremap! <C-t> <Home>
-noremap! <C-y> <End>
+" Disable audible bell because it's annoying.
+set noerrorbells visualbell t_vb=
 
-" Insert and command modes word-boundary deletion
-inoremap <C-w> <C-g>u<C-w>
-inoremap <C-q> <C-o>de
-cnoremap <C-q> <C-f>de<C-c>
+" Enable mouse support
+set mouse+=a
 
-" Insert and command modes line-boundary deletion
-inoremap <C-d> <C-o>d$
-cnoremap <C-d> <C-f>d$<C-c>
+" Automatically yank, delete, change and put using the "+" register (system
+" clipboard) instead of the default unnamed register
+set clipboard=unnamed
 
-" Increase and decrease indent in insert mode
-inoremap <C-c> <C-t>
-inoremap <C-g> <C-d>
+" Set appropriate tab settings
+set tabstop=4 " displayed width of a \t character
+set shiftwidth=4 " width of one level of indentation
 
-" Convenient navigation between windows
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-l> <C-\><C-N><C-w>l
-tnoremap <C-x> <C-\><C-N>
+" Set a faster timeoutlen to not wait the default 1s when multiple mappings
+" and/or key codes share the same leading input sequence.
+set timeoutlen=500
 
-" Convenient window resizing
-" '(' and ')' are normal-only maps, since these keys are useful in visual mode
-noremap + <Cmd>resize +1<CR>
-noremap _ <Cmd>resize -1<CR>
-nnoremap ( <Cmd>vertical resize +1<CR>
-nnoremap ) <Cmd>vertical resize -1<CR>
-
-" Go to [count] newer cursor position in jump list
-noremap <C-p> <C-i>
-
-" Quickly scroll down [count] lines. To scroll up [count] lines, use the
-" default mapping <C-e>
-noremap <C-q> <C-y>
-
-" More accessible 'window commands' prefix
-map <C-x> <C-w>
-noremap <C-w><C-x> <C-w><C-w>
-
-" Convenient horizontal and vertical splitting
-noremap <C-w>i :vsplit<CR><C-w>l
-noremap <C-w>u :split<CR><C-w>j
-
-" Split window and jump to declaration of identifier under the cursor
-noremap <C-w>D <C-w>i
-
-" Toggle Netrw
-noremap <C-n> <Cmd>Lex<CR>
-
-" List open buffers
-noremap <C-b> <Cmd>ls<CR>
-
-" 1. Convenient launching of command-line mode
-" 2. Repeat last find character (forward) using <CR> or <C-m>
-noremap ; :
-noremap <C-m> ;
-
-" Convenient launching of buffer-like window for editing ex-commands
-noremap q; q:i
-
-" Repeat the last Ex command
-noremap <C-y> @:
-
-" Close enough to the behaviour in neovim
-noremap Q @q
-
-" Write the buffer
-noremap <C-s> <Cmd>w<CR>
-noremap! <C-s> <Esc><Cmd>w<CR>
-
-" Clear current search highlights
-nnoremap <Esc> <Cmd>nohlsearch<CR>
-
-
-""""""""""""""""
-""" COMMANDS """
-""""""""""""""""
-" Help pages quick access
-command! -bar -nargs=* -complete=help H vertical help <args>
-command! -bar -nargs=* -complete=help Ho help <args> | only
-command! -bar -nargs=* -complete=help Ht tab help <args>
-command! Hi vertical help index
-command! Hoi help index | only
-command! Hti tab help index
-command! Hcl helpclose
-command! Hq helpclose
-
-" Tab management
-command! -bar -nargs=* -complete=file T tabedit <args>
-command! -bang -nargs=? Tcl tabclose<bang> <args>
-command! -bang -nargs=? To tabonly<bang> <args>
-command! -nargs=? Tm tabmove <args>
-command! Tf tabfirst
-command! Tl tablast
-
-" Close all buffers except the current one. (1. close all buffers; 2. edit the last
-" opened buffer; 3. close the unnamed buffer created after step 1)
-command! Bdo %bd | e# | bd#
-
-" Write file and reedit to refresh syntax highlighting
-command! W w | e
-
-
-"""""""""""""""
-""" VISUALS """
-"""""""""""""""
-"Set Netrw to tree style listing
-let g:netrw_liststyle = 3
+" Put new splits to the right-side by default
+set splitright
 
 " Disable the default Vim startup message.
 set shortmess+=I
@@ -199,55 +96,14 @@ hi User6 ctermbg=160 ctermfg=15
 hi User7 ctermbg=67 ctermfg=16
 hi User8 ctermbg=109 ctermfg=16
 
-
-"""""""""""""""""""""""
-""" GENERAL OPTIONS """
-"""""""""""""""""""""""
-" The backspace key has slightly unintuitive behavior by default. For example,
-" by default, you can't backspace before the insertion point set with 'i'.
-" This configuration makes backspace behave more reasonably, in that you can
-" backspace over anything.
-set backspace=indent,eol,start
-
-" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
-" shown in any window) that has unsaved changes. This is to prevent you from "
-" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
-" hidden buffers helpful enough to disable this protection. See `:help hidden`
-" for more information on this.
-set hidden
-
-" This setting makes search case-insensitive when all characters in the string
-" being searched are lowercase. However, the search becomes case-sensitive if
-" it contains any capital letters. This makes searching more convenient.
-set ignorecase
-set smartcase
-
-" Enable searching as you type, rather than waiting till you press enter.
-set incsearch
-
-" Disable audible bell because it's annoying.
-set noerrorbells visualbell t_vb=
-
-" Enable mouse support
-set mouse+=a
-
-" Automatically yank, delete, change and put using the "+" register (system
-" clipboard) instead of the default unnamed register
-set clipboard=unnamedplus
-
-" Set appropriate tab settings
-set tabstop=4 " displayed width of a \t character
-set shiftwidth=4 " width of one level of indentation
-
-" Set a faster timeoutlen to not wait the default 1s when multiple mappings
-" and/or key codes share the same leading input sequence.
-set timeoutlen=500
-
-" Put new splits to the right-side by default
-set splitright
+"Set Netrw to tree style listing
+let g:netrw_liststyle = 3
 
 " Set the default syntax highlighting for "sh" file type to be POSIX compliant
 let g:is_posix = 1
+
+" Set the <leader> mapping replacement string
+let g:mapleader = "\<Space>"
 
 " Turn on syntax highlighting.
 syntax on
@@ -255,6 +111,12 @@ syntax on
 " Turn on 'filetype' plugins and 'filetype' indentation settings
 filetype plugin indent on
 
-" Source the fold_settings.vim configurations.
+" Source the code folding configurations
+runtime fold_settings.vim
+
+" Source key mappings
+runtime mappings.vim
+
+" Source the user-command and autocommand definitions
 runtime fold_settings.vim
 

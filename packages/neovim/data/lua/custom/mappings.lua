@@ -279,6 +279,9 @@ M.general = {
     ["<C-k>"] = { "<C-w>k", "Move cursor to the upward window", opts = { noremap = true } },
     ["<C-l>"] = { "<C-w>l", "Move cursor to the right-side window", opts = { noremap = true } },
 
+    ["U"] = { "d^", "Delete all entered characters in the current line", opts = { noremap = true } },
+    ["<Leader>U"] = { "U", "Undo all latest changes on one line", opts = { noremap = true } },
+
     ["+"] = { "<Cmd>resize +1<CR>", "Increase window height by 1 line", opts = { noremap = true, silent = true } },
     ["_"] = { "<Cmd>resize -1<CR>", "Decrease window height by 1 line", opts = { noremap = true, silent = true } },
 
