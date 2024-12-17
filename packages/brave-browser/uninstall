@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-HOMEBREW_CASK=1 "$CONFMAN_REPO/default/uninstall"
+HOMEBREW_CASK=1 confman -D uninstall
 
