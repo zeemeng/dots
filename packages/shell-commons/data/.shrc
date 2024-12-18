@@ -17,6 +17,10 @@ export CLI_BOLD_BLUE='\033[1;36m'
 export CLI_BOLD='\033[1m' # No Color
 export CLI_NC='\033[0m' # No Color
 
+# Set the prefered shell interpreter. Prefer 'zsh' over 'bash' over others.
+if command -v bash >/dev/null; then SHELL="$(command -v bash)"; fi
+if command -v zsh >/dev/null; then SHELL="$(command -v zsh)"; fi
+
 # Source aliases
 if [ -f ~/.alias ]; then
 	. ~/.alias
