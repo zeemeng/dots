@@ -118,5 +118,5 @@ runtime fold_settings.vim
 runtime mappings.vim
 
 " Source the user-command and autocommand definitions
-runtime fold_settings.vim
+runtime commands.vim
 
