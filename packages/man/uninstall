@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+case "$CONFMAN_MGR" in
+	apk)
+		confman -D uninstall mandoc
+		confman -D uninstall mandoc-apropos
+		confman -D uninstall docs;;
+	brew)
+		confman -D uninstall mandoc;;
+	*)
+		confman -D uninstall man-db;;
+esac
+

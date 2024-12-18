@@ -5,6 +5,7 @@ homebrew
 jq
 less
 make
+man
 neovim
 nerd-fonts
 nvm

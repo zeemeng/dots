@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+case "$CONFMAN_MGR" in
+	apk)
+		confman -D install mandoc
+		confman -D install mandoc-apropos
+		confman -D install docs;;
+	brew)
+		confman -D install mandoc;;
+	*)
+		confman -D install man-db;;
+esac
+
