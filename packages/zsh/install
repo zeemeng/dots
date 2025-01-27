@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-
-if [ "$(uname -s)" = "Darwin" ]; then
-	confman -L warning 'Skipping installation with Homebrew on macOS, prefer the system-provided Zsh to avoid. Avoids issues with compinit..'
-else
-	# Default install otherwise
-	confman -D install
-fi
-

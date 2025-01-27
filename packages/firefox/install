@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-
-if [ "$(uname -s)" = 'Darwin' ]; then export HOMEBREW_CASK=1; fi
-
-confman -D install
-

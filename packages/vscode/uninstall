@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-HOMEBREW_CASK=1 PKG='visual-studio-code' confman -D uninstall
-

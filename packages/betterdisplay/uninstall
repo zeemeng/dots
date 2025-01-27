@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-HOMEBREW_CASK=1 confman -D uninstall
-
