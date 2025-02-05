@@ -78,9 +78,6 @@ noremap _ <Cmd>resize -1<CR>
 nnoremap ( <Cmd>vertical resize +1<CR>
 nnoremap ) <Cmd>vertical resize -1<CR>
 
-" Go to [count] newer cursor position in jump list
-noremap <C-p> <C-i>
-
 " Quickly scroll down [count] lines. To scroll up [count] lines, use the
 " default mapping <C-e>
 noremap <C-q> <C-y>
@@ -99,8 +96,10 @@ noremap <C-w>D <C-w>i
 " Toggle Netrw
 noremap <C-n> <Cmd>Lex<CR>
 
-" List open buffers
+" Buffer navigation
 noremap <C-b> <Cmd>ls<CR>
+noremap <Leader>n <Cmd>bn<CR>
+noremap <Leader>p <Cmd>bp<CR>
 
 " 1. Convenient launching of command-line mode
 " 2. Repeat last find character (forward) using <CR> or <C-m>

@@ -11,67 +11,34 @@ M.disabled = {
 
   n = {
     -- DISABLE line number toggles
-    ["<leader>n"] = { "<cmd> set nu! <CR>", "Toggle line number" },
-    ["<leader>rn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
+    ["<tab>"] = { "", "Goto next buffer" },
+
+    -- DISABLE line number toggles
+    ["<leader>n"] = { "", "Toggle line number" },
+    ["<leader>rn"] = { "", "Toggle relative number" },
 
     -- DISABLE default nvterm toggle mappings
     ["<A-i>"] = "",
     ["<A-h>"] = "",
     ["<A-v>"] = "",
-    ["<leader>h"] = {
-      function() require("nvterm.terminal").new "horizontal" end,
-      "New horizontal term",
-    },
-    ["<leader>v"] = {
-      function() require("nvterm.terminal").new "vertical" end,
-      "New vertical term",
-    },
+    ["<leader>h"] = { "", "New horizontal term" },
+    ["<leader>v"] = { "", "New vertical term" },
 
     -- DISABLE default NvChad telescope mappings
     ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "Git status" },
+    ["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
 
     -- DISABLE default NvChad lsp mappings
-    ["<leader>ls"] = {
-      function() vim.lsp.buf.signature_help() end,
-      "LSP signature help",
-    },
-
-    ["<leader>ra"] = {
-      function() require("nvchad.renamer").open() end,
-      "LSP rename",
-    },
-
-    ["<leader>lf"] = {
-      function() vim.diagnostic.open_float { border = "rounded" } end,
-      "Floating diagnostic",
-    },
+    ["<leader>ls"] = { "", "LSP signature help" },
+    ["<leader>ra"] = { "", "LSP rename" },
+    ["<leader>lf"] = { "", "Floating diagnostic" },
 
     -- DISABLE default NvChad gitsigns mappings
-    ["]c"] = {
-      function()
-        if vim.wo.diff then return "]c" end
-        vim.schedule(function() require("gitsigns").next_hunk() end)
-        return "<Ignore>"
-      end,
-      "Jump to next hunk",
-      opts = { expr = true },
-    },
-
-    ["[c"] = {
-      function()
-        if vim.wo.diff then return "[c" end
-        vim.schedule(function() require("gitsigns").prev_hunk() end)
-        return "<Ignore>"
-      end,
-      "Jump to prev hunk",
-      opts = { expr = true },
-    },
-
-    ["<leader>td"] = {
-      function() require("gitsigns").toggle_deleted() end,
-      "Toggle deleted lines (git)",
-    },
+    ["]c"] = { "", "Jump to next hunk" },
+    ["[c"] = { "", "Jump to prev hunk" },
+    ["<leader>td"] = { "", "Toggle deleted lines (git)" },
+    ["<leader>ph"] = { "", "Preview hunk" },
   },
 }
 
@@ -174,12 +141,12 @@ M.gitsigns = {
     },
 
     -- Preview and view Git hunks and diffs
-    ["<leader>ph"] = {
+    ["<leader>sh"] = {
       function() require("gitsigns").preview_hunk() end,
       "Preview git hunk",
     },
 
-    ["<leader>ih"] = {
+    ["<leader>sih"] = {
       function() require("gitsigns").preview_hunk_inline() end,
       "Preview git hunk inline",
     },
@@ -198,43 +165,61 @@ M.gitsigns = {
     },
 
     -- Operate on Git hunks
-    ["<leader>sh"] = {
+    ["<leader>gah"] = {
       function() require("gitsigns").stage_hunk() end,
       "Stage the hunk under the cursor"
     },
 
-    ["<leader>uh"] = {
+    ["<leader>grh"] = {
       function() require("gitsigns").undo_stage_hunk() end,
       "Undo the last stage hunk operation"
     },
 
-    ["<leader>sb"] = {
+    ["<leader>gab"] = {
       function() require("gitsigns").stage_buffer() end,
       "Stage all hunks in the current buffer"
     },
 
-    ["<leader>ub"] = {
+    ["<leader>grb"] = {
       function() require("gitsigns").reset_buffer_index() end,
       "Unstage all hunks in the current buffer"
     },
 
-    ["<leader>rh"] = {
+    ["<leader>gRh"] = {
       function() require("gitsigns").reset_hunk() end,
       "Revert the hunk under the cursor (discard changes)",
     },
 
-    ["<leader>rb"] = {
+    ["<leader>gRb"] = {
       function() require("gitsigns").reset_buffer() end,
       "Revert all hunks in the current buffer (discard changes)",
     }
   }
 }
 
+M.tabufline = {
+  n = {
+    -- cycle through buffers
+    ["<leader>n"] = {
+      function() require("nvchad.tabufline").tabuflineNext() end,
+      "Goto next buffer",
+    },
+
+    ["<leader>p"] = {
+      function() require("nvchad.tabufline").tabuflinePrev() end,
+      "Goto prev buffer",
+    },
+  }
+}
+
 M.telescope = {
   n = {
+    ["<C-p>"] = { "<Cmd>Telescope buffers<CR>", "Find buffer using telescope" },
+    ["<S-tab>"] = { "<Cmd>Telescope git_files show_untracked=true<CR>", "Find files using telescope" },
     ["<leader>hl"] = { "<cmd> Telescope highlights <CR>", "Look up highlight groups" },
     ["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" },
     ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
+    ["<leader>ft"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
   }
 }
 
@@ -285,7 +270,6 @@ M.general = {
     ["+"] = { "<Cmd>resize +1<CR>", "Increase window height by 1 line", opts = { noremap = true, silent = true } },
     ["_"] = { "<Cmd>resize -1<CR>", "Decrease window height by 1 line", opts = { noremap = true, silent = true } },
 
-    ["<C-p>"] = { "<C-i>", "Go to [count] newer cursor position in jump list (replaces CTRL-I command).", opts = { noremap = true } },
     ["<C-q>"] = { "<C-y>", "Scroll [count] lines downwards", opts = { noremap = true } },
 
     ["<C-x>"] = { "<C-w>", "More accessible 'window commands' prefix", opts = { remap = true } },
