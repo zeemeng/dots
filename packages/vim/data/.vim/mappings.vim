@@ -110,7 +110,8 @@ noremap <C-m> ;
 noremap q; q:i
 
 " Repeat the last Ex command
-noremap <C-y> @:
+" Same as <C-Space>
+noremap <C-@> @:
 
 " Close enough to the behaviour in neovim
 noremap Q @q

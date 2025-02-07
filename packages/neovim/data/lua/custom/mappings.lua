@@ -282,7 +282,7 @@ M.general = {
     [";"] = { ":", "Enter command mode", opts = { nowait = true } },
     ["q;"] = { "q:i", "Convenient launching of buffer-like window for editing ex-commands", opts = { noremap = true } },
     ["<C-m>"] = { ";", "Repeat last find character (forward) using <CR> or <C-m>", opts = { noremap = true } },
-    ["<C-y>"] = { "@:<CR>", "Repeat the last Ex command", opts = { noremap = true } },
+    ["<C-Space>"] = { "@:", "Repeat the last Ex command", opts = { noremap = true } }, -- Same as <C-@>
     ["<C-s>"] = { "<Cmd>w<CR>", "Write the buffer", opts = { noremap = true } },
   },
 
