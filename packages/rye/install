@@ -1,4 +1,10 @@
 #!/usr/bin/env sh
 
-RYE_TOOLCHAIN="$(pyenv which python3.12)" "$CONFMAN_REPO/$PKG/installer.sh"
+if command -v pyenv >/dev/null; then
+	RYE_TOOLCHAIN="$(pyenv which python3.12)" "$CONFMAN_REPO/$PKG/installer.sh"
+elif [ -x $CONFMAN_DEST/.pyenv/bin/pyenv ]; then
+	RYE_TOOLCHAIN="$($CONFMAN_DEST/.pyenv/bin/pyenv which python3.12)" "$CONFMAN_REPO/$PKG/installer.sh"
+else
+	"$CONFMAN_REPO/$PKG/installer.sh"
+fi
 

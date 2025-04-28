@@ -1,13 +1,11 @@
 #!/usr/bin/env sh
 
-if ! command -v git >/dev/null; then
-	printf "ERROR: failed to install '$PKG' for unable to locate utility 'git'." >&2
-	exit 1
-fi
+set -e
 
 git clone https://github.com/nvm-sh/nvm.git "$HOME/.nvm"
 cd "$HOME/.nvm"
-git checkout master
-git checkout $(git describe --tags --abbrev=0)
+git checkout $(git describe --tags --abbrev=0 HEAD)
 . nvm.sh
+
+nvm install --lts
 
