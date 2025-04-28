@@ -28,7 +28,7 @@ case "$CONFMAN_MGR" in
 	# https://docs.rockylinux.org/books/nvchad/nerd_fonts/
 	# https://github.com/ryanoasis/nerd-fonts/blob/master/install.sh
 	apt)
-		git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts "$CONFMAN_DEST/nerd-fonts"
+		git clone --filter=blob:none --sparse https://github.com/ryanoasis/nerd-fonts.git "$CONFMAN_DEST/nerd-fonts"
 		cd "$CONFMAN_DEST/nerd-fonts"
 		git sparse-checkout add patched-fonts/FiraCode
 		git sparse-checkout add patched-fonts/Hasklig

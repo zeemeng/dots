@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+if grep -i 'debian' /etc/os-release >/dev/null 2>&1; then PKG=firefox-esr; fi
+confman -D uninstall
+

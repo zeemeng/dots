@@ -12,13 +12,13 @@ if [ "$(uname -s)" = 'Darwin' ]; then
 	fi
 elif command -v apt >/dev/null; then
 	$SU_EXEC apt update
-	$SU_EXEC apt install --yes git make
+	$SU_EXEC apt install --yes git make curl build-essential
 elif command -v apk >/dev/null; then
 	$SU_EXEC apk update
-	$SU_EXEC apk add git make
+	$SU_EXEC apk add git make build-base
 elif command -v pacman >/dev/null; then
 	$SU_EXEC pacman -Sy
-	$SU_EXEC pacman -S --noconfirm git make
+	$SU_EXEC pacman -S --noconfirm git make base-devel
 else
 	printf '%s\n' "ERROR: platform unsuitable for bootstrapping. Aborting.." >&2; exit 1
 fi
@@ -29,5 +29,5 @@ if [ "$(uname -s)" = 'Darwin' ]; then . "$HOME/.confman/packages/homebrew/bootst
 git clone 'https://github.com/zeemeng/confman.git' "$HOME/src/confman"
 cd "$HOME/src/confman"
 make && $SU_EXEC make link
-confman
+confman -p 0
 
