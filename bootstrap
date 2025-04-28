@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+
+set -e
+
+[ "$(id -u)" = 0 ] && SU_EXEC='' || SU_EXEC='sudo'
+
+if [ "$(uname -s)" = 'Darwin' ]; then
+	if xcode-select --install; then
+		while ! xcode-select -p >/dev/null 2>&1; do
+			printf '%s\n' "Waiting for Xcode CLTools to be installed..."; sleep 3
+		done
+	fi
+elif command -v apt >/dev/null; then
+	$SU_EXEC apt update
+	$SU_EXEC apt install --yes git make
+elif command -v apk >/dev/null; then
+	$SU_EXEC apk update
+	$SU_EXEC apk add git make
+elif command -v pacman >/dev/null; then
+	$SU_EXEC pacman -Sy
+	$SU_EXEC pacman -S --noconfirm git make
+else
+	printf '%s\n' "ERROR: platform unsuitable for bootstrapping. Aborting.." >&2; exit 1
+fi
+
+git clone 'https://github.com/zeemeng/dots.git' "$HOME/.confman"
+if [ "$(uname -s)" = 'Darwin' ]; then . "$HOME/.confman/packages/homebrew/bootstrap"; fi
+
+git clone 'https://github.com/zeemeng/confman.git' "$HOME/src/confman"
+cd "$HOME/src/confman"
+make && $SU_EXEC make link
+confman
+

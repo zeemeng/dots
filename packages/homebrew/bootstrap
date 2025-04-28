@@ -1,63 +1,44 @@
 #!/usr/bin/env sh
 
-HOMEBREW_PREFIX='/opt/homebrew'
+set -e
 
-if [ "$(uname -s)" != 'Darwin' ]; then
-	printf '%s\n' 'ERROR: this bootstrap script only only operates on macOS..'
-	exit 1
+if [ "$(uname -s)" != 'Darwin' ] || [ "$(uname -m)" != 'arm64' ]; then
+	printf '%s\n' 'ERROR: this bootstrap script only operates on Macs with ARM-based CPUs..' >&2; exit 1
 fi
 
-if [ "$(uname -m)" != 'arm64' ]; then
-	printf '%s\n' 'ERROR: this bootstrap script only operates on Macs with ARM-based CPUs..'
-	exit 1
-fi
+CURRENT_USER="$(whoami)"
+printf "Installing Homebrew with user '$CURRENT_USER'. Press ENTER to confirm or type another username and press ENTER to continue: "
 
-# Install XCode Command Line Tools if not installed
-if ! pkgutil --pkg-info=com.apple.pkg.CLTools_Executables >/dev/null 2>&1; then
-	xcode-select --install
-fi
-
-printf "Installing Homebrew with user '$(whoami)'. Press ENTER to confirm or type another username and press ENTER to continue: "
 read HOMEBREW_USER
-if [ -z "$HOMEBREW_USER" ]; then
-	HOMEBREW_USER="$(whoami)"
-fi
+case "$HOMEBREW_USER" in
+	"" | "$CURRENT_USER") HOMEBREW_USER="$CURRENT_USER";;
+	*) printf '%s\n' "Switching as user '$HOMEBREW_USER'"
+		id -u "$HOMEBREW_USER" >/dev/null
+		su "$HOMEBREW_USER"
+esac
 
-if id -u "$HOMEBREW_USER" >/dev/null 2>&1; then
-	printf '%s\n' "ERROR: the user '$HOMEBREW_USER' does not exist.."
-	exit 1
-fi
-
-if [ "$HOMEBREW_USER" != "$(whoami)" ]; then
-	printf '%s\n' "Switching as user '$HOMEBREW_USER'"
-	su "$HOMEBREW_USER"
-fi
-
-printf '%s\n' "Validating sudo permissions for '$HOMEBREW_USER'"
-sudo --validate
-
+HOMEBREW_PREFIX='/opt/homebrew'
 HOMEBREW_CACHE="$HOME/Library/Caches/Homebrew"
 
+printf '%s\n' "Validating sudo permissions"
+sudo --validate
+
 if [ -d "$HOMEBREW_CACHE" ] || [ -d "$HOMEBREW_PREFIX" ]; then
-	printf '%s\n%s\n%s\n' 'The following dirs will be removed:' "$HOMEBREW_PREFIX" "$HOMEBREW_CACHE"
-	printf 'Are you sure you want to continue? (y)es / (n)o: '
+	printf 'The following dirs will be removed:\n%s\n%s\nAre you sure you want to continue? (y)es / (n)o: ' "$HOMEBREW_PREFIX" "$HOMEBREW_CACHE"
 	read RESPONSE
 	case "$RESPONSE" in
-		Y*|y*) printf '\n';;
-		*) printf '%s\n' 'Aborting..'; exit 1;;
+		Y*|y*) sudo rm -rf "$HOMEBREW_PREFIX" "$HOMEBREW_CACHE";;
+		*) printf '%s\n' 'Aborting..' >&2; exit 1;;
 	esac
-	sudo rm -rf "$HOMEBREW_PREFIX" "$HOMEBREW_CACHE"
 fi
 
 mkdir -p "$HOMEBREW_CACHE"
-chmod g+rwx "$HOMEBREW_CACHE"
-sudo mkdir -p "$HOMEBREW_PREFIX"
-sudo chown -R "$HOMEBREW_USER:admin" "$HOMEBREW_PREFIX"
+sudo mkdir -p -m 755 "$HOMEBREW_PREFIX"
+sudo chown -R "$HOMEBREW_USER":admin "$HOMEBREW_PREFIX"
 sudo --reset-timestamp
-chmod 755 "$HOMEBREW_PREFIX"
 
 git clone 'https://github.com/Homebrew/brew' "$HOMEBREW_PREFIX"
-eval "$(homebrew/bin/brew shellenv)"
+eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 brew update --force --quiet
 chmod -R go-w "$(brew --prefix)/share/zsh"
 
