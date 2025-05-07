@@ -1,0 +1,92 @@
+{
+	"$schema": "https://joplinapp.org/schema/settings.json",
+	"altInstanceId": "",
+	"editor.codeView": true,
+	"locale": "en_GB",
+	"ocr.enabled": true,
+	"theme": 2,
+	"preferredLightTheme": 1,
+	"preferredDarkTheme": 2,
+	"layoutButtonSequence": 1,
+	"notes.sortOrder.field": "user_updated_time",
+	"editor.pastePreserveColors": true,
+	"notes.sortOrder.reverse": true,
+	"notes.perFieldReverse": {
+		"user_updated_time": true,
+		"user_created_time": true,
+		"title": false,
+		"order": true,
+		"todo_due": true,
+		"todo_completed": true
+	},
+	"trackLocation": false,
+	"notes.listRendererId": "compact",
+	"markdown.plugin.softbreaks": false,
+	"markdown.plugin.typographer": false,
+	"markdown.plugin.sub": true,
+	"markdown.plugin.sup": true,
+	"markdown.plugin.deflist": true,
+	"markdown.plugin.abbr": true,
+	"markdown.plugin.emoji": true,
+	"markdown.plugin.insert": true,
+	"markdown.plugin.multitable": true,
+	"renderer.fileUrls": false,
+	"style.editor.fontSize": 16,
+	"style.editor.fontFamily": "Menlo",
+	"style.editor.monospaceFontFamily": "FiraCode Nerd Font",
+	"ui.layout": {
+		"key": "root",
+		"children": [
+			{
+				"key": "tempContainer-6wNRw8Si0ssVlks88NfWdh",
+				"children": [
+					{
+						"key": "sideBar",
+						"visible": true
+					},
+					{
+						"key": "noteList",
+						"visible": true
+					}
+				],
+				"width": 247,
+				"visible": true
+			},
+			{
+				"key": "editor",
+				"visible": true
+			},
+			{
+				"key": "plugin-view-joplin.plugin.alondmnt.jarvis-jarvis.relatedNotes",
+				"context": {
+					"pluginId": "joplin.plugin.alondmnt.jarvis"
+				},
+				"visible": false
+			}
+		],
+		"visible": true
+	},
+	"noteVisiblePanes": [
+		"editor"
+	],
+	"editor.keyboardMode": "vim",
+	"editor.spellcheckBeta": true,
+	"spellChecker.languages": [
+		"en-CA"
+	],
+	"windowContentZoomFactor": 120,
+	"featureFlag.autoUpdaterServiceEnabled": false,
+	"featureFlag.plugins.isolatePluginWebViews": true,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.lineNumbers": false,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.codeFolding": false,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.enableAutocomplete": true,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.highlightActiveLineGutter": true,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.highlightActiveLine": false,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.highlightSpaces": false,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.highlightTrailingSpaces": true,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.highlightSelectionMatches": true,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.bracketMatching": true,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.wordCount": false,
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.hideMarkdown": "more",
+	"plugin-io.github.personalizedrefrigerator.codemirror6-settings.showLinkTooltip": true
+}
