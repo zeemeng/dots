@@ -9,10 +9,26 @@ case $- in
 esac
 
 
+#################################
+### History save file control ###
+#################################
+
+HISTSIZE=1000
+HISTFILE=~/.zsh_history
+SAVEHIST="$HISTSIZE"
+set -o APPEND_HISTORY
+set -o SHARE_HISTORY
+set -o HIST_IGNORE_SPACE
+set -o HIST_IGNORE_ALL_DUPS
+set -o HIST_SAVE_NO_DUPS
+set -o HIST_FIND_NO_DUPS
+
+
 #############################
 ### Set Zsh shell options ###
 #############################
 
+set -o INTERACTIVE_COMMENTS
 # set -o POSIX_JOBS # Disabled for the sake of `nvm` (which does not function properly with this option on)
 set -o POSIX_ALIASES
 set -o POSIX_ARGZERO
@@ -23,6 +39,25 @@ set -o POSIX_TRAPS
 # set -o SH_NULLCMD # Disabled since Zsh feature might be useful interactively
 set -o SH_OPTION_LETTERS
 set -o SH_WORD_SPLIT # Very important assumption. Will be required for proper behaviour of certain custom shell functions
+
+
+############################
+### Set Zsh key bindings ###
+############################
+
+# Use vi mode
+bindkey -v
+bindkey -v '^B' vi-backward-word
+bindkey -v '^F' vi-forward-word
+bindkey -v '^H' vi-backward-char
+bindkey -v '^L' vi-forward-char
+bindkey -v '^R' history-incremental-pattern-search-backward
+bindkey -v '^N' history-search-backward
+bindkey -v '^P' history-search-forward
+bindkey -a '^N' history-search-backward
+bindkey -a '^P' history-search-forward
+bindkey -a 'n' history-search-backward
+bindkey -a 'N' history-search-forward
 
 
 ####################################
@@ -46,17 +81,6 @@ compinit -i
 if [ -f ~/.shrc ]; then
 	. ~/.shrc
 fi
-
-
-############################
-### Set Zsh key bindings ###
-############################
-
-# Use vi mode
-bindkey -v
-
-# Search commands history with pattern search support (the wildcard `*` will use zsh completion)
-bindkey "^R" history-incremental-pattern-search-backward
 
 
 #############################

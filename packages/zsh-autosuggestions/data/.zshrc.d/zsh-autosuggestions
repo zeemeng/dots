@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+. "${HOMEBREW_PREFIX:-/usr}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+bindkey -v '^K' autosuggest-accept
+

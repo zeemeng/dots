@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# fzf shell integration
+# First regex deletes all path segments except the last. Second regex deletes any single hyphen character at begining.
+eval "$(fzf --"$(ps -p $$ -o comm='' | sed -E -e 's/^.*\///' -e 's/^-//')")"
+
